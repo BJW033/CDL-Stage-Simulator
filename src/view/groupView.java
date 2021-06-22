@@ -1,0 +1,156 @@
+package view;
+import controller.Main;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+import model.Group;
+import model.StageName;
+
+public class groupView extends View{
+	Main m;
+	 int selected = 0;
+	 GridPane gp;
+	public groupView(Stage primaryStage,Main main) {
+		this.stage = primaryStage;
+		m = main;
+		stage.setResizable(false);
+		stage.sizeToScene();
+		primaryStage.setTitle("Group Simulator");
+		BorderPane borderPane = new BorderPane();
+		ToolBar toolbar = createTB();
+
+		borderPane.setBottom(toolbar);
+		
+		
+		gp=createGP();
+		
+		borderPane.setCenter(gp);
+		
+
+
+		StackPane root = new StackPane();
+		
+		root.getChildren().add(borderPane);
+		//primaryStage.setScene(new Scene(root, canvasWidth, canvasHeight));
+
+		scene = new Scene(root, canvasWidth, canvasHeight);
+	}
+	
+	public GridPane createGP() {
+		GridPane tile = new GridPane();
+	    tile.setHgap(20);
+	    tile.setVgap(20);
+	    int count = 0;
+	   
+	    for (int i = 0; i < 3; i++) {
+	    	for(int y = 0 ; y<4;y++) {
+	    	StackPane stack = new StackPane();
+	    	ImageView test= new ImageView(new Image(getClass().getResourceAsStream(m.getTeams().get(count)+".png")));
+	    	stack.getChildren().add(test);
+	    	stack.setUserData(m.getTeams().get(count));
+	    	stack.setAlignment(Pos.CENTER);
+	    	stack.setStyle("-fx-background-color: transparent;");
+	    	stack.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					
+		
+					Node n = (Node) event.getSource();
+					if (n.getStyle().equals("-fx-background-color: GREY;")) {
+						n.setStyle("-fx-background-color: transparent;");
+						selected--;
+						for(int w = 0 ;w<m.getGroupA().size();w++) {
+							if(m.getGroupA().get(w).equals((String)n.getUserData())) {
+								m.getGroupA().remove(w);
+							}
+						}
+					} else {
+						n.setStyle("-fx-background-color: GREY;");
+						selected++;
+						m.getGroupA().add((String)n.getUserData());
+					}
+					System.out.println(selected);
+					if(selected==6) {
+						for(int a = 0 ; a<12;a++) {
+							if(tile.getChildren().get(a).getStyle().equals("-fx-background-color: transparent;")) {
+								m.getGroupB().add((String)tile.getChildren().get(a).getUserData());
+							}
+						}
+						
+						stage.setScene(m.getScenes().get(StageName.MATCHESA));
+						System.out.println("GroupA: " + m.getGroupA());
+						System.out.println("GroupB: " + m.getGroupB());
+						selected = 0;
+						m.getModel().setGroupA(new Group(m.getGroupA()));
+						m.getGroupAmatches().updateGP();
+						m.getModel().setGroupB(new Group(m.getGroupB()));
+						m.getGroupBmatches().updateGP();
+					}
+					
+					
+				}
+				
+	    		
+	    	});
+	    	test.setFitWidth(200);
+	    	test.setFitHeight(200);
+	        tile.getChildren().add(stack);
+	        GridPane.setConstraints(stack, y, i);
+	        count++;
+	    }
+	    }
+	    tile.setAlignment(Pos.CENTER);
+	    return tile;
+	}
+	
+	
+	
+	
+	
+	
+	public ToolBar createTB() {
+		Button back = new Button();
+		back.setText("back");
+		back.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("back");
+				stage.setScene(m.getScenes().get(StageName.WELCOME));
+			}
+		});
+		back.setPrefSize(100, 50);
+		
+		
+		
+		
+		Region emptyCenter = new Region();
+		HBox.setHgrow(emptyCenter, Priority.ALWAYS);
+
+		
+		return new ToolBar(back,emptyCenter);
+	}
+
+	public GridPane getGp() {
+		return gp;
+	}
+}

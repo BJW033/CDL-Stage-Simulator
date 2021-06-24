@@ -338,7 +338,7 @@ public class groupAmatchesView extends View{
 				m.getGroupA().clear();
 				m.getGroupB().clear();
 				for(int i = 0; i<12;i++) {
-					teamgrid.getGp().getChildren().get(i).setStyle("-fx-background-color: transparent;");
+					teamgrid.getGp().getChildren().get(i).setStyle("-fx-opacity: 0.5;");
 				}
 				
 			}

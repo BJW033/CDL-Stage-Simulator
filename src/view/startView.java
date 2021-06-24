@@ -5,8 +5,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import model.Group;
 import model.StageName;
@@ -68,10 +68,14 @@ public class startView extends View{
 			}
 		});
 		
-		TilePane tp = new TilePane(btn,stageFour,stageFive);
-		tp.setAlignment(Pos.CENTER);
+		GridPane gp = new GridPane();
+		gp.setHgap(25);
+		gp.add(btn,0,0,1,1);
+		gp.add(stageFour,1,0,1,1);
+		gp.add(stageFive,2,0,1,1);
+		gp.setAlignment(Pos.CENTER);
 		StackPane root = new StackPane();
-		root.getChildren().add(tp);
+		root.getChildren().add(gp);
 		
 		scene = new Scene(root, canvasWidth, canvasHeight);
 		

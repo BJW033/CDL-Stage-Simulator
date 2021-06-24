@@ -2,6 +2,7 @@ package view;
 import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -20,7 +21,7 @@ public class startView extends View{
 		stage.sizeToScene();
 		primaryStage.setTitle("Group Simulator");
 		Button btn = new Button();
-		btn.setText("Start");
+		btn.setText("Start from Scratch");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -30,28 +31,45 @@ public class startView extends View{
 			}
 		});
 		
-		Button skip = new Button();
-		skip.setText("To Stage 4 Week 3");
-		skip.setOnAction(new EventHandler<ActionEvent>() {
+		Button stageFour = new Button();
+		stageFour.setText("To Stage 4 Week 3");
+		stageFour.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("skip");
+				
 				m.getModel().setGroupA(new Group(false));
-				//m.getModel().getGroupA().printStandings(false, m.getModel().getGroupA().getPool());
+				
 				m.getModel().getGroupA().simulateMatches(m.getModel().getGroupA(), false);
-				//main.getModel().getGroupB().simulateMatches(main.getModel().getGroupB(), false);
-				//main.getModel().getGroupB().printStandings(false, main.getModel().getGroupB().getPool());
+				
 				m.getModel().setGroupB(new Group(true));
 				m.getModel().getGroupB().simulateMatches(m.getModel().getGroupB(), false);
-				//m.getModel().getGroupB().getPool().get(0).getPlacings();
+				
 				
 				m.getSim().updateGrid(m.getModel().getGroupA());
 				primaryStage.setScene(m.getScenes().get(StageName.SIMULATION));
 				
 			}
 		});
-		TilePane tp = new TilePane(btn,skip);
+		
+		Button stageFive = new Button();
+		stageFive.setText("To Stage 5");
+		stageFive.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				m.getModel().setGroupA(new Group());
+				
+				m.getModel().setGroupB(new Group());
+				
+				m.getGroupAmatches().updateGP();
+				primaryStage.setScene(m.getScenes().get(StageName.MATCHESA));
+				
+			}
+		});
+		
+		TilePane tp = new TilePane(btn,stageFour,stageFive);
+		tp.setAlignment(Pos.CENTER);
 		StackPane root = new StackPane();
 		root.getChildren().add(tp);
 		

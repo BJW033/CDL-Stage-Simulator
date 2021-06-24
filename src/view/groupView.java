@@ -1,12 +1,16 @@
 package view;
+
+
 import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +26,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Group;
 import model.StageName;
@@ -40,7 +47,11 @@ public class groupView extends View{
 		ToolBar toolbar = createTB();
 
 		borderPane.setBottom(toolbar);
+		Label t = generateTop();
+		t.setAlignment(Pos.CENTER);
+		borderPane.setTop(t);
 		
+		BorderPane.setAlignment(t, Pos.CENTER);
 		
 		gp=createGP();
 	
@@ -59,6 +70,7 @@ public class groupView extends View{
 
 		scene = new Scene(root, canvasWidth, canvasHeight);
 	}
+	
 	
 	public GridPane createGP() {
 		GridPane tile = new GridPane();
@@ -153,6 +165,11 @@ public class groupView extends View{
 		Region emptyCenter = new Region();
 		HBox.setHgrow(emptyCenter, Priority.ALWAYS);
 
+		
+	
+		
+		
+		
 		ToolBar tb = new ToolBar(back,emptyCenter);
 		tb.setStyle("-fx-background-color: transparent;");
 		
@@ -162,4 +179,14 @@ public class groupView extends View{
 	public GridPane getGp() {
 		return gp;
 	}
+	private Label generateTop() {
+		Label ret = new Label("Select Teams in Group A");
+		ret.setAlignment(Pos.CENTER);
+		ret.setStyle("-fx-background-color: WHITE");
+		ret.setPadding(new Insets(10));
+		ret.setFont(new Font("Courier New", 25));
+		ret.setPrefSize(500, 50);
+		return ret;
+	}
+
 }

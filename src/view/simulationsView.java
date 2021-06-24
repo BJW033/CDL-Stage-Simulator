@@ -76,7 +76,7 @@ public class simulationsView extends View{
 		
 		for(int r = 1; r<sorted.size()+1 ; r++) {
 			StackPane stack = new StackPane();
-			System.out.println(sorted.get(r-1).getName());
+			//System.out.println(sorted.get(r-1).getName());
 	    	ImageView test= new ImageView(new Image(getClass().getResourceAsStream(sorted.get(r-1).getName()+".png")));
 	    	test.setFitWidth(75);
 	    	test.setFitHeight(75);

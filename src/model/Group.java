@@ -14,7 +14,7 @@ public class Group{
 	int longName =0;
 	ArrayList<team> pool = new ArrayList<team>();
 	ArrayList<team> poolsim = new ArrayList<team>();
-	 int simulations;
+	final int simulations=100000;
 	public Group(String A, String B,String C,String D,String E, String F) {
 		TeamA=new team(A,B,C,D,E,F);
 		TeamB=new team(B,A,C,D,E,F);
@@ -38,7 +38,7 @@ public class Group{
 		poolsim.add(TeamF);
 		
 
-		simulations=10000;
+		
 		for(team t: pool) {
 			if(t.getName().length()>longName) {
 				longName=t.getName().length();
@@ -68,7 +68,7 @@ public class Group{
 		poolsim.add(TeamE);
 		poolsim.add(TeamF);
 
-		simulations=0;
+		
 		for(team t: pool) {
 			if(t.getName().length()>longName) {
 				longName=t.getName().length();
@@ -107,7 +107,7 @@ public class Group{
 		poolsim.add(TeamE);
 		poolsim.add(TeamF);
 
-		simulations=0;
+		
 		for(team t: pool) {
 			if(t.getName().length()>longName) {
 				longName=t.getName().length();
@@ -175,7 +175,7 @@ public Group(boolean group) {
 		poolsim.add(TeamE);
 		poolsim.add(TeamF);
 
-		simulations=0;
+		
 		for(team t: pool) {
 			if(t.getName().length()>longName) {
 				longName=t.getName().length();
@@ -225,7 +225,7 @@ public Group(boolean group) {
 		//updateMatch("Faze", "Rokkr", 3, 2,false);
 		//updateMatch("Optic", "Thieves", 2, 3,false);
 		}
-		printStandings(false, pool);
+		//printStandings(false, pool);
 		
 	}
 	
@@ -298,13 +298,13 @@ public Group(boolean group) {
 	
 	public void matchImpact(String teamA, String teamB, int mapAw, int mapBw) {
 		
-			printStandings(true,pool);
+			//printStandings(true,pool);
 			getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
 			getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
 //			Collections.sort(poolsim);
 //			tieCheck(poolsim);
 			//printStandings(true,poolsim);
-			printStandings(true,poolsim);
+			//printStandings(true,poolsim);
 			simulateMatchesAddingMatch(this);
 			getTeam(teamA).removeMatch(teamB);
 			getTeam(teamB).removeMatch(teamA);
@@ -541,8 +541,8 @@ public Group(boolean group) {
 	
 	ArrayList<Double> ret = new ArrayList<Double>();
 	for(team t: pool) {
-		System.out.println(t.getName() + " " +t.placings2.get(0)+ " " +t.placings2.get(1)+ " " +t.placings2.get(2)+" " +t.placings2.get(3)+ " " 
-		+ " " +t.placings2.get(4)+ " "+ t.placings2.get(5));
+//		System.out.println(t.getName() + " " +t.placings2.get(0)+ " " +t.placings2.get(1)+ " " +t.placings2.get(2)+" " +t.placings2.get(3)+ " " 
+//		+ " " +t.placings2.get(4)+ " "+ t.placings2.get(5));
 		ret.add(t.placings2.get(0)+t.placings2.get(1)+t.placings2.get(2));
 	}
 	
@@ -756,10 +756,7 @@ public Group(boolean group) {
 	public int getSimulations() {
 		return simulations;
 	}
-	public void setSimulations(int simulations) {
-		System.out.println("set simualtions");
-		this.simulations = simulations;
-	}
+
 	public void resetMatch(String teamA, String teamB) {
 		getTeam(teamA).removeMatch(teamB);
 		getTeam(teamB).removeMatch(teamA);
@@ -823,22 +820,22 @@ public Group(boolean group) {
 			return -1;
 		}
 		else if(o1.getPlacings().get(0).equals(o2.getPlacings().get(0))) {
-			System.out.println("Tied at 1st place odds");
+			//System.out.println("Tied at 1st place odds");
 			if(o1.getPlacings().get(1) > o2.getPlacings().get(1)) {
 				return -1;
 			}
 			else if(o1.getPlacings().get(1).equals(o2.getPlacings().get(1))) {
-				System.out.println("Tied at 2nd place odds");
+				//System.out.println("Tied at 2nd place odds");
 				if(o1.getPlacings().get(2) > o2.getPlacings().get(2)) {
 					return -1;
 				}
 				else if(o1.getPlacings().get(2).equals(o2.getPlacings().get(2))) {
-					System.out.println("Tied at 3rd place odds");
+					//System.out.println("Tied at 3rd place odds");
 					if(o1.getPlacings().get(3) > o2.getPlacings().get(3)) {
 						return -1;
 					}
 					else if(o1.getPlacings().get(3).equals(o2.getPlacings().get(3))) {
-						System.out.println("Tied at 4th place odds");
+						//System.out.println("Tied at 4th place odds");
 						if(o1.getPlacings().get(4) > o2.getPlacings().get(4)) {
 							return -1;
 						}

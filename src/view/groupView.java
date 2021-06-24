@@ -84,7 +84,7 @@ public class groupView extends View{
 						selected++;
 						m.getGroupA().add((String)n.getUserData());
 					}
-					System.out.println(selected);
+					//System.out.println(selected);
 					if(selected==6) {
 						for(int a = 0 ; a<12;a++) {
 							if(tile.getChildren().get(a).getStyle().equals("-fx-background-color: transparent;")) {
@@ -93,8 +93,8 @@ public class groupView extends View{
 						}
 						
 						stage.setScene(m.getScenes().get(StageName.MATCHESA));
-						System.out.println("GroupA: " + m.getGroupA());
-						System.out.println("GroupB: " + m.getGroupB());
+						//System.out.println("GroupA: " + m.getGroupA());
+						//System.out.println("GroupB: " + m.getGroupB());
 						selected = 0;
 						m.getModel().setGroupA(new Group(m.getGroupA()));
 						m.getGroupAmatches().updateGP();

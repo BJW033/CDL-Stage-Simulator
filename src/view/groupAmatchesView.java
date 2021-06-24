@@ -323,7 +323,7 @@ public class groupAmatchesView extends View{
 //			index++;
 //		}
 		
-		
+	
 	
 	}
 	public ToolBar createTB() {
@@ -353,7 +353,7 @@ public class groupAmatchesView extends View{
 			public void handle(ActionEvent event) {
 				
 				if(updateMatches()) {
-					m.getModel().getGroupA().printPlayedMatches();
+					//m.getModel().getGroupA().printPlayedMatches();
 				}
 				else {
 					Alert errorAlert = new Alert(AlertType.ERROR);

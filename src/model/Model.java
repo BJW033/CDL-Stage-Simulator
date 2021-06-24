@@ -9,8 +9,7 @@ public class Model {
 		GroupA = new Group(false);
 		GroupB = new Group(true);
 		simulations = 100000;
-		GroupA.setSimulations(simulations);
-		GroupB.setSimulations(simulations);
+		
 	}
 
 	public Group getGroupA() {
@@ -35,8 +34,6 @@ public class Model {
 
 	public void setSimulations(int simulations) {
 		this.simulations = simulations;
-		GroupA.setSimulations(simulations);
-		GroupB.setSimulations(simulations);
 	}
 	
 	

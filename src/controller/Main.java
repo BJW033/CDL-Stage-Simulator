@@ -39,16 +39,16 @@ public class Main  extends Application {
 	    	teams = new ArrayList<String>();
 	    	teams.add("Faze");
 	    	teams.add("Empire");
-	    	teams.add("Optic");
+	    	teams.add("Ultra");
 	    	teams.add("Guerrillas");
-	    	teams.add("Legion");
-	    	teams.add("Mutineers");
+	    	teams.add("Subliners");
+	    	teams.add("Thieves");
 	    	teams.add("Ravens");
 	    	teams.add("Rokkr");
-	    	teams.add("Subliners");
+	    	teams.add("Legion");
 	    	teams.add("Surge");
-	    	teams.add("Thieves");
-	    	teams.add("Ultra");
+	    	teams.add("Mutineers");
+	    	teams.add("Optic");
 	    	
 	    	
 	        launch(args);

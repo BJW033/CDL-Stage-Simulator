@@ -317,7 +317,7 @@ public class groupBmatchesView extends View{
 				}
 			}
 		}
-		int index = 0;
+		//int index = 0;
 //		while (index<gp.getChildren().size()) {
 //			System.out.println(index + ": " + gp.getChildren().get(index).getUserData());
 //			index++;

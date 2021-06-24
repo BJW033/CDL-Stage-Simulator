@@ -133,7 +133,7 @@ public class Group{
 		//updateMatch("Optic", "Surge", 2, 3,false);
 		//updateMatch("Thieves", "Rokkr", 2, 3,true); 
 		//updateMatch("Faze", "Rokkr", 3, 2,false);
-		printStandings(false, pool);
+		//printStandings(false, pool);
 		
 	}
 public Group(boolean group) {

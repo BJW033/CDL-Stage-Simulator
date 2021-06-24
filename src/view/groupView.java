@@ -43,7 +43,7 @@ public class groupView extends View{
 		
 		
 		gp=createGP();
-		
+	
 		borderPane.setCenter(gp);
 		
 
@@ -73,8 +73,8 @@ public class groupView extends View{
 	    	stack.getChildren().add(test);
 	    	stack.setUserData(m.getTeams().get(count));
 	    	stack.setAlignment(Pos.CENTER);
-	    	stack.setStyle("-fx-background-color: transparent;");
-	    	test.setStyle("-fx-opacity: 0.5;");
+	    	stack.setStyle("-fx-opacity: 0.5;");
+	    	
 	    	stack.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 				@Override
@@ -82,8 +82,8 @@ public class groupView extends View{
 					
 		
 					Node n = (Node) event.getSource();
-					if (n.getStyle().equals("-fx-background-color: GREY;")) {
-						n.setStyle("-fx-background-color: transparent;");
+					if (n.getStyle().equals("-fx-opacity: 1.0;")) {
+						n.setStyle("-fx-opacity: 0.5;");
 						selected--;
 						for(int w = 0 ;w<m.getGroupA().size();w++) {
 							if(m.getGroupA().get(w).equals((String)n.getUserData())) {
@@ -91,14 +91,14 @@ public class groupView extends View{
 							}
 						}
 					} else {
-						n.setStyle("-fx-background-color: GREY;");
+						n.setStyle("-fx-opacity: 1.0;");
 						selected++;
 						m.getGroupA().add((String)n.getUserData());
 					}
 					//System.out.println(selected);
 					if(selected==6) {
 						for(int a = 0 ; a<12;a++) {
-							if(tile.getChildren().get(a).getStyle().equals("-fx-background-color: transparent;")) {
+							if(tile.getChildren().get(a).getStyle().equals("-fx-opacity: 1.0;")) {
 								m.getGroupB().add((String)tile.getChildren().get(a).getUserData());
 							}
 						}

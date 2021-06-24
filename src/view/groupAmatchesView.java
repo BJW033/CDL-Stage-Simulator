@@ -1,7 +1,5 @@
 package view;
 
-import java.util.ArrayList;
-
 import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +21,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import model.StageName;
 
@@ -64,7 +61,6 @@ public class groupAmatchesView extends View{
 	private GridPane generateGP() {
 		GridPane gp = new GridPane();
 		m.getModel().getGroupA().printPool();
-		ArrayList<String> group = m.getGroupA();
 		int count = 1;
 		
 			for(int r=0;r<14;r++) {
@@ -321,7 +317,7 @@ public class groupAmatchesView extends View{
 				}
 			}
 		}
-		int index = 0;
+		
 //		while (index<gp.getChildren().size()) {
 //			System.out.println(index + ": " + gp.getChildren().get(index).getUserData());
 //			index++;

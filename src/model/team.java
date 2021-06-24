@@ -1,7 +1,7 @@
 package model;
 import java.util.ArrayList;
 
-public class team implements Comparable{
+public class team implements Comparable<team>{
 	
 		String name;
 		int matchW;
@@ -11,7 +11,7 @@ public class team implements Comparable{
 		ArrayList<Match> matches =new ArrayList<Match>();
 		double matchWinper;
 		boolean deadtie=false;
-		boolean deadtie2=false;
+		 boolean deadtie2=false;
 		boolean deadtie3=false;
 		boolean deadtie4=false;
 		boolean deadtie5=false;
@@ -82,7 +82,7 @@ public class team implements Comparable{
 		}
 		public void setTie(boolean b,int i) {
 			if(i==2) {
-				deadtie2=b;
+				setDeadtie2(b);
 			}
 			else if(i==3) {
 				deadtie3=b;
@@ -143,7 +143,7 @@ public class team implements Comparable{
 		}
 		void printRecordShort() {
 			System.out.print(getName() +": (Matches) " + matchW + "-" + matchL + " (Maps) "+ mapW + "-" + mapL);
-			if(deadtie2||deadtie3||deadtie4||deadtie5||deadtie6) {
+			if(isDeadtie2()||deadtie3||deadtie4||deadtie5||deadtie6) {
 				System.out.print("**");
 			}
 			if(deadtie3) {
@@ -166,7 +166,7 @@ public class team implements Comparable{
 		}
 
 		@Override
-		public int compareTo(Object comparestu) {
+		public int compareTo(team comparestu) {
 			double compareMatchWinper=((team)comparestu).getmatchWinper();
 			/* For Ascending order*/
 			//System.out.println((int) ((compareMatchWinper-this.matchWinper)));
@@ -230,7 +230,7 @@ public class team implements Comparable{
 		}
 		
 		public void printTies() {
-			if(deadtie2||deadtie3||deadtie4||deadtie5||deadtie6) {
+			if(isDeadtie2()||deadtie3||deadtie4||deadtie5||deadtie6) {
 				System.out.print("Ties present");
 			}
 		}
@@ -241,6 +241,13 @@ public class team implements Comparable{
 		public double getTop3Per() {
 			return placings.get(0)+placings.get(1)+placings.get(2);
 		}
+		boolean isDeadtie2() {
+			return deadtie2;
+		}
+		public void setDeadtie2(boolean deadtie2) {
+			this.deadtie2 = deadtie2;
+		}
+		
 
 	}
 

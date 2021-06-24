@@ -1,16 +1,13 @@
 package controller;
 
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import model.StageName;
-import model.Group;
-import model.team;
-import model.Match;
 import model.Model;
-import javafx.scene.Node;
 import view.startView;
 
 import view.addToGroupView;
@@ -19,7 +16,6 @@ import view.groupBmatchesView;
 import view.groupView;
 import view.simulationsView;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

@@ -9,11 +9,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +25,6 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import model.Group;
 import model.StageName;
 import model.team;
 
@@ -75,7 +72,6 @@ public class simulationsView extends View{
 	public void updateGrid(model.Group let) {
 		ArrayList<team> sorted = let.sortBySimPer();
 		gp.getChildren().clear();
-		model.Group g = let;
 		
 		
 		for(int r = 1; r<sorted.size()+1 ; r++) {

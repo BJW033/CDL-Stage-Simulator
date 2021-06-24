@@ -1,7 +1,5 @@
 package view;
 
-import java.util.ArrayList;
-
 import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,9 +21,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import model.Group;
 import model.StageName;
 
 public class groupBmatchesView extends View{
@@ -64,7 +60,6 @@ public class groupBmatchesView extends View{
 	private GridPane generateGP() {
 		GridPane gp = new GridPane();
 		m.getModel().getGroupB().printPool();
-		ArrayList<String> group = m.getGroupB();
 		int count = 1;
 		
 			for(int r=0;r<14;r++) {

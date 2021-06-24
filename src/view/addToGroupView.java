@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import controller.Main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -33,7 +32,6 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import model.Group;
 import model.StageName;
 import model.team;
 

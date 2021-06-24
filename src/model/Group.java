@@ -248,7 +248,7 @@ public Group(boolean group) {
 		return null;
 
 	}
-	void updateMatch(String teamA, String teamB, int mapAw, int mapBw) {
+	public void updateMatch(String teamA, String teamB, int mapAw, int mapBw) {
 		
 		getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
 		getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
@@ -323,7 +323,6 @@ public Group(boolean group) {
 			i.printMatches();
 		}
 	}
-	@SuppressWarnings("unchecked")
 	public void printStandings(boolean sim,ArrayList<team> p) {
 		//System.out.println(sim);
 		if(!sim) {

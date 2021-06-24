@@ -113,27 +113,7 @@ public class Group{
 				longName=t.getName().length();
 			}
 		}
-		updateMatch("Optic", "Faze", 0, 3,false);
-		updateMatch("Optic","Legion", 3, 1,false); 
-		updateMatch("Optic","Rokkr", 3, 0,false);
-		  
-		  
-		updateMatch("Faze", "Surge", 3, 0,false); 
-		updateMatch("Faze","Legion", 3, 1,false);
-		  
-		  
-		updateMatch("Thieves","Legion", 2, 3,false);
-		updateMatch("Thieves", "Surge", 3, 2,false);
-		  
-		updateMatch("Rokkr", "Legion",3, 1,false);
-		updateMatch("Rokkr","Surge",3, 1,false);
-		  
-		  
-		updateMatch("Faze","Thieves", 3, 0,false);
-		//updateMatch("Optic", "Surge", 2, 3,false);
-		//updateMatch("Thieves", "Rokkr", 2, 3,true); 
-		//updateMatch("Faze", "Rokkr", 3, 2,false);
-		//printStandings(false, pool);
+		
 		
 	}
 public Group(boolean group) {
@@ -203,31 +183,31 @@ public Group(boolean group) {
 			  updateMatch("Subliners", "Empire", 3, 2,false);
 		}
 		else {
-		updateMatch("Optic", "Faze", 0, 3,false);
-		updateMatch("Optic","Legion", 3, 1,false); 
-		updateMatch("Optic","Rokkr", 3, 0,false);
-		  
-		  
-		updateMatch("Faze", "Surge", 3, 0,false); 
-		updateMatch("Faze","Legion", 3, 1,false);
-		  
-		  
-		updateMatch("Thieves","Legion", 2, 3,false);
-		updateMatch("Thieves", "Surge", 3, 2,false);
-		  
-		updateMatch("Rokkr", "Legion",3, 1,false);
-		updateMatch("Rokkr","Surge",3, 1,false);
-		  
-		  
-		updateMatch("Faze","Thieves", 3, 0,false);
-		//updateMatch("Optic", "Surge", 2, 3,false);
-		//updateMatch("Thieves", "Rokkr", 2, 3,true); 
-		//updateMatch("Faze", "Rokkr", 3, 2,false);
-		//updateMatch("Optic", "Thieves", 2, 3,false);
+			updateMatch("Optic", "Faze", 0, 3,false);
+			updateMatch("Optic","Legion", 3, 1,false); 
+			updateMatch("Optic","Rokkr", 3, 0,false);
+
+
+			updateMatch("Faze", "Surge", 3, 0,false); 
+			updateMatch("Faze","Legion", 3, 1,false);
+
+
+			updateMatch("Thieves","Legion", 2, 3,false);
+			updateMatch("Thieves", "Surge", 3, 2,false);
+
+			updateMatch("Rokkr", "Legion",3, 1,false);
+			updateMatch("Rokkr","Surge",3, 1,false);
+
+
+			updateMatch("Faze","Thieves", 3, 0,false);
+			//updateMatch("Optic", "Surge", 2, 3,false);
+			//updateMatch("Thieves", "Rokkr", 2, 3,true); 
+			//updateMatch("Faze", "Rokkr", 3, 2,false);
+			//updateMatch("Optic", "Thieves", 2, 3,false);
 		}
 		//printStandings(false, pool);
-		
-	}
+
+}
 	
 	
 

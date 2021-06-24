@@ -4,12 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -43,7 +49,11 @@ public class groupView extends View{
 
 
 		StackPane root = new StackPane();
-		
+		BackgroundImage myBI= new BackgroundImage(new Image(getClass().getResourceAsStream("GroupSelectionBG.png"),canvasWidth,canvasHeight,false,true),
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
+		//then you set to your node
+		root.setBackground(new Background(myBI));
 		root.getChildren().add(borderPane);
 		//primaryStage.setScene(new Scene(root, canvasWidth, canvasHeight));
 
@@ -64,6 +74,7 @@ public class groupView extends View{
 	    	stack.setUserData(m.getTeams().get(count));
 	    	stack.setAlignment(Pos.CENTER);
 	    	stack.setStyle("-fx-background-color: transparent;");
+	    	test.setStyle("-fx-opacity: 0.5;");
 	    	stack.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 				@Override
@@ -142,8 +153,10 @@ public class groupView extends View{
 		Region emptyCenter = new Region();
 		HBox.setHgrow(emptyCenter, Priority.ALWAYS);
 
+		ToolBar tb = new ToolBar(back,emptyCenter);
+		tb.setStyle("-fx-background-color: transparent;");
 		
-		return new ToolBar(back,emptyCenter);
+		return tb;
 	}
 
 	public GridPane getGp() {

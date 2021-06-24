@@ -5,6 +5,13 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -74,7 +81,17 @@ public class startView extends View{
 		gp.add(stageFour,1,0,1,1);
 		gp.add(stageFive,2,0,1,1);
 		gp.setAlignment(Pos.CENTER);
+		
+		ImageView test= new ImageView(new Image(getClass().getResourceAsStream("Home Image.jpeg")));
+		test.prefWidth(canvasWidth);
+		test.prefHeight(canvasHeight);
 		StackPane root = new StackPane();
+		BackgroundImage myBI= new BackgroundImage(new Image(getClass().getResourceAsStream("Home Image.jpeg"),canvasWidth,canvasHeight,false,true),
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
+		//then you set to your node
+		root.setBackground(new Background(myBI));
+		
 		root.getChildren().add(gp);
 		
 		scene = new Scene(root, canvasWidth, canvasHeight);

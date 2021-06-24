@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
+import model.Group;
 import model.StageName;
 
 public class startView extends View{
@@ -36,10 +37,12 @@ public class startView extends View{
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("skip");
+				m.getModel().setGroupA(new Group(false));
 				//m.getModel().getGroupA().printStandings(false, m.getModel().getGroupA().getPool());
 				m.getModel().getGroupA().simulateMatches(m.getModel().getGroupA(), false);
 				//main.getModel().getGroupB().simulateMatches(main.getModel().getGroupB(), false);
 				//main.getModel().getGroupB().printStandings(false, main.getModel().getGroupB().getPool());
+				m.getModel().setGroupB(new Group(true));
 				m.getModel().getGroupB().simulateMatches(m.getModel().getGroupB(), false);
 				//m.getModel().getGroupB().getPool().get(0).getPlacings();
 				

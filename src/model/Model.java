@@ -6,8 +6,8 @@ public class Model {
 	private int simulations;
 	
 	public Model() {
-		GroupA = new Group(false);
-		GroupB = new Group(true);
+		GroupA = new Group();
+		GroupB = new Group();
 		simulations = 100000;
 		
 	}

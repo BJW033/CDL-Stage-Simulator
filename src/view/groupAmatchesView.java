@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -60,7 +62,7 @@ public class groupAmatchesView extends View{
 	}
 	private GridPane generateGP() {
 		GridPane gp = new GridPane();
-		m.getModel().getGroupA().printPool();
+		//m.getModel().getGroupA().printPool();
 		int count = 1;
 		
 			for(int r=0;r<14;r++) {
@@ -117,18 +119,30 @@ public class groupAmatchesView extends View{
 				}
 				else if(r==0) {
 					if(c==1 || c==6 || c==11||c==16||c==21) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(r).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(r).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 					}
 				}
 				else if(r==1) {
 					if(c==1 || c==6 || c==11||c==16||c==21) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
 						count++;
 					}
 					if(c==21) {
@@ -137,82 +151,164 @@ public class groupAmatchesView extends View{
 				}
 				else if(r==3) {
 					if(c==1 || c==6 || c==11||c==16) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(r%2).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(r%2).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 					}
 					if(c==21) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(2).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(2).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
 					}
 				}
 				else if(r==4) {
 					
 					if(c==1 || c==6 || c==11||c==16) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
+						
 						count++;
 					}
 					if(c==21) {
 						count=3;
+						
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
 						count++;
 					}
 				}
 				else if(r==6) {
 					
 					if(c==1 || c==6 ) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(2).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(2).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 					}
 					if(c==11||c==16) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(3).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(3).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 					}
 					if(c==21) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(4).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(4).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 					}
 				}
 				else if(r==7) {
 					
 					if(c==1 || c==6 ) {
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 						count++;
 					}
 					if(c==11||c==16) {
 						if(c==11) {
 							count=4;
 						}
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
+						
 						count++;
 					}
 					if(c==21) {
 						count=5;
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
+						
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
 						s=m.getModel().getGroupA().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
+						
 					}
 				}
 				if(r%3!=2) {

@@ -1708,14 +1708,17 @@ public Group(boolean group) {
 	void sixWayTie() {
 		System.out.println("Didnt think this could happen");
 		//six way ties
-		for(int x =0;x<5;x++) {
-			for(int y= x+1;y<pool.size();y++) {
-				if(pool.get(x).getmapWinper()<pool.get(y).getmapWinper()) {
-					Collections.swap(pool, x, y);
-				}
+		Collections.sort(pool, new Comparator<team>() {
 
+			@Override
+			public int compare(team o1, team o2) {
+				if(o1.getmapWinper()>o2.getmapWinper()) {
+					return -1;
+				}
+				return 1;
 			}
-		}
+			
+		});
 		//check for ties
 		int tieCount=1;
 		for(int x = 0;x<pool.size()-1;x++) {

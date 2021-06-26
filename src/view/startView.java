@@ -45,11 +45,11 @@ public class startView extends View{
 			@Override
 			public void handle(ActionEvent event) {
 				
-				m.getModel().setGroupA(new Group(false));
+				m.getModel().setGroupA(new Group(false,4));
 				
 				m.getModel().getGroupA().simulateMatches(m.getModel().getGroupA(), false);
 				
-				m.getModel().setGroupB(new Group(true));
+				m.getModel().setGroupB(new Group(true,4));
 				m.getModel().getGroupB().simulateMatches(m.getModel().getGroupB(), false);
 				
 				
@@ -65,9 +65,9 @@ public class startView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				m.getModel().setGroupA(new Group(false));
+				m.getModel().setGroupA(new Group(false,5));
 				
-				m.getModel().setGroupB(new Group(true));
+				m.getModel().setGroupB(new Group(true,5));
 				
 				m.getGroupAmatches().updateGP();
 				m.getGroupBmatches().updateGP();

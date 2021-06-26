@@ -464,9 +464,7 @@ public Group(boolean group,int stage) {
 		if(!s) {
 			printSimulatedPercentages(simulations);
 		}
-		else {
-			//printSimulatedPlacings();
-		}
+		
 		
 		ArrayList<Double> ret = new ArrayList<Double>();
 		for(team t: pool) {

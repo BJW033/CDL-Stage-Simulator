@@ -27,6 +27,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -89,27 +90,35 @@ public class simulationsView extends View{
 			StackPane stack = new StackPane();
 			//System.out.println(sorted.get(r-1).getName());
 	    	ImageView test= new ImageView(new Image(getClass().getResourceAsStream(sorted.get(r-1).getName()+".png")));
+	    	
 	    	test.setFitWidth(75);
 	    	test.setFitHeight(75);
 	    	
 	    	stack.getChildren().add(test);
 	    	stack.setPadding(new Insets(5));
+	    	stack.setStyle("-fx-background-color: white");
 	    	gp.add(stack,0,r);
 	    	
 		}
 		for(int r = 1; r<sorted.size()+1 ; r++) {
 			Label test = new Label();
+			
 			test.setText(sorted.get(r-1).getName());
-	    	test.setFont(new Font(20));
+			test.setStyle("-fx-background-color: black");
+			test.setTextFill(Color.WHITE);
+			test.setFont(new Font("Courier New",15));
 	    	test.setTextAlignment(TextAlignment.CENTER);
 	    	test.setPadding(new Insets(5));
 	    	test.setPrefHeight(50);
-	    	test.setPrefWidth(100);
+	    	test.setPrefWidth(125);
 	    	test.setAlignment(Pos.CENTER);
 	    	gp.add(test, 1, r);
 		}
 		for(int c = 2;c<8;c++) {
 			Label test = new Label();
+			test.setStyle("-fx-background-color: black");
+			test.setTextFill(Color.WHITE);
+			
 			if(c>=5) {
 				test.setText(c-1+"th");
 			}
@@ -122,7 +131,7 @@ public class simulationsView extends View{
 			else if(c==4) {
 				test.setText(c-1+"rd");
 			}
-			test.setFont(new Font(15));
+			test.setFont(new Font("Courier New",20));
 	    	test.setTextAlignment(TextAlignment.CENTER);
 	    	test.setPadding(new Insets(5));
 	    	test.setPrefHeight(30);
@@ -138,6 +147,9 @@ public class simulationsView extends View{
 			for(int c = 2; c<8; c++) {
 				Label test = new Label();
 				test.setText(String.format("%.3f%%", ((double)sorted.get(r-1).getPlacings().get(c-2)/m.getModel().getSimulations())*100));
+				test.setStyle("-fx-background-color: black");
+				test.setTextFill(Color.WHITE);
+				test.setFont(new Font("Courier New",15));
 				test.setTextAlignment(TextAlignment.CENTER);
 		    	test.setPadding(new Insets(5));
 		    	test.setPrefHeight(30);

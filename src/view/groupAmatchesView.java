@@ -458,7 +458,10 @@ public class groupAmatchesView extends View{
 	}
 	
 	public Label createTop() {
-		Label l = new Label("Group A");
+		Label l = new Label("Update the matches for Group A");
+		l.setTextFill(Color.WHITE);
+		l.setStyle("-fx-background-color: black");
+		l.setFont(new Font("Courier New",25));
 		l.setPadding(new Insets(20));
 		l.setAlignment(Pos.CENTER);
 		l.setTextAlignment(TextAlignment.CENTER);

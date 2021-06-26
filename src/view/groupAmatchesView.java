@@ -31,6 +31,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.StageName;
@@ -112,7 +113,7 @@ public class groupAmatchesView extends View{
 		
 		GridPane gp = matches;
 		gp.getChildren().retainAll(gp.getChildren().get(0));
-		gp.setHgap(10);
+		gp.setHgap(7);
 		gp.setVgap(10);
 		matches.getChildren().clear();
 		m.getModel().getGroupA().printPool();
@@ -129,6 +130,7 @@ public class groupAmatchesView extends View{
 			for(int c = 0; c<25;c++) {
 				Label t = new Label();
 				t.setTextFill(Color.WHITE);
+				t.setFont(new Font("Courier New",12));
 				t.setStyle("-fx-background-color: BLACK");
 				t.setAlignment(Pos.CENTER);
 				t.setTextAlignment(TextAlignment.CENTER);
@@ -336,6 +338,7 @@ public class groupAmatchesView extends View{
 							((Label) gp.getChildren().get(gp.getChildren().size()-25)).setUserData(teamAMap);
 							s = m.getModel().getGroupA().getTeam(teamA).findMatch(teamB).getMapB()+"";
 						}
+						
 						t.setText(s);
 						t.setUserData(s);
 						gp.add(t, c, r);

@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
@@ -117,17 +119,23 @@ public class groupBmatchesView extends View{
 				else if(r==0) {
 					if(c==1 || c==6 || c==11||c==16||c==21) {
 						s=m.getModel().getGroupB().getPool().get(r).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 					}
 				}
 				else if(r==1) {
 					if(c==1 || c==6 || c==11||c==16||c==21) {
 						s=m.getModel().getGroupB().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 						count++;
 					}
 					if(c==21) {
@@ -137,32 +145,49 @@ public class groupBmatchesView extends View{
 				else if(r==3) {
 					if(c==1 || c==6 || c==11||c==16) {
 						s=m.getModel().getGroupB().getPool().get(r%2).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 					}
 					if(c==21) {
 						s=m.getModel().getGroupB().getPool().get(2).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
 					}
 				}
 				else if(r==4) {
 					
 					if(c==1 || c==6 || c==11||c==16) {
 						s=m.getModel().getGroupB().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 						count++;
 					}
 					if(c==21) {
 						count=3;
 						s=m.getModel().getGroupB().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 						count++;
 					}
 				}
@@ -170,30 +195,48 @@ public class groupBmatchesView extends View{
 					
 					if(c==1 || c==6 ) {
 						s=m.getModel().getGroupB().getPool().get(2).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 					}
 					if(c==11||c==16) {
 						s=m.getModel().getGroupB().getPool().get(3).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(m.getModel().getGroupB().getPool().get(3).getName()+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
+						
+						
+						
 					}
 					if(c==21) {
 						s=m.getModel().getGroupB().getPool().get(4).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 					}
 				}
 				else if(r==7) {
 					
 					if(c==1 || c==6 ) {
 						s=m.getModel().getGroupB().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 						count++;
 					}
 					if(c==11||c==16) {
@@ -201,17 +244,23 @@ public class groupBmatchesView extends View{
 							count=4;
 						}
 						s=m.getModel().getGroupB().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 						count++;
 					}
 					if(c==21) {
 						count=5;
 						s=m.getModel().getGroupB().getPool().get(count).getName();
-						t.setText(s);
-						t.setUserData(s);
-						gp.add(t, c, r);
+						ImageView callingCard = new ImageView(
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
+						callingCard.setFitHeight(25);
+						callingCard.setFitWidth(100);
+						callingCard.setUserData(s);
+						gp.add(callingCard, c, r);
 					}
 				}
 				if(r%3!=2) {

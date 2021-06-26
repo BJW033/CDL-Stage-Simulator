@@ -121,17 +121,17 @@ public Group(boolean group) {
 		String A = "Faze";
 		String B = "Optic";
 		String C = "Thieves";
-		String D = "Rokkr";
+		String D = "Subliners";
 		String E = "Legion";
-		String F = "Surge";
+		String F = "Ravens";
 		
 		if(group) {
-			A="Ultra";
-			B="Subliners";
-			C="Mutineers";
-			D="Ravens";
+			A="Empire";
+			B="Ultra";
+			C="Rokkr";
+			D="Mutineers";
 			E="Guerrillas";
-			F="Empire";
+			F="Surge";
 		}
 		
 		TeamA=new team(A,B,C,D,E,F);
@@ -162,44 +162,44 @@ public Group(boolean group) {
 			}
 		}
 		if(group) {
-			updateMatch("Ultra", "Mutineers", 2, 3,false);
-			  
-			  updateMatch("Ultra", "Ravens", 3, 0,false);
-			  
-			  updateMatch("Ultra", "Empire", 3, 0,false);
-			  
-			  updateMatch("Subliners", "Mutineers", 3, 2,false);
-			  
-			  updateMatch("Subliners", "Guerrillas", 3, 1,false);
-			  
-			  
-			  updateMatch("Mutineers", "Ravens", 3, 0,false);
-			  updateMatch("Mutineers", "Guerrillas", 3, 1,false);
-			  
-			  updateMatch("Ravens", "Empire", 2, 3,false);
-			  
-			  updateMatch("Guerrillas", "Empire", 0, 3,false);
-			  
-			  updateMatch("Subliners", "Empire", 3, 2,false);
+//			updateMatch("Ultra", "Mutineers", 2, 3,false);
+//			  
+//			  updateMatch("Ultra", "Ravens", 3, 0,false);
+//			  
+//			  updateMatch("Ultra", "Empire", 3, 0,false);
+//			  
+//			  updateMatch("Subliners", "Mutineers", 3, 2,false);
+//			  
+//			  updateMatch("Subliners", "Guerrillas", 3, 1,false);
+//			  
+//			  
+//			  updateMatch("Mutineers", "Ravens", 3, 0,false);
+//			  updateMatch("Mutineers", "Guerrillas", 3, 1,false);
+//			  
+//			  updateMatch("Ravens", "Empire", 2, 3,false);
+//			  
+//			  updateMatch("Guerrillas", "Empire", 0, 3,false);
+//			  
+//			  updateMatch("Subliners", "Empire", 3, 2,false);
 		}
 		else {
-			updateMatch("Optic", "Faze", 0, 3,false);
-			updateMatch("Optic","Legion", 3, 1,false); 
-			updateMatch("Optic","Rokkr", 3, 0,false);
-
-
-			updateMatch("Faze", "Surge", 3, 0,false); 
-			updateMatch("Faze","Legion", 3, 1,false);
-
-
-			updateMatch("Thieves","Legion", 2, 3,false);
-			updateMatch("Thieves", "Surge", 3, 2,false);
-
-			updateMatch("Rokkr", "Legion",3, 1,false);
-			updateMatch("Rokkr","Surge",3, 1,false);
-
-
-			updateMatch("Faze","Thieves", 3, 0,false);
+//			updateMatch("Optic", "Faze", 0, 3,false);
+//			updateMatch("Optic","Legion", 3, 1,false); 
+//			updateMatch("Optic","Rokkr", 3, 0,false);
+//
+//
+//			updateMatch("Faze", "Surge", 3, 0,false); 
+//			updateMatch("Faze","Legion", 3, 1,false);
+//
+//
+//			updateMatch("Thieves","Legion", 2, 3,false);
+//			updateMatch("Thieves", "Surge", 3, 2,false);
+//
+//			updateMatch("Rokkr", "Legion",3, 1,false);
+//			updateMatch("Rokkr","Surge",3, 1,false);
+//
+//
+//			updateMatch("Faze","Thieves", 3, 0,false);
 			//updateMatch("Optic", "Surge", 2, 3,false);
 			//updateMatch("Thieves", "Rokkr", 2, 3,true); 
 			//updateMatch("Faze", "Rokkr", 3, 2,false);

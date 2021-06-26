@@ -65,11 +65,12 @@ public class startView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				m.getModel().setGroupA(new Group());
+				m.getModel().setGroupA(new Group(false));
 				
-				m.getModel().setGroupB(new Group());
+				m.getModel().setGroupB(new Group(true));
 				
 				m.getGroupAmatches().updateGP();
+				m.getGroupBmatches().updateGP();
 				primaryStage.setScene(m.getScenes().get(StageName.MATCHESA));
 				
 			}

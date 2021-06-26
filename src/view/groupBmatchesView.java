@@ -414,21 +414,19 @@ public class groupBmatchesView extends View{
 		back.setPrefSize(100, 50);
 		
 		Button toB = new Button();
-		toB.setText("To simulation results");
+		toB.setText("To Simulation Results");
 		toB.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("sim");
+				//System.out.println("sim");
 				if(updateMatches()) {
 					//m.getModel().getGroupB().printAllMatches();
 					stage.setScene(m.getScenes().get(StageName.SIMULATION));
-				//	m.getModel().getGroupA().setSimulations(100000);
-					//m.getModel().getGroupB().setSimulations(100000);
-					m.getModel().setSimulations(100000);
-					m.getModel().getGroupA().simulateMatches(m.getModel().getGroupA(), false);
+				
+					m.getModel().getGroupA().simulateMatches(m.getModel().getGroupA(), true);
 					m.getModel().getGroupA().sortStandings(m.getModel().getGroupA().getPool());
-					m.getModel().getGroupB().simulateMatches(m.getModel().getGroupB(), false);
+					m.getModel().getGroupB().simulateMatches(m.getModel().getGroupB(), true);
 					m.getSim().updateGrid(m.getModel().getGroupA());
 				}
 				else {

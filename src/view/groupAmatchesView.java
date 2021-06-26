@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+
 import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.StageName;
+import model.team;
 
 public class groupAmatchesView extends View{
 	Main m;
@@ -105,6 +108,10 @@ public class groupAmatchesView extends View{
 		gp.setAlignment(Pos.TOP_CENTER);
 		int count = 1;
 		String s = "";
+		
+		
+		
+		
 		for(int r = 0; r<9;r++) {
 			for(int c = 0; c<25;c++) {
 				Label t = new Label();
@@ -119,30 +126,24 @@ public class groupAmatchesView extends View{
 				}
 				else if(r==0) {
 					if(c==1 || c==6 || c==11||c==16||c==21) {
+						s=m.getModel().getGroupA().getPool().get(r).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(r).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(r).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
 					}
 				}
 				else if(r==1) {
 					if(c==1 || c==6 || c==11||c==16||c==21) {
+						s=m.getModel().getGroupA().getPool().get(count).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(count).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
-						
-						
 						count++;
 					}
 					if(c==21) {
@@ -151,13 +152,11 @@ public class groupAmatchesView extends View{
 				}
 				else if(r==3) {
 					if(c==1 || c==6 || c==11||c==16) {
+						s=m.getModel().getGroupA().getPool().get(r%2).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(r%2).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(r%2).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
 						
@@ -165,13 +164,11 @@ public class groupAmatchesView extends View{
 						
 					}
 					if(c==21) {
+						s=m.getModel().getGroupA().getPool().get(2).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(2).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(2).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
 						
@@ -181,48 +178,35 @@ public class groupAmatchesView extends View{
 				else if(r==4) {
 					
 					if(c==1 || c==6 || c==11||c==16) {
+						s=m.getModel().getGroupA().getPool().get(count).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(count).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
-						
-						
-						
-						
 						count++;
 					}
 					if(c==21) {
 						count=3;
-						
+						s=m.getModel().getGroupA().getPool().get(count).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(count).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
-						
-						
 						count++;
 					}
 				}
 				else if(r==6) {
 					
 					if(c==1 || c==6 ) {
+						s=m.getModel().getGroupA().getPool().get(2).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(2).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(2).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
 						
@@ -230,13 +214,11 @@ public class groupAmatchesView extends View{
 						
 					}
 					if(c==11||c==16) {
+						s=m.getModel().getGroupA().getPool().get(3).getName();
 						ImageView callingCard = new ImageView(
 								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(3).getName()+ "CC.png")));
-						
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(3).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
 						
@@ -244,71 +226,49 @@ public class groupAmatchesView extends View{
 						
 					}
 					if(c==21) {
+						s=m.getModel().getGroupA().getPool().get(4).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(4).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(4).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
-						
-						
-						
 					}
 				}
 				else if(r==7) {
 					
 					if(c==1 || c==6 ) {
+						s=m.getModel().getGroupA().getPool().get(count).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(count).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
-						
-						
-						
 						count++;
 					}
 					if(c==11||c==16) {
 						if(c==11) {
 							count=4;
 						}
+						s=m.getModel().getGroupA().getPool().get(count).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(count).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
-						
-						
-						
-						
 						count++;
 					}
 					if(c==21) {
 						count=5;
+						s=m.getModel().getGroupA().getPool().get(count).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(count).getName()+ "CC.png")));
-						
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
-						s=m.getModel().getGroupA().getPool().get(count).getName();
-						
 						callingCard.setUserData(s);
 						gp.add(callingCard, c, r);
-						
-						
-						
-						
 					}
 				}
 				if(r%3!=2) {

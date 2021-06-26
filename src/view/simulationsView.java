@@ -15,6 +15,11 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -42,6 +47,7 @@ public class simulationsView extends View{
 		gp=new GridPane();
 		
 		tb = createTB();
+		tb.setStyle("-fx-background-color: transparent");
 		layout = new BorderPane();
 		
 		layout.setBottom(tb);
@@ -61,6 +67,11 @@ public class simulationsView extends View{
 		gp.setHgap(10);
 		StackPane root = new StackPane();
 		root.getChildren().add(layout);
+		BackgroundImage myBI= new BackgroundImage(new Image(getClass().getResourceAsStream("BGImage.jpeg"),canvasWidth,canvasHeight,false,true),
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
+		root.setBackground(new Background(myBI));
+		
 		
 		scene = new Scene(root,canvasWidth,canvasHeight);
 		

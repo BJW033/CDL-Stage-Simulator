@@ -18,12 +18,19 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.StageName;
@@ -43,6 +50,7 @@ public class groupAmatchesView extends View{
 		ToolBar toolbar = createTB();
 
 		layout.setBottom(toolbar);
+		toolbar.setStyle("-fx-background-color: transparent");
 		matches = generateGP();
 		
 		layout.setCenter(matches);
@@ -56,6 +64,10 @@ public class groupAmatchesView extends View{
 		StackPane root = new StackPane();
 		
 		root.getChildren().add(layout);
+		BackgroundImage myBI= new BackgroundImage(new Image(getClass().getResourceAsStream("2020Trophy.jpeg"),canvasWidth,canvasHeight,false,true),
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
+		root.setBackground(new Background(myBI));
 		//primaryStage.setScene(new Scene(root, canvasWidth, canvasHeight));
 
 		scene = new Scene(root, canvasWidth, canvasHeight);
@@ -101,6 +113,7 @@ public class groupAmatchesView extends View{
 		GridPane gp = matches;
 		gp.getChildren().retainAll(gp.getChildren().get(0));
 		gp.setHgap(10);
+		gp.setVgap(10);
 		matches.getChildren().clear();
 		m.getModel().getGroupA().printPool();
 		//gp.setGridLinesVisible(true);
@@ -115,13 +128,15 @@ public class groupAmatchesView extends View{
 		for(int r = 0; r<9;r++) {
 			for(int c = 0; c<25;c++) {
 				Label t = new Label();
-				
+				t.setTextFill(Color.WHITE);
+				t.setStyle("-fx-background-color: BLACK");
 				t.setAlignment(Pos.CENTER);
 				t.setTextAlignment(TextAlignment.CENTER);
 				if(c==0) {
 					s="";
 					t.setText(s);
 					t.setUserData(s);
+					t.setStyle("-fx-background-color: transparent");
 					gp.add(t, c, r);
 				}
 				else if(r==0) {
@@ -275,6 +290,7 @@ public class groupAmatchesView extends View{
 					t.setPadding(new Insets(10));
 					if(c==2 || c==7 || c==12 ||c==17||c==22) {
 						s="-";
+						
 						t.setText(s);
 						t.setUserData("(" + r + "," + c + ") -");
 						int column = c;
@@ -367,6 +383,7 @@ public class groupAmatchesView extends View{
 						s = "";
 						t.setText(s);
 						t.setUserData(s);
+						t.setStyle("-fx-background-color: transparent");
 						gp.add(t, c, r);
 					}
 					
@@ -378,7 +395,11 @@ public class groupAmatchesView extends View{
 //			System.out.println(index + ": " + gp.getChildren().get(index).getUserData());
 //			index++;
 //		}
-		
+		for(int r=2;r<6;r+=3) {
+			Label l = new Label();
+			l.setPrefHeight(40);
+			gp.add(l, 0, r);
+		}
 	
 	
 	}

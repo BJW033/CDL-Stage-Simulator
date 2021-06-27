@@ -134,9 +134,11 @@ public class addToGroupView extends View{
 		centerColumn.getChildren().clear();
 		//centerColumn.setGridLinesVisible(true);
 		Label title = new Label("Select a new match");
-		
-		centerColumn.add(title, 1, 0, 5,1);
-		
+		title.setTextFill(Color.WHITE);
+		title.setStyle("-fx-background-color: black");
+		title.setFont(new Font("Courier New",20));
+		centerColumn.add(title, 0, 0, 5,1);
+		title.setPrefWidth(400);
 		title.setAlignment(Pos.CENTER);
 		StackPane stackA = new StackPane();
 		ImageView testA= new ImageView();
@@ -144,11 +146,13 @@ public class addToGroupView extends View{
 		testA.setFitHeight(75);
 		testA.setFitWidth(75);
 		stackA.getChildren().add(testA);
+		stackA.setStyle("-fx-background-color: white");
 		stackA.setPadding(new Insets(5));
 		centerColumn.add(stackA,0,2);
 		
 		
 		String tA = "Pick Team A";
+		
 		ComboBox<String> teamA = new ComboBox<String>();
 		for(team t: g.getPool()) {
 			teamA.getItems().add(t.getName());
@@ -178,6 +182,7 @@ public class addToGroupView extends View{
 		testB.setFitHeight(75);
 		testB.setFitWidth(75);
 		stackB.getChildren().add(testB);
+		stackB.setStyle("-fx-background-color: white");
 		stackB.setPadding(new Insets(5));
 		centerColumn.add(stackB,0,3);
 		
@@ -208,12 +213,23 @@ public class addToGroupView extends View{
 		Label bNum = new Label(0+"");
 		Label bPlus = new Label("+");
 		
-		aMinus.setPadding(new Insets(5));
-		aNum.setPadding(new Insets(5));
-		aPlus.setPadding(new Insets(5));
-		bMinus.setPadding(new Insets(5));
-		bNum.setPadding(new Insets(5));
-		bPlus.setPadding(new Insets(5));
+//		aMinus.setPadding(new Insets(5));
+//		aNum.setPadding(new Insets(5));
+//		aPlus.setPadding(new Insets(5));
+//		bMinus.setPadding(new Insets(5));
+//		bNum.setPadding(new Insets(5));
+//		bPlus.setPadding(new Insets(5));
+		
+		ArrayList<Label> labels = new ArrayList<Label>();
+		labels.add(aMinus);labels.add(aNum);labels.add(aPlus);
+		labels.add(bMinus);labels.add(bNum);labels.add(bPlus);
+		for(Label l: labels) {
+			l.setPadding(new Insets(5));
+			l.setTextFill(Color.WHITE);
+			l.setStyle("-fx-background-color: black");
+			l.setFont(new Font("Courier New",15));
+		}
+		
 		
 		for(int r = 2; r<4;r++) {
 			for(int c = 2;c<5;c++) {
@@ -353,11 +369,6 @@ public class addToGroupView extends View{
 	}
 	
 	
-	
-	
-	
-	
-	
 	public void updateBeforeGrid(model.Group g) {
 		ArrayList<team> sorted = g.sortByTop3();
 		Label beforeTitle = new Label("Top 3% Before Match");
@@ -372,7 +383,7 @@ public class addToGroupView extends View{
 		for(int r = 1; r<sorted.size()+1 ; r++) {
 			for(int c = 0; c<3;c++) {
 				Label test = new Label();
-				test.setFont(new Font("Courier New", 20));
+				test.setFont(new Font("Courier New", 15));
 				test.setTextFill(Color.WHITE);
 				test.setStyle("-fx-background-color: black");
 				test.setTextAlignment(TextAlignment.CENTER);
@@ -427,7 +438,7 @@ public class addToGroupView extends View{
 		for(int r = 1; r<g.getPool().size()+1 ; r++) {
 			for(int c = 0; c<3;c++) {
 				Label test = new Label();
-				test.setFont(new Font("Courier New" , 20));
+				test.setFont(new Font("Courier New" , 15));
 				test.setTextFill(Color.WHITE);
 				test.setStyle("-fx-background-color: black");
 				test.setTextAlignment(TextAlignment.CENTER);

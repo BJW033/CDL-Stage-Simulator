@@ -210,7 +210,7 @@ public class simulationsView extends View{
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("add to a ");
-				m.getAddToGroup().updateGrid(m.getModel().getGroupA());
+				m.getAddToGroup().updateGrid(m.getModel().getGroupA(),"B");
 				stage.setScene(m.getScenes().get(StageName.ADDTO));
 				
 			}
@@ -224,7 +224,8 @@ public class simulationsView extends View{
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("add to b");
-				m.getAddToGroup().updateGrid(m.getModel().getGroupB());
+				m.getAddToGroup().updateGrid(m.getModel().getGroupB(),"A");
+				
 				stage.setScene(m.getScenes().get(StageName.ADDTO));
 			}
 		});

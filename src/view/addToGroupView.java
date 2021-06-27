@@ -22,6 +22,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -29,6 +34,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -49,24 +55,31 @@ public class addToGroupView extends View{
 	public addToGroupView(Stage primaryStage, Main main) {
 		this.stage = primaryStage;
 		m=main;
+		
+		layout = new BorderPane();
+		
+		
 		gpBefore=new GridPane();
 		gpBefore.setAlignment(Pos.CENTER);
 		gpAfter=new GridPane();
 		gpAfter.setAlignment(Pos.CENTER);
 		centerColumn = new GridPane();
 		centerColumn.setAlignment(Pos.CENTER);
+		
+		
 		c = new GridPane();
 		c.setHgap(25);
 		c.setAlignment(Pos.CENTER);
 		
-		tb = createTB();
-		layout = new BorderPane();
+		updateTB("A");
+		
+		
 		
 		layout.setBottom(tb);
 		
 		
 		
-		updateGrid(m.getModel().getGroupA());
+		updateGrid(m.getModel().getGroupA(),"A");
 		
 		
 		layout.setCenter(c);
@@ -94,13 +107,18 @@ public class addToGroupView extends View{
 		
 		StackPane root = new StackPane();
 		root.getChildren().add(layout);
+		BackgroundImage myBI= new BackgroundImage(new Image(getClass().getResourceAsStream("BGImage.jpeg"),canvasWidth,canvasHeight,false,true),
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
+		root.setBackground(new Background(myBI));
+		
+		
 		
 		scene = new Scene(root,canvasWidth,canvasHeight);
-		c.setGridLinesVisible(true);
 		
 	}
 	
-	public void updateGrid(model.Group let) {
+	public void updateGrid(model.Group let,String pool) {
 		gpBefore.getChildren().clear();
 		gpAfter.getChildren().clear();
 		c.getChildren().clear();
@@ -108,7 +126,7 @@ public class addToGroupView extends View{
 		updateBeforeGrid(g);
 		updateMiddle(g);
 		updateAfterGrid(g);
-
+		updateTB(pool);
 	}
 		
 	
@@ -355,17 +373,20 @@ public class addToGroupView extends View{
 					test.setFitHeight(75);
 
 					stack.getChildren().add(test);
+					stack.setStyle("-fx-background-color: white");
 					stack.setPadding(new Insets(5));
 					gpBefore.add(stack,c,r);
 				}
 				else if(c==1) {
 					Label test = new Label();
 					test.setText(sorted.get(r-1).getName());
-					test.setFont(new Font(20));
+					test.setFont(new Font("Courier New", 20));
+					test.setTextFill(Color.WHITE);
+					test.setStyle("-fx-background-color: black");
 					test.setTextAlignment(TextAlignment.CENTER);
 					test.setPadding(new Insets(5));
 					test.setPrefHeight(50);
-					test.setPrefWidth(100);
+					test.setPrefWidth(150);
 					test.setAlignment(Pos.CENTER);
 					gpBefore.add(test, c, r);
 				}
@@ -446,7 +467,9 @@ public class addToGroupView extends View{
 	
 	
 	
-	public ToolBar createTB() {
+	public void updateTB(String pool) {
+		
+		
 		Button backA = new Button();
 		backA.setText("Back to Simulation results");
 		backA.setOnAction(new EventHandler<ActionEvent>() {
@@ -465,21 +488,21 @@ public class addToGroupView extends View{
 		Region emptyCenter = new Region();
 		HBox.setHgrow(emptyCenter, Priority.ALWAYS);
 		Button toB = new Button();
-		toB.setText("Group B");
+		toB.setText("Group " + pool);
 		toB.setOnAction(new EventHandler<ActionEvent>() {
-
+		
 			@Override
 			public void handle(ActionEvent event) {
 				if(toB.getText().equals("Group B")) {
 					toB.setText("Group A");
 					m.getModel().getGroupB().resetSims2();
-					updateGrid(m.getModel().getGroupB());
+					updateGrid(m.getModel().getGroupB(),"A");
 					
 				}
 				else {
 					toB.setText("Group B");
 					m.getModel().getGroupA().resetSims2();
-					updateGrid(m.getModel().getGroupA());
+					updateGrid(m.getModel().getGroupA(),"B");
 				}
 				
 				
@@ -487,7 +510,13 @@ public class addToGroupView extends View{
 		});
 		toB.setPrefSize(100, 50);
 		
-		return new ToolBar(backA,emptyCenter,toB);
+		tb = new ToolBar(backA, emptyCenter,toB);
+		
+		layout.setBottom(tb);
+		tb.setStyle("-fx-background-color: transparent");
+		
+		
+		
 	}
 	
 	

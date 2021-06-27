@@ -361,47 +361,49 @@ public class addToGroupView extends View{
 	public void updateBeforeGrid(model.Group g) {
 		ArrayList<team> sorted = g.sortByTop3();
 		Label beforeTitle = new Label("Top 3% Before Match");
+		beforeTitle.setTextFill(Color.WHITE);
+		beforeTitle.setStyle("-fx-background-color:black");
 		beforeTitle.setAlignment(Pos.CENTER);
+		beforeTitle.setFont(new Font("Courier New", 20));
+		
+		
 		gpBefore.add(beforeTitle, 1, 0, 3, 1);
 		
 		for(int r = 1; r<sorted.size()+1 ; r++) {
 			for(int c = 0; c<3;c++) {
+				Label test = new Label();
+				test.setFont(new Font("Courier New", 20));
+				test.setTextFill(Color.WHITE);
+				test.setStyle("-fx-background-color: black");
+				test.setTextAlignment(TextAlignment.CENTER);
+				test.setPadding(new Insets(5));
+				test.setPrefHeight(50);
+				test.setAlignment(Pos.CENTER);
+				
 				if(c==0) {
 					StackPane stack = new StackPane();
-					ImageView test= new ImageView(new Image(getClass().getResourceAsStream(sorted.get(r-1).getName()+".png")));
-					test.setFitWidth(75);
-					test.setFitHeight(75);
+					ImageView logo= new ImageView(new Image(getClass().getResourceAsStream(sorted.get(r-1).getName()+".png")));
+					logo.setFitWidth(75);
+					logo.setFitHeight(75);
 
-					stack.getChildren().add(test);
+					stack.getChildren().add(logo);
 					stack.setStyle("-fx-background-color: white");
 					stack.setPadding(new Insets(5));
 					gpBefore.add(stack,c,r);
 				}
 				else if(c==1) {
-					Label test = new Label();
 					test.setText(sorted.get(r-1).getName());
-					test.setFont(new Font("Courier New", 20));
-					test.setTextFill(Color.WHITE);
-					test.setStyle("-fx-background-color: black");
-					test.setTextAlignment(TextAlignment.CENTER);
-					test.setPadding(new Insets(5));
-					test.setPrefHeight(50);
 					test.setPrefWidth(150);
-					test.setAlignment(Pos.CENTER);
 					gpBefore.add(test, c, r);
 				}
 				else if(c==2) {
-					Label test = new Label();
+					
 					double top3 = 0;
 					for(int i = 0; i<3;i++) {
 						top3 = top3 + sorted.get(r-1).getPlacings().get(i);
 					}
 					test.setText(String.format("%.3f%%", top3/m.getModel().getSimulations()*100));
-					test.setTextAlignment(TextAlignment.CENTER);
-					test.setPadding(new Insets(5));
-					test.setPrefHeight(50);
 					test.setPrefWidth(100);
-					test.setAlignment(Pos.CENTER);
 					gpBefore.add(test, c, r);
 				}
 			}

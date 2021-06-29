@@ -468,7 +468,7 @@ public Group(boolean group,int stage) {
 		
 		ArrayList<Double> ret = new ArrayList<Double>();
 		for(team t: pool) {
-			ret.add(t.placings.get(0)+t.placings.get(1)+t.placings.get(2));
+			ret.add(t.getPlacings().get(0)+t.getPlacings().get(1)+t.getPlacings().get(2));
 		}
 		
 		
@@ -543,7 +543,7 @@ public Group(boolean group,int stage) {
 	for(team t: pool) {
 //		System.out.println(t.getName() + " " +t.placings2.get(0)+ " " +t.placings2.get(1)+ " " +t.placings2.get(2)+" " +t.placings2.get(3)+ " " 
 //		+ " " +t.placings2.get(4)+ " "+ t.placings2.get(5));
-		ret.add(t.placings2.get(0)+t.placings2.get(1)+t.placings2.get(2));
+		ret.add(t.getPlacingsSim().get(0)+t.getPlacingsSim().get(1)+t.getPlacingsSim().get(2));
 	}
 	
 	
@@ -553,15 +553,15 @@ public Group(boolean group,int stage) {
 	
 	void resetSims() {
 		for(team t: pool) {
-			for(int i = 0; i<t.placings.size();i++) {
-				t.placings.set(i, (double) 0);
+			for(int i = 0; i<t.getPlacings().size();i++) {
+				t.getPlacings().set(i, (double) 0);
 			}
 		}
 	}
 	public void resetSims2() {
 		for(team t: pool) {
-			for(int i = 0; i<t.placings2.size();i++) {
-				t.placings2.set(i, (double) 0);
+			for(int i = 0; i<t.getPlacingsSim().size();i++) {
+				t.getPlacingsSim().set(i, (double) 0);
 			}
 		}
 	}
@@ -579,7 +579,7 @@ public Group(boolean group,int stage) {
 		double diff=0;
 		for(team t: Copy.pool) {
 		//t.printMatches();
-			for(Match m: t.matches) {
+			for(Match m: t.getMatches()) {
 				if(m.mapA==0 && m.mapB==0) {
 					//System.out.println("simulating: " + m.A+" vs " + m.B );
 					for(int i=0;i<3;i++) {
@@ -587,10 +587,10 @@ public Group(boolean group,int stage) {
 						simCopy.updateMatch(m.A, m.B, 3, i,false);
 						simCopy.simulateMatches(simCopy,true);
 						for(int x = 0;x<3;x++) {
-							winT3 +=simCopy.getTeam(m.A).placings.get(x);
+							winT3 +=simCopy.getTeam(m.A).getPlacings().get(x);
 						}
-						for(int y = 3;y<simCopy.getTeam(m.A).placings.size();y++) {
-							winB3 +=simCopy.getTeam(m.A).placings.get(y);
+						for(int y = 3;y<simCopy.getTeam(m.A).getPlacings().size();y++) {
+							winB3 +=simCopy.getTeam(m.A).getPlacings().get(y);
 						}
 						
 						simCopy = saveState(A);
@@ -598,10 +598,10 @@ public Group(boolean group,int stage) {
 						simCopy.updateMatch(m.A, m.B, i, 3,false);
 						simCopy.simulateMatches(simCopy,true);
 						for(int x = 0;x<3;x++) {
-							loseT3 +=simCopy.getTeam(m.A).placings.get(x);
+							loseT3 +=simCopy.getTeam(m.A).getPlacings().get(x);
 						}
-						for(int y = 3;y<simCopy.getTeam(m.A).placings.size();y++) {
-							loseB3 +=simCopy.getTeam(m.A).placings.get(y);
+						for(int y = 3;y<simCopy.getTeam(m.A).getPlacings().size();y++) {
+							loseB3 +=simCopy.getTeam(m.A).getPlacings().get(y);
 						}
 						
 						
@@ -670,20 +670,23 @@ public Group(boolean group,int stage) {
 			for(int y=0;y<sim.pool.size();y++) {
 				if(this.pool.get(x).getName().equals(sim.pool.get(y).getName()) ){
 					//System.out.println("found " + x + " " +y);
-					if(sim.pool.get(x).deadtie2) {
-						this.pool.get(x).placings.set(y, this.pool.get(x).placings.get(y)+0.5);
+					if(sim.pool.get(x).isDeadtie2()) {
+						this.pool.get(x).getPlacings().set(y, this.pool.get(x).getPlacings().get(y)+0.5);
 					}
-					else if(sim.pool.get(x).deadtie3) {
-						this.pool.get(x).placings.set(y, this.pool.get(x).placings.get(y)+0.33);
+					else if(sim.pool.get(x).isDeadtie3()) {
+						this.pool.get(x).getPlacings().set(y, this.pool.get(x).getPlacings().get(y)+0.33);
 					}
-					else if(sim.pool.get(x).deadtie4) {
-						this.pool.get(x).placings.set(y, this.pool.get(x).placings.get(y)+0.25);
+					else if(sim.pool.get(x).isDeadtie4()) {
+						this.pool.get(x).getPlacings().set(y, this.pool.get(x).getPlacings().get(y)+0.25);
 					}
-					else if(sim.pool.get(x).deadtie5) {
-						this.pool.get(x).placings.set(y, this.pool.get(x).placings.get(y)+0.20);
+					else if(sim.pool.get(x).isDeadtie5()) {
+						this.pool.get(x).getPlacings().set(y, this.pool.get(x).getPlacings().get(y)+0.20);
+					}
+					else if(sim.pool.get(x).isDeadtie6()) {
+						this.pool.get(x).getPlacings().set(y, this.pool.get(x).getPlacings().get(y)+0.16);
 					}
 					else {
-						this.pool.get(x).placings.set(y, this.pool.get(x).placings.get(y)+1);
+						this.pool.get(x).getPlacings().set(y, this.pool.get(x).getPlacings().get(y)+1);
 					}
 				}
 			}
@@ -695,20 +698,23 @@ public Group(boolean group,int stage) {
 			for(int y=0;y<sim.pool.size();y++) {
 				if(this.poolsim.get(x).getName().equals(sim.poolsim.get(y).getName()) ){
 					//System.out.println("found " + x + " " +y);
-					if(sim.poolsim.get(x).deadtie2) {
-						this.poolsim.get(x).placings2.set(y, this.poolsim.get(x).placings2.get(y)+0.5);
+					if(sim.poolsim.get(x).isDeadtie2()) {
+						this.poolsim.get(x).getPlacingsSim().set(y, this.poolsim.get(x).getPlacingsSim().get(y)+0.5);
 					}
-					else if(sim.poolsim.get(x).deadtie3) {
-						this.poolsim.get(x).placings2.set(y, this.poolsim.get(x).placings2.get(y)+0.33);
+					else if(sim.poolsim.get(x).isDeadtie3()) {
+						this.poolsim.get(x).getPlacingsSim().set(y, this.poolsim.get(x).getPlacingsSim().get(y)+0.33);
 					}
-					else if(sim.poolsim.get(x).deadtie4) {
-						this.poolsim.get(x).placings2.set(y, this.poolsim.get(x).placings2.get(y)+0.25);
+					else if(sim.poolsim.get(x).isDeadtie4()) {
+						this.poolsim.get(x).getPlacingsSim().set(y, this.poolsim.get(x).getPlacingsSim().get(y)+0.25);
 					}
-					else if(sim.poolsim.get(x).deadtie5) {
-						this.poolsim.get(x).placings2.set(y, this.poolsim.get(x).placings2.get(y)+0.20);
+					else if(sim.poolsim.get(x).isDeadtie5()) {
+						this.poolsim.get(x).getPlacingsSim().set(y, this.poolsim.get(x).getPlacingsSim().get(y)+0.20);
+					}
+					else if(sim.poolsim.get(x).isDeadtie6()) {
+						this.poolsim.get(x).getPlacingsSim().set(y, this.poolsim.get(x).getPlacingsSim().get(y)+0.16);
 					}
 					else {
-						this.poolsim.get(x).placings2.set(y, this.poolsim.get(x).placings2.get(y)+1);
+						this.poolsim.get(x).getPlacingsSim().set(y, this.poolsim.get(x).getPlacingsSim().get(y)+1);
 					}
 				}
 			}
@@ -735,18 +741,19 @@ public Group(boolean group,int stage) {
 	
 	public void resetMatches() {
 		for(team t: pool) {
-			for(Match m: t.matches) {
+			for(Match m: t.getMatches()) {
 				m.resetMatch();
 			}
-			t.mapL = 0;
-			t.mapW = 0;
-			t.matchW = 0;
-			t.matchL = 0;
+			t.setMapL(0);
+			t.setMapW(0);
+			t.setMatchW(0);
+			t.setMatchL(0);
+			
 		}
 	}
 	public void printPlayedMatches() {
 		for(team t: pool) {
-			for(Match m: t.matches) {
+			for(Match m: t.getMatches()) {
 				if(m.mapA ==3 || m.mapB==3) {
 					System.out.println(m);
 				}

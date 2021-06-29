@@ -456,7 +456,7 @@ public class addToGroupView extends View{
 				else if(c==2) {
 					double top3 = 0;
 					for(int i = 0; i<3;i++) {
-						top3 = top3 + sorted.get(r-1).getPlacings2().get(i);
+						top3 = top3 + sorted.get(r-1).getPlacingsSim().get(i);
 					}
 					test.setText(String.format("%.3f%%", top3/m.getModel().getSimulations()*100));test.setPrefWidth(100);
 					gpAfter.add(test, c, r);

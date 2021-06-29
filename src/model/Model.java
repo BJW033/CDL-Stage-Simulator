@@ -21,18 +21,18 @@ public class Model {
 		simulations = 100000;
 		teams = new ArrayList<String>();
 		teams.add("Faze");
-    	teams.add("Empire");
-    	teams.add("Ultra");
-    	teams.add("Guerrillas");
-    	teams.add("Subliners");
-    	teams.add("Thieves");
-    	teams.add("Ravens");
-    	teams.add("Rokkr");
-    	teams.add("Legion");
-    	teams.add("Surge");
-    	teams.add("Mutineers");
-    	teams.add("Optic");
-    	
+		teams.add("Empire");
+		teams.add("Ultra");
+		teams.add("Guerrillas");
+		teams.add("Subliners");
+		teams.add("Thieves");
+		teams.add("Ravens");
+		teams.add("Rokkr");
+		teams.add("Legion");
+		teams.add("Surge");
+		teams.add("Mutineers");
+		teams.add("Optic");
+
 	}
 
 	public Group getGroupA() {
@@ -62,5 +62,5 @@ public class Model {
 	public ArrayList<String> getTeams(){
 		return teams;
 	}
-	
+
 }

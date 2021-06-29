@@ -241,11 +241,14 @@ public class team implements Comparable<team>{
 		public double getTop3Per() {
 			return placings.get(0)+placings.get(1)+placings.get(2);
 		}
-		boolean isDeadtie2() {
+		public boolean isDeadtie2() {
 			return deadtie2;
 		}
 		public void setDeadtie2(boolean deadtie2) {
 			this.deadtie2 = deadtie2;
+		}
+		public boolean isDeadtie3() {
+			return deadtie3;
 		}
 		
 

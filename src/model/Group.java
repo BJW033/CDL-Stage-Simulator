@@ -394,7 +394,7 @@ public Group(boolean group,int stage) {
 	}
 
 
-	public ArrayList<Double> simulateMatches(Group A,boolean s) {
+	public ArrayList<Double> simulateMatches(Group A,boolean printSims) {
 		
 			resetSims();
 		
@@ -461,7 +461,7 @@ public Group(boolean group,int stage) {
 
 
 		}
-		if(!s) {
+		if(printSims) {
 			printSimulatedPercentages(simulations);
 		}
 		

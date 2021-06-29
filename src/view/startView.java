@@ -18,10 +18,22 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Group;
 import model.StageName;
-
+/**
+ * The startView class sets up the first screen by setting up the background image, and three navigation buttons. The class also includes
+ * the button functionality on presses. 
+ * @author bwu
+ *
+ */
 public class startView extends View{
 	
-	Main m;
+	private Main m;
+	/**
+	 * Creates the startView window and its functionality. Creates each of the three buttons. One button starts from the group selection,
+	 * one button starts from the simulations run after Stage Four Week Three, and the final button automatically starts with Stage Five 
+	 * pools and goes to the match selection screen. All buttons are styled in this method as well. 
+	 * @param primaryStage Stage used as active stage for UI
+	 * @param main Main used to communicate with other views from button functionality
+	 */
 	public startView(Stage primaryStage, Main main) {
 		m = main;
 		this.stage = primaryStage;

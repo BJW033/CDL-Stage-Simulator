@@ -30,11 +30,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Group;
 import model.StageName;
-
+/**
+ * groupView is used when the user wants to manually select the teams in each pool. groupView class sets up the toolbar for navigation and
+ * the grid of images of team selection. The construction of the UI is broken into different methods.
+ * @author bwu
+ *
+ */
 public class groupView extends View{
-	Main m;
-	 int selected = 0;
-	 GridPane gp;
+	private Main m;
+	private int selected = 0;
+	private GridPane gp;
+	/**
+	 * Builds the UI for the groupView including a grid and a toolbar for navigation, places them in borderpane. Sets up background image. 
+	 * @param primaryStage Stage used as active stage for UI
+	 * @param main Main used to transfer selected teams into respective pools and update groupAmatchesView and groupBmatchesView
+	 */
 	public groupView(Stage primaryStage,Main main) {
 		this.stage = primaryStage;
 		m = main;
@@ -48,19 +58,19 @@ public class groupView extends View{
 		Label t = generateTop();
 		t.setAlignment(Pos.CENTER);
 		borderPane.setTop(t);
-		
+
 		BorderPane.setAlignment(t, Pos.CENTER);
-		
+
 		gp=createGP();
-	
+
 		borderPane.setCenter(gp);
-		
+
 
 
 		StackPane root = new StackPane();
 		BackgroundImage myBI= new BackgroundImage(new Image(getClass().getResourceAsStream("GroupSelectionBG.png"),canvasWidth,canvasHeight,false,true),
-		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-		          BackgroundSize.DEFAULT);
+				BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+				BackgroundSize.DEFAULT);
 		//then you set to your node
 		root.setBackground(new Background(myBI));
 		root.getChildren().add(borderPane);
@@ -68,82 +78,92 @@ public class groupView extends View{
 
 		scene = new Scene(root, canvasWidth, canvasHeight);
 	}
-	
-	
+
+	/**
+	 * Creates grid of team images by iterating through the list of teams from the Model (received from Main). Each of the images
+	 * are set to lower opacities until selected by user, then the opacities are reset. Once six teams are selected, the 
+	 * scene is set to groupAmatchesView. The grid is iterated through and selected teams are placed in Group A 
+	 * and the rest populate Group B
+	 * @return GridPane grid of images
+	 */
 	public GridPane createGP() {
 		GridPane tile = new GridPane();
-	    tile.setHgap(20);
-	    tile.setVgap(20);
-	    int count = 0;
-	   
-	    for (int i = 0; i < 3; i++) {
-	    	for(int y = 0 ; y<4;y++) {
-	    	StackPane stack = new StackPane();
-	    	ImageView test= new ImageView(new Image(getClass().getResourceAsStream(m.getModel().getTeams().get(count)+".png")));
-	    	stack.getChildren().add(test);
-	    	stack.setUserData(m.getModel().getTeams().get(count));
-	    	stack.setAlignment(Pos.CENTER);
-	    	stack.setStyle("-fx-opacity: 0.5;");
-	    	
-	    	stack.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		tile.setHgap(20);
+		tile.setVgap(20);
+		int count = 0;
 
-				@Override
-				public void handle(MouseEvent event) {
-					
-		
-					Node n = (Node) event.getSource();
-					if (n.getStyle().equals("-fx-opacity: 1.0;")) {
-						n.setStyle("-fx-opacity: 0.5;");
-						selected--;
-						for(int w = 0 ;w<m.getGroupA().size();w++) {
-							if(m.getGroupA().get(w).equals((String)n.getUserData())) {
-								m.getGroupA().remove(w);
+		for (int i = 0; i < 3; i++) {
+			for(int y = 0 ; y<4;y++) {
+				StackPane stack = new StackPane();
+				ImageView test= new ImageView(new Image(getClass().getResourceAsStream(m.getModel().getTeams().get(count)+".png")));
+				stack.getChildren().add(test);
+				stack.setUserData(m.getModel().getTeams().get(count));
+				stack.setAlignment(Pos.CENTER);
+				stack.setStyle("-fx-opacity: 0.5;");
+
+				stack.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+					@Override
+					public void handle(MouseEvent event) {
+
+
+						Node n = (Node) event.getSource();
+						if (n.getStyle().equals("-fx-opacity: 1.0;")) {
+							n.setStyle("-fx-opacity: 0.5;");
+							selected--;
+							for(int w = 0 ;w<m.getGroupA().size();w++) {
+								if(m.getGroupA().get(w).equals((String)n.getUserData())) {
+									m.getGroupA().remove(w);
+								}
 							}
+						} else {
+							n.setStyle("-fx-opacity: 1.0;");
+							selected++;
+							m.getGroupA().add((String)n.getUserData());
 						}
-					} else {
-						n.setStyle("-fx-opacity: 1.0;");
-						selected++;
-						m.getGroupA().add((String)n.getUserData());
-					}
-					//System.out.println(selected);
-					if(selected==6) {
-						for(int a = 0 ; a<12;a++) {
-							if(tile.getChildren().get(a).getStyle().equals("-fx-opacity: 0.5;")) {
-								m.getGroupB().add((String)tile.getChildren().get(a).getUserData());
+						//System.out.println(selected);
+						if(selected==6) {
+							for(int a = 0 ; a<12;a++) {
+								if(tile.getChildren().get(a).getStyle().equals("-fx-opacity: 0.5;")) {
+									m.getGroupB().add((String)tile.getChildren().get(a).getUserData());
+								}
 							}
+
+							stage.setScene(m.getScenes().get(StageName.MATCHESA));
+							//System.out.println("GroupA: " + m.getGroupA());
+							//System.out.println("GroupB: " + m.getGroupB());
+							selected = 0;
+							m.getModel().setGroupA(new Group(m.getGroupA()));
+							m.getGroupAmatches().updateGP();
+							m.getModel().setGroupB(new Group(m.getGroupB()));
+							m.getGroupBmatches().updateGP();
 						}
-						
-						stage.setScene(m.getScenes().get(StageName.MATCHESA));
-						//System.out.println("GroupA: " + m.getGroupA());
-						//System.out.println("GroupB: " + m.getGroupB());
-						selected = 0;
-						m.getModel().setGroupA(new Group(m.getGroupA()));
-						m.getGroupAmatches().updateGP();
-						m.getModel().setGroupB(new Group(m.getGroupB()));
-						m.getGroupBmatches().updateGP();
+
+
 					}
-					
-					
-				}
-				
-	    		
-	    	});
-	    	test.setFitWidth(200);
-	    	test.setFitHeight(200);
-	        tile.getChildren().add(stack);
-	        GridPane.setConstraints(stack, y, i);
-	        count++;
-	    }
-	    }
-	    tile.setAlignment(Pos.CENTER);
-	    return tile;
+
+
+				});
+				test.setFitWidth(200);
+				test.setFitHeight(200);
+				tile.getChildren().add(stack);
+				GridPane.setConstraints(stack, y, i);
+				count++;
+			}
+		}
+		tile.setAlignment(Pos.CENTER);
+		return tile;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+	/**
+	 * Creates the toolbar with the primary purpose of navigation. Only one button is needed and sends the user back to the main screen. 
+	 * Selected teams logos are set to unselected opacity and selected attribute is reset to zero. 
+	 * @return Toolbar navigation toolbar
+	 */
 	public ToolBar createTB() {
 		Button back = new Button();
 		back.setFont(new Font("Courier New",15));
@@ -152,32 +172,27 @@ public class groupView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("back");
+				for(Node n: gp.getChildren()) {
+					n.setStyle("-fx-opacity:0.5");
+					selected = 0;
+				}
 				stage.setScene(m.getScenes().get(StageName.WELCOME));
 			}
 		});
 		back.setPrefSize(150, 50);
-		
-		
-		
-		
+
 		Region emptyCenter = new Region();
 		HBox.setHgrow(emptyCenter, Priority.ALWAYS);
 
-		
-	
-		
-		
-		
 		ToolBar tb = new ToolBar(back,emptyCenter);
 		tb.setStyle("-fx-background-color: transparent;");
-		
+
 		return tb;
 	}
-
-	public GridPane getGp() {
-		return gp;
-	}
+	/**
+	 * Creates label/title on the top of the scene. 
+	 * @return Label scene title
+	 */
 	private Label generateTop() {
 		Label ret = new Label("Select Teams in Group A");
 		ret.setAlignment(Pos.CENTER);
@@ -187,6 +202,10 @@ public class groupView extends View{
 		ret.setTextFill(Color.WHITE);
 		ret.setPrefSize(500, 50);
 		return ret;
+	}
+	
+	public GridPane getGp() {
+		return gp;
 	}
 
 }

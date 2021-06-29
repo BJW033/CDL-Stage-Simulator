@@ -107,7 +107,7 @@ public class groupView extends View{
 					//System.out.println(selected);
 					if(selected==6) {
 						for(int a = 0 ; a<12;a++) {
-							if(tile.getChildren().get(a).getStyle().equals("-fx-opacity: 1.0;")) {
+							if(tile.getChildren().get(a).getStyle().equals("-fx-opacity: 0.5;")) {
 								m.getGroupB().add((String)tile.getChildren().get(a).getUserData());
 							}
 						}

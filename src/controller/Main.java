@@ -131,7 +131,6 @@ public class Main  extends Application {
 		public void setModel(Model model) {
 			this.model = model;
 		}
-
 		
 	}
 

@@ -70,8 +70,7 @@ public class Main  extends Application {
 	       scenes.put(StageName.SIMULATION, sim.getScene());
 	       scenes.put(StageName.ADDTO, addToGroup.getScene());
 	        primaryStage.setScene(scenes.get(StageName.WELCOME));
-	       
-	       
+	      
 	      
 	       
 	    }
@@ -121,102 +120,7 @@ public class Main  extends Application {
 		
 	}
 
-//
-//public class Main  {
-//	
-//	private static Map<StageName, Scene> scenes = new HashMap<>();
-//	  public static void main(String args[]) {
-//	  
-//	  
-//	  Group GroupA = new Group("Faze","Optic","Thieves","Rokkr","Legion", "Surge");
-//	  
-//	  
-//	  //GroupA.printStandings(); //GroupA.printAllMatches();
-//	  
-//	  
-//	  GroupA.updateMatch("Optic", "Faze", 0, 3,false);
-//	  GroupA.updateMatch("Optic","Legion", 3, 1,false); 
-//	  GroupA.updateMatch("Optic","Rokkr", 3, 0,false);
-//	  
-//	  
-//	  GroupA.updateMatch("Faze", "Surge", 3, 0,false); 
-//	  GroupA.updateMatch("Faze","Legion", 3, 1,false);
-//	  
-//	  
-//	  GroupA.updateMatch("Thieves","Legion", 2, 3,false);
-//	  GroupA.updateMatch("Thieves", "Surge", 3, 2,false);
-//	  
-//	  GroupA.updateMatch("Rokkr", "Legion",3, 1,false);
-//	  GroupA.updateMatch("Rokkr","Surge",3, 1,false);
-//	  
-//	  
-//	  GroupA.updateMatch("Faze","Thieves", 3, 0,false);
-//	  
-//	  
-//	  GroupA.updateMatch("Optic", "Surge", 2, 3,false);
-//	  
-//	  
-//	   GroupA.updateMatch("Thieves", "Rokkr", 2, 3,true); 
-//	  // GroupA.updateMatch("Faze", "Rokkr", 3, 2,false);
-//	  //GroupA.updateMatch("Legion", "Surge", 3, 2); 
-//	  //GroupA.updateMatch("Optic","Thieves", 3, 2,false);
-//	  
-//	  
-//	  
-//	  
-//	  
-//	  Group GroupB = new Group("Ultra","Subliners","Mutineers","Ravens","Gurrillas", "Empire");
-//	  
-//	  GroupB.updateMatch("Ultra", "Mutineers", 2, 3,false);
-//	  
-//	  GroupB.updateMatch("Ultra", "Ravens", 3, 0,false);
-//	  
-//	  GroupB.updateMatch("Ultra", "Empire", 3, 0,false);
-//	  
-//	  GroupB.updateMatch("Subliners", "Mutineers", 3, 2,false);
-//	  
-//	  GroupB.updateMatch("Subliners", "Gurrillas", 3, 1,false);
-//	  
-//	  
-//	  GroupB.updateMatch("Mutineers", "Ravens", 3, 0,false);
-//	  GroupB.updateMatch("Mutineers", "Gurrillas", 3, 1,false);
-//	  
-//	  
-//	  
-//	  GroupB.updateMatch("Ravens", "Empire", 2, 3,false);
-//	  
-//	  GroupB.updateMatch("Gurrillas", "Empire", 0, 3,false);
-//	  
-//	  GroupB.updateMatch("Subliners", "Empire", 3, 2,false);
-//	  GroupB.updateMatch("Ultra", "Gurrillas", 3, 0,false);
-//	  
-//	  GroupB.updateMatch("Subliners", "Ravens", 3, 0,true);
-//	  
-//	  
-//	  //GroupB.updateMatch("Ravens", "Gurrillas", 2, 3,false);
-//	  //GroupB.updateMatch("Mutineers", "Empire", 2, 3,false);
-//	  //GroupB.updateMatch("Ultra", "Subliners", 2, 3,false);
-//	  
-//	  
-//	  GroupA.simulateMatches(GroupA,false); 
-//	  GroupB.simulateMatches(GroupB,false);
-//	  
-//	  //GroupA.importantMatches(GroupA); 
-//	  //GroupB.importantMatches(GroupB);
-//	  //GroupB.printStandings();
-//	  
-//	  
-//	  
-//	  }
-//	public List<Node> getScenes() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	
-//	 
-//
-//
-//}
+
 
 
 

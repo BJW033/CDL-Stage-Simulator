@@ -411,7 +411,7 @@ public class groupBmatchesView extends View{
 			}
 		});
 		back.setPrefSize(100, 50);
-		
+		back.setFont(new Font("Courier New",15));
 		Button toB = new Button();
 		toB.setText("To Simulation Results");
 		toB.setOnAction(new EventHandler<ActionEvent>() {
@@ -440,8 +440,8 @@ public class groupBmatchesView extends View{
 				
 			}
 		});
-		toB.setPrefSize(200, 50);
-		
+		toB.setPrefSize(250, 50);
+		toB.setFont(new Font("Courier New",15));
 		
 		Region emptyCenter = new Region();
 		HBox.setHgrow(emptyCenter, Priority.ALWAYS);

@@ -158,6 +158,7 @@ public class addToGroupView extends View{
 			teamA.getItems().add(t.getName());
 		}
 		teamA.setValue(tA);
+		teamA.setStyle("-fx-font: 15px \"Courier New\";");
 		
 		//test.setImage(new Image(getClass().getResourceAsStream(teamA.getValue()+".png")));
 		
@@ -165,11 +166,7 @@ public class addToGroupView extends View{
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				//System.out.println(teamA.getValue());
-				//stack.getChildren().clear();
 				testA.setImage(new Image(getClass().getResourceAsStream(teamA.getValue()+".png")));
-				//stack.getChildren().add(test);
-				//System.out.println(stack.getChildren());
 			}
 			
 		});
@@ -178,7 +175,7 @@ public class addToGroupView extends View{
 		
 		StackPane stackB = new StackPane();
 		ImageView testB= new ImageView();
-	//	new Image(getClass().getResourceAsStream("LeagueLogo.png"))
+	
 		testB.setFitHeight(75);
 		testB.setFitWidth(75);
 		stackB.getChildren().add(testB);
@@ -192,6 +189,8 @@ public class addToGroupView extends View{
 			teamB.getItems().add(t.getName());
 		}
 		teamB.setValue(tB);
+		teamB.setStyle("-fx-font: 15px \"Courier New\";");
+		
 		
 		teamB.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -212,13 +211,7 @@ public class addToGroupView extends View{
 		Label bMinus = new Label("-");
 		Label bNum = new Label(0+"");
 		Label bPlus = new Label("+");
-		
-//		aMinus.setPadding(new Insets(5));
-//		aNum.setPadding(new Insets(5));
-//		aPlus.setPadding(new Insets(5));
-//		bMinus.setPadding(new Insets(5));
-//		bNum.setPadding(new Insets(5));
-//		bPlus.setPadding(new Insets(5));
+
 		
 		ArrayList<Label> labels = new ArrayList<Label>();
 		labels.add(aMinus);labels.add(aNum);labels.add(aPlus);
@@ -362,7 +355,7 @@ public class addToGroupView extends View{
 			}
 			
 		});
-		
+		submit.setFont(new Font("Courier New",15));
 		c.add(centerColumn,1,0);
 		
 		
@@ -496,8 +489,8 @@ public class addToGroupView extends View{
 				
 			}
 		});
-		backA.setPrefSize(200, 50);
-		
+		backA.setPrefSize(300, 50);
+		backA.setFont(new Font("Courier New",15));
 
 		Region emptyCenter = new Region();
 		HBox.setHgrow(emptyCenter, Priority.ALWAYS);
@@ -523,6 +516,7 @@ public class addToGroupView extends View{
 			}
 		});
 		toB.setPrefSize(100, 50);
+		toB.setFont(new Font("Courier New",15));
 		
 		tb = new ToolBar(backA, emptyCenter,toB);
 		

@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Group;
@@ -145,7 +146,8 @@ public class groupView extends View{
 	
 	public ToolBar createTB() {
 		Button back = new Button();
-		back.setText("back");
+		back.setFont(new Font("Courier New",15));
+		back.setText("Back to Home");
 		back.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -154,7 +156,7 @@ public class groupView extends View{
 				stage.setScene(m.getScenes().get(StageName.WELCOME));
 			}
 		});
-		back.setPrefSize(100, 50);
+		back.setPrefSize(150, 50);
 		
 		
 		
@@ -179,9 +181,10 @@ public class groupView extends View{
 	private Label generateTop() {
 		Label ret = new Label("Select Teams in Group A");
 		ret.setAlignment(Pos.CENTER);
-		ret.setStyle("-fx-background-color: WHITE");
+		ret.setStyle("-fx-background-color: black");
 		ret.setPadding(new Insets(10));
 		ret.setFont(new Font("Courier New", 25));
+		ret.setTextFill(Color.WHITE);
 		ret.setPrefSize(500, 50);
 		return ret;
 	}

@@ -406,7 +406,7 @@ public class groupAmatchesView extends View{
 	}
 	public ToolBar createTB() {
 		Button back = new Button();
-		back.setText("back");
+		back.setText("Back to Group Selection");
 		back.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -421,8 +421,8 @@ public class groupAmatchesView extends View{
 				
 			}
 		});
-		back.setPrefSize(100, 50);
-		
+		back.setPrefSize(250, 50);
+		back.setFont(new Font("Courier New",15));
 		Button toB = new Button();
 		toB.setText("Group B");
 		toB.setOnAction(new EventHandler<ActionEvent>() {
@@ -447,6 +447,7 @@ public class groupAmatchesView extends View{
 			}
 		});
 		toB.setPrefSize(100, 50);
+		toB.setFont(new Font("Courier New",15));
 		
 		
 		Region emptyCenter = new Region();

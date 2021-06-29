@@ -206,15 +206,14 @@ public class simulationsView extends View{
 				
 			}
 		});
-		backA.setPrefSize(200, 50);
-		
+		backA.setPrefSize(250, 50);
+		backA.setFont(new Font("Courier New",15));
 		Button backB = new Button();
 		backB.setText("Group B Match Selection");
 		backB.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("back to b matches");
 				stage.setScene(m.getScenes().get(StageName.MATCHESB));
 				m.getGroupBmatches().updateGP();
 				m.getModel().getGroupB().resetMatches();
@@ -222,21 +221,22 @@ public class simulationsView extends View{
 				
 			}
 		});
-		backB.setPrefSize(200, 50);
-		
+		backB.setPrefSize(250, 50);
+		backB.setFont(new Font("Courier New",15));
 		Button addToA = new Button();
 		addToA.setText("Add a Match to A");
 		addToA.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("add to a ");
 				m.getAddToGroup().updateGrid(m.getModel().getGroupA(),"B");
 				stage.setScene(m.getScenes().get(StageName.ADDTO));
 				
 			}
 		});
-		addToA.setPrefSize(150, 50);
+		addToA.setPrefSize(200, 50);
+		addToA.setFont(new Font("Courier New",15));
+		
 		
 		Button addToB = new Button();
 		addToB.setText("Add a Match to B");
@@ -250,8 +250,8 @@ public class simulationsView extends View{
 				stage.setScene(m.getScenes().get(StageName.ADDTO));
 			}
 		});
-		addToB.setPrefSize(150, 50);
-		
+		addToB.setPrefSize(200, 50);
+		addToB.setFont(new Font("Courier New",15));
 		
 		Region emptyCenter = new Region();
 		HBox.setHgrow(emptyCenter, Priority.ALWAYS);
@@ -288,6 +288,8 @@ public class simulationsView extends View{
 		
 		A.setPrefSize(100, 50);
 		B.setPrefSize(100, 50);
+		A.setFont(new Font("Courier New",15));
+		B.setFont(new Font("Courier New",15));
 		A.setAlignment(Pos.CENTER);
 		B.setAlignment(Pos.CENTER);
 		TilePane tp = new TilePane(A,B);

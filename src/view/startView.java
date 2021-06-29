@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Group;
 import model.StageName;
@@ -29,6 +30,7 @@ public class startView extends View{
 		primaryStage.setTitle("Group Simulator");
 		Button btn = new Button();
 		btn.setText("Start from Scratch");
+		btn.setFont(new Font("Courier New",15));
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -40,6 +42,7 @@ public class startView extends View{
 		
 		Button stageFour = new Button();
 		stageFour.setText("To Stage 4 Week 3");
+		stageFour.setFont(new Font("Courier New",15));
 		stageFour.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -61,6 +64,7 @@ public class startView extends View{
 		
 		Button stageFive = new Button();
 		stageFive.setText("To Stage 5");
+		stageFive.setFont(new Font("Courier New",15));
 		stageFive.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

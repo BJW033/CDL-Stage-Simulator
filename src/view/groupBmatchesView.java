@@ -73,7 +73,6 @@ public class groupBmatchesView extends View{
 	}
 	private GridPane generateGP() {
 		GridPane gp = new GridPane();
-		m.getModel().getGroupB().printPool();
 		int count = 1;
 		
 			for(int r=0;r<14;r++) {

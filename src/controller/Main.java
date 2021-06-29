@@ -20,9 +20,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-
+/**
+ * The Main class is host to the main function of the application and controls all of the scenes of the application and 
+ * connects the scenes to the model of the application
+ * @author bwu
+ *
+ */
 public class Main  extends Application {
-	private static ArrayList<String> teams;
  	ArrayList<String> groupA=new ArrayList<String>();;
 	ArrayList<String> groupB=new ArrayList<String>();;
 	private static Map<StageName, Scene> scenes = new HashMap<>();
@@ -33,27 +37,16 @@ public class Main  extends Application {
 	private simulationsView sim;
 	private addToGroupView addToGroup;
 	private Model model;
-	
+	/**
+	 * The main function launches the application and provides the names of all teams in the league.
+	 * @param args default argument (not used)
+	 */
 	    public static void main(String[] args) {
-	    	
-	    	teams = new ArrayList<String>();
-	    	teams.add("Faze");
-	    	teams.add("Empire");
-	    	teams.add("Ultra");
-	    	teams.add("Guerrillas");
-	    	teams.add("Subliners");
-	    	teams.add("Thieves");
-	    	teams.add("Ravens");
-	    	teams.add("Rokkr");
-	    	teams.add("Legion");
-	    	teams.add("Surge");
-	    	teams.add("Mutineers");
-	    	teams.add("Optic");
-	    	
+
 	    	
 	        launch(args);
 	    }
-	    
+
 	    @Override
 	    public void start(Stage primaryStage) {
 	    	setModel(new Model());
@@ -74,45 +67,67 @@ public class Main  extends Application {
 	      
 	       
 	    }
-	    
+	    /**
+	     * Getter for the addToGroup Scene
+	     * @return addToGroup scene
+	     */
 	    public addToGroupView getAddToGroup() {
 			return addToGroup;
 		}
-
+/**
+ * Getter for the simulation Scene
+ * @return simulation scene
+ */
 		public simulationsView getSim() {
 			return sim;
 		}
-
+/**
+ * Getter for the groupBmatches Scene
+ * @return groupBmatchsView scene
+ */
 		public groupBmatchesView getGroupBmatches() {
 			return groupBmatches;
 		}
-
+/**
+ * Getter for the HashMap of Scenes
+ * @return HashMap of Scenes
+ */
 		public Map<StageName, Scene> getScenes(){
 	    	return scenes;
 	    }
 
-		public ArrayList<String> getTeams() {
-			return teams;
-		}
-
+/**
+ * Getter for an arraylist of team names from Group A
+ * @return ArrayList of Group A team names
+ */
 		public ArrayList<String> getGroupA() {
 			return groupA;
 		}
-
+/**
+ * Getter for an arraylist of team names from Group B
+ * @return ArrayList of Group B team names
+ */
 		public  ArrayList<String> getGroupB() {
 			return groupB;
 		}
-
-		
-
+/**
+ * Getter for the groupAmatches Scene
+ * @return groupAmatch Scene
+ */
 		public groupAmatchesView getGroupAmatches() {
 			return groupAmatches;
 		}
-
+/**
+ * Getter for the Model
+ * @return model
+ */
 		public Model getModel() {
 			return model;
 		}
-
+/**
+ * Setter for the Model
+ * @param model 
+ */
 		public void setModel(Model model) {
 			this.model = model;
 		}

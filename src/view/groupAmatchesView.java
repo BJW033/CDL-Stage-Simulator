@@ -432,6 +432,8 @@ public class groupAmatchesView extends View{
 				
 				if(updateMatches()) {
 					//m.getModel().getGroupA().printPlayedMatches();
+					System.out.println("To Group B matches");
+					stage.setScene(m.getScenes().get(StageName.MATCHESB));
 				}
 				else {
 					Alert errorAlert = new Alert(AlertType.ERROR);
@@ -440,8 +442,7 @@ public class groupAmatchesView extends View{
 					errorAlert.showAndWait();
 					System.out.println("error");
 				}
-				System.out.println("To Group B matches");
-				stage.setScene(m.getScenes().get(StageName.MATCHESB));
+				
 				
 			}
 		});

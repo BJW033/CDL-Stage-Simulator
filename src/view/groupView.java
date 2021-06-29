@@ -79,9 +79,9 @@ public class groupView extends View{
 	    for (int i = 0; i < 3; i++) {
 	    	for(int y = 0 ; y<4;y++) {
 	    	StackPane stack = new StackPane();
-	    	ImageView test= new ImageView(new Image(getClass().getResourceAsStream(m.getTeams().get(count)+".png")));
+	    	ImageView test= new ImageView(new Image(getClass().getResourceAsStream(m.getModel().getTeams().get(count)+".png")));
 	    	stack.getChildren().add(test);
-	    	stack.setUserData(m.getTeams().get(count));
+	    	stack.setUserData(m.getModel().getTeams().get(count));
 	    	stack.setAlignment(Pos.CENTER);
 	    	stack.setStyle("-fx-opacity: 0.5;");
 	    	

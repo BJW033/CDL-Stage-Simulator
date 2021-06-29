@@ -1,6 +1,6 @@
 package view;
 
-import java.util.ArrayList;
+
 
 import controller.Main;
 import javafx.event.ActionEvent;
@@ -30,12 +30,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.StageName;
-import model.team;
 
 public class groupAmatchesView extends View{
 	Main m;

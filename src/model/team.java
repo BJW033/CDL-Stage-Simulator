@@ -149,7 +149,7 @@ public class team implements Comparable<team>{
  */
 		public void updateMatches(String opp, int teamAmaps, int teamBmaps) {
 			for(Match i: matches) {
-				if(i.B.equals(opp)) {
+				if(i.getB().equals(opp)) {
 					i.updateMatch(teamAmaps, teamBmaps);
 				}
 			}
@@ -231,7 +231,7 @@ public class team implements Comparable<team>{
 	 */
 		public Match findMatch(String op) {
 			for(Match m: matches) {
-				if(op.equals(m.B)) {
+				if(op.equals(m.getB())) {
 					return m;
 				}
 			}

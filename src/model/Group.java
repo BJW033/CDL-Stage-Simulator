@@ -364,9 +364,9 @@ public Group(boolean group,int stage) {
 
 				
 				String teamA = A.pool.get(x).getName();
-				String teamB = A.pool.get(x).getMatches().get(y).B;
-				int mapA=A.pool.get(x).getMatches().get(y).mapA;
-				int mapB=A.pool.get(x).getMatches().get(y).mapB;
+				String teamB = A.pool.get(x).getMatches().get(y).getB();
+				int mapA=A.pool.get(x).getMatches().get(y).getMapA();
+				int mapB=A.pool.get(x).getMatches().get(y).getMapB();
 				
 //				System.out.println("Checking: "+teamA + " " + mapA+ "-" +
 //						mapB + " " +  teamB);
@@ -410,9 +410,9 @@ public Group(boolean group,int stage) {
 				//Copy.pool.get(x).printMatches();
 				for(int y =0; y<Copy.pool.get(x).getMatches().size();y++) {
 					//System.out.println(Copy.pool.get(x).getMatches().get(y).mapA + "-"+Copy.pool.get(x).getMatches().get(y).mapB);
-					if(Copy.pool.get(x).getMatches().get(y).mapA==0 && Copy.pool.get(x).getMatches().get(y).mapB==0) {
+					if(Copy.pool.get(x).getMatches().get(y).getMapA()==0 && Copy.pool.get(x).getMatches().get(y).getMapB()==0) {
 						//System.out.println("teams have not played");
-						String opp = Copy.pool.get(x).getMatches().get(y).B;
+						String opp = Copy.pool.get(x).getMatches().get(y).getB();
 						while((mapA!=3 && mapB!=3) && count<10) { 
 							double draw = Math.random();
 							//System.out.println(draw);
@@ -492,9 +492,9 @@ public Group(boolean group,int stage) {
 			//Copy.pool.get(x).printMatches();
 			for(int y =0; y<Copy.poolsim.get(x).getMatches().size();y++) {
 				//System.out.println(Copy.pool.get(x).getMatches().get(y).mapA + "-"+Copy.pool.get(x).getMatches().get(y).mapB);
-				if(Copy.poolsim.get(x).getMatches().get(y).mapA==0 && Copy.poolsim.get(x).getMatches().get(y).mapB==0) {
+				if(Copy.poolsim.get(x).getMatches().get(y).getMapA()==0 && Copy.poolsim.get(x).getMatches().get(y).getMapB()==0) {
 					//System.out.println("teams have not played");
-					String opp = Copy.poolsim.get(x).getMatches().get(y).B;
+					String opp = Copy.poolsim.get(x).getMatches().get(y).getB();
 					while((mapA!=3 && mapB!=3) && count<10) { 
 						double draw = Math.random();
 						//System.out.println(draw);
@@ -580,28 +580,28 @@ public Group(boolean group,int stage) {
 		for(team t: Copy.pool) {
 		//t.printMatches();
 			for(Match m: t.getMatches()) {
-				if(m.mapA==0 && m.mapB==0) {
+				if(m.getMapA()==0 && m.getMapB()==0) {
 					//System.out.println("simulating: " + m.A+" vs " + m.B );
 					for(int i=0;i<3;i++) {
 					//System.out.println("simulating: " + m.A+" vs " + m.B + " 3 - " +i);
-						simCopy.updateMatch(m.A, m.B, 3, i,false);
+						simCopy.updateMatch(m.getA(), m.getB(), 3, i,false);
 						simCopy.simulateMatches(simCopy,true);
 						for(int x = 0;x<3;x++) {
-							winT3 +=simCopy.getTeam(m.A).getPlacings().get(x);
+							winT3 +=simCopy.getTeam(m.getA()).getPlacings().get(x);
 						}
-						for(int y = 3;y<simCopy.getTeam(m.A).getPlacings().size();y++) {
-							winB3 +=simCopy.getTeam(m.A).getPlacings().get(y);
+						for(int y = 3;y<simCopy.getTeam(m.getA()).getPlacings().size();y++) {
+							winB3 +=simCopy.getTeam(m.getA()).getPlacings().get(y);
 						}
 						
 						simCopy = saveState(A);
 						//System.out.println("simulating: " + m.A+" vs " + m.B + " " + i + " - 3");
-						simCopy.updateMatch(m.A, m.B, i, 3,false);
+						simCopy.updateMatch(m.getA(), m.getB(), i, 3,false);
 						simCopy.simulateMatches(simCopy,true);
 						for(int x = 0;x<3;x++) {
-							loseT3 +=simCopy.getTeam(m.A).getPlacings().get(x);
+							loseT3 +=simCopy.getTeam(m.getA()).getPlacings().get(x);
 						}
-						for(int y = 3;y<simCopy.getTeam(m.A).getPlacings().size();y++) {
-							loseB3 +=simCopy.getTeam(m.A).getPlacings().get(y);
+						for(int y = 3;y<simCopy.getTeam(m.getA()).getPlacings().size();y++) {
+							loseB3 +=simCopy.getTeam(m.getA()).getPlacings().get(y);
 						}
 						
 						
@@ -619,7 +619,7 @@ public Group(boolean group,int stage) {
 				}
 				if((winT3/(winT3+winB3) - (loseT3/(loseT3+loseB3)) > diff)){
 					//System.out.println("new influenctial match " +m.B);
-					influence = m.B;
+					influence = m.getB();
 					diff= winT3/(winT3+winB3) - loseT3/(loseT3+loseB3);
 					perWin = winT3/(winT3+winB3);
 					perLose=loseT3/(loseT3+loseB3);
@@ -627,7 +627,7 @@ public Group(boolean group,int stage) {
 				}
 				else if((winT3/(winT3+winB3) - (loseT3/(loseT3+loseB3)) == diff)){
 					//System.out.println("tie influenctial match " +influence + " " +m.B);
-					influence = influence.concat(" " + m.B);
+					influence = influence.concat(" " + m.getB());
 				}
 				winT3=0;
 				winB3=0;
@@ -754,7 +754,7 @@ public Group(boolean group,int stage) {
 	public void printPlayedMatches() {
 		for(team t: pool) {
 			for(Match m: t.getMatches()) {
-				if(m.mapA ==3 || m.mapB==3) {
+				if(m.getMapA() ==3 || m.getMapB()==3) {
 					System.out.println(m);
 				}
 			}
@@ -947,7 +947,7 @@ public Group(boolean group,int stage) {
 			if(m.findMatch(p.get(i-1).getName())) {
 				//System.out.println(m);
 				//Haven't played each other
-				if(m.mapA==0&&m.mapB==0) {
+				if(m.getMapA()==0&&m.getMapB()==0) {
 					double winper1 = p.get(i-1).getmapWinper();
 					double winper2 = p.get(i).getmapWinper();
 					//System.out.println(winper1 + " " + winper2);
@@ -959,7 +959,7 @@ public Group(boolean group,int stage) {
 					}
 				}
 				//Played each other
-				else if(m.mapA==3){
+				else if(m.getMapA()==3){
 					//System.out.println("played each other ");
 					Collections.swap(p, i, i-1);
 				}
@@ -1010,12 +1010,12 @@ public Group(boolean group,int stage) {
 			if(p.get(i-3).getMatches().get(x).findMatch(teamB)||
 					p.get(i-3).getMatches().get(x).findMatch(teamC)) {
 
-				mapsWA += p.get(i-3).getMatches().get(x).mapA; 
-				mapsLA += p.get(i-3).getMatches().get(x).mapB;
-				if(p.get(i-3).getMatches().get(x).mapA==3) { 
+				mapsWA += p.get(i-3).getMatches().get(x).getMapA(); 
+				mapsLA += p.get(i-3).getMatches().get(x).getMapB();
+				if(p.get(i-3).getMatches().get(x).getMapA()==3) { 
 					winsA++; 
 				} 
-				else if(p.get(i-3).getMatches().get(x).mapB==3){ 
+				else if(p.get(i-3).getMatches().get(x).getMapB()==3){ 
 					losesA++;
 				}
 
@@ -1026,12 +1026,12 @@ public Group(boolean group,int stage) {
 			if(p.get(i-2).getMatches().get(x).findMatch(teamA)||
 					p.get(i-2).getMatches().get(x).findMatch(teamC)) {
 
-				mapsWB += p.get(i-2).getMatches().get(x).mapA; 
-				mapsLB += p.get(i-2).getMatches().get(x).mapB;
-				if(p.get(i-2).getMatches().get(x).mapA==3) { 
+				mapsWB += p.get(i-2).getMatches().get(x).getMapA(); 
+				mapsLB += p.get(i-2).getMatches().get(x).getMapB();
+				if(p.get(i-2).getMatches().get(x).getMapA()==3) { 
 					winsB++; 
 				} 
-				else if(p.get(i-2).getMatches().get(x).mapB==3){ 
+				else if(p.get(i-2).getMatches().get(x).getMapB()==3){ 
 					losesB++;
 				}
 
@@ -1042,12 +1042,12 @@ public Group(boolean group,int stage) {
 			if(p.get(i-1).getMatches().get(x).findMatch(teamB)||
 					p.get(i-1).getMatches().get(x).findMatch(teamA)) {
 
-				mapsWC += p.get(i-1).getMatches().get(x).mapA; 
-				mapsLC += p.get(i-1).getMatches().get(x).mapB;
-				if(p.get(i-1).getMatches().get(x).mapA==3) { 
+				mapsWC += p.get(i-1).getMatches().get(x).getMapA(); 
+				mapsLC += p.get(i-1).getMatches().get(x).getMapB();
+				if(p.get(i-1).getMatches().get(x).getMapA()==3) { 
 					winsC++; 
 				} 
-				else if(p.get(i-1).getMatches().get(x).mapB==3){ 
+				else if(p.get(i-1).getMatches().get(x).getMapB()==3){ 
 					losesC++;
 				}
 
@@ -1377,12 +1377,12 @@ public Group(boolean group,int stage) {
 					p.get(i-4).getMatches().get(x).findMatch(teamC)||
 					p.get(i-4).getMatches().get(x).findMatch(teamD)) {
 
-				mapsWA += p.get(i-4).getMatches().get(x).mapA; 
-				mapsLA += p.get(i-4).getMatches().get(x).mapB;
-				if(p.get(i-4).getMatches().get(x).mapA==3) { 
+				mapsWA += p.get(i-4).getMatches().get(x).getMapA(); 
+				mapsLA += p.get(i-4).getMatches().get(x).getMapB();
+				if(p.get(i-4).getMatches().get(x).getMapA()==3) { 
 					winsA++; 
 				} 
-				else if(p.get(i-4).getMatches().get(x).mapB==3){ 
+				else if(p.get(i-4).getMatches().get(x).getMapB()==3){ 
 					losesA++;
 				}
 
@@ -1395,12 +1395,12 @@ public Group(boolean group,int stage) {
 					p.get(i-3).getMatches().get(x).findMatch(teamC)||
 					p.get(i-3).getMatches().get(x).findMatch(teamD)) {
 
-				mapsWB += p.get(i-3).getMatches().get(x).mapA; 
-				mapsLB += p.get(i-3).getMatches().get(x).mapB;
-				if(p.get(i-3).getMatches().get(x).mapA==3) { 
+				mapsWB += p.get(i-3).getMatches().get(x).getMapA(); 
+				mapsLB += p.get(i-3).getMatches().get(x).getMapB();
+				if(p.get(i-3).getMatches().get(x).getMapA()==3) { 
 					winsB++; 
 				} 
-				else if(p.get(i-3).getMatches().get(x).mapB==3){ 
+				else if(p.get(i-3).getMatches().get(x).getMapB()==3){ 
 					losesB++;
 				}
 
@@ -1412,12 +1412,12 @@ public Group(boolean group,int stage) {
 					p.get(i-2).getMatches().get(x).findMatch(teamB)||
 					p.get(i-2).getMatches().get(x).findMatch(teamD)) {
 
-				mapsWC += p.get(i-2).getMatches().get(x).mapA; 
-				mapsLC += p.get(i-2).getMatches().get(x).mapB;
-				if(p.get(i-2).getMatches().get(x).mapA==3) { 
+				mapsWC += p.get(i-2).getMatches().get(x).getMapA(); 
+				mapsLC += p.get(i-2).getMatches().get(x).getMapB();
+				if(p.get(i-2).getMatches().get(x).getMapA()==3) { 
 					winsC++; 
 				} 
-				else if(p.get(i-2).getMatches().get(x).mapB==3){ 
+				else if(p.get(i-2).getMatches().get(x).getMapB()==3){ 
 					losesC++;
 				}
 
@@ -1429,12 +1429,12 @@ public Group(boolean group,int stage) {
 					p.get(i-1).getMatches().get(x).findMatch(teamA)||
 					p.get(i-1).getMatches().get(x).findMatch(teamC)) {
 
-				mapsWD += p.get(i-1).getMatches().get(x).mapA; 
-				mapsLD += p.get(i-1).getMatches().get(x).mapB;
-				if(p.get(i-1).getMatches().get(x).mapA==3) { 
+				mapsWD += p.get(i-1).getMatches().get(x).getMapA(); 
+				mapsLD += p.get(i-1).getMatches().get(x).getMapB();
+				if(p.get(i-1).getMatches().get(x).getMapA()==3) { 
 					winsD++; 
 				} 
-				else if(p.get(i-1).getMatches().get(x).mapB==3){ 
+				else if(p.get(i-1).getMatches().get(x).getMapB()==3){ 
 					losesD++;
 				}
 

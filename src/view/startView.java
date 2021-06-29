@@ -28,9 +28,10 @@ public class startView extends View{
 	
 	private Main m;
 	/**
-	 * Creates the startView window and its functionality. Creates each of the three buttons. One button starts from the group selection,
-	 * one button starts from the simulations run after Stage Four Week Three, and the final button automatically starts with Stage Five 
-	 * pools and goes to the match selection screen. All buttons are styled in this method as well. 
+	 * Creates the startView window and its functionality. Creates each of the three buttons. One button starts from the group selection 
+	 * (groupView), one button starts from the simulations run after Stage Four Week Three (simulationsView), 
+	 * and the final button automatically starts with Stage Five pools and goes to the match selection screen(groupAmatchesView). 
+	 * All buttons are styled in this constructor as well including the background image. 
 	 * @param primaryStage Stage used as active stage for UI
 	 * @param main Main used to communicate with other views from button functionality
 	 */

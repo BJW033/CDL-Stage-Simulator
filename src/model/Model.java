@@ -34,52 +34,31 @@ public class Model {
     	teams.add("Optic");
     	
 	}
-/**
- * Getter for Group A
- * @return Group A
- */
+
 	public Group getGroupA() {
 		return GroupA;
 	}
-/**
- * Setter for Group A
- * @param groupA a group object to represent Group A
- */
+
 	public void setGroupA(Group groupA) {
 		GroupA = groupA;
 	}
-	/**
-	 * Getter for Group B
-	 * @return Group B
-	 */
+
 	public Group getGroupB() {
 		return GroupB;
 	}
-/**
- * Setter for Group B
- * @param groupB a group object to represent Group B
- */
+
 	public void setGroupB(Group groupB) {
 		GroupB = groupB;
 	}
-	/**
-	 * Getter for the number of simulations 
-	 * @return number of simulations
-	 */
+
 	public int getSimulations() {
 		return simulations;
 	}
-/**
- * Setter for the number of simulations
- * @param simulations number of simulations to be used
- */
+
 	public void setSimulations(int simulations) {
 		this.simulations = simulations;
 	}
-	/**
-	 * Getter for the ArrayList of team names
-	 * @return ArrayList of team names
-	 */
+
 	public ArrayList<String> getTeams(){
 		return teams;
 	}

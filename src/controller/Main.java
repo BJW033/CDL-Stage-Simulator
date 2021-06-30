@@ -52,7 +52,7 @@ public class Main  extends Application {
 	    	setModel(new Model());
 	        startView = new startView(primaryStage,this);
 	        groupView = new groupView(primaryStage,this);
-	        groupAmatches = new groupAmatchesView(primaryStage,this,groupView);
+	        groupAmatches = new groupAmatchesView(primaryStage,this);
 	        groupBmatches = new groupBmatchesView(primaryStage,this);
 	        sim = new simulationsView(primaryStage,this);
 	        addToGroup = new addToGroupView(primaryStage,this);
@@ -67,67 +67,43 @@ public class Main  extends Application {
 	      
 	       
 	    }
-	    /**
-	     * Getter for the addToGroup Scene
-	     * @return addToGroup scene
-	     */
+	    public groupView getGroupView() {
+			return groupView;
+		}
+
+
 	    public addToGroupView getAddToGroup() {
 			return addToGroup;
 		}
-/**
- * Getter for the simulation Scene
- * @return simulation scene
- */
+
 		public simulationsView getSim() {
 			return sim;
 		}
-/**
- * Getter for the groupBmatches Scene
- * @return groupBmatchsView scene
- */
+
 		public groupBmatchesView getGroupBmatches() {
 			return groupBmatches;
 		}
-/**
- * Getter for the HashMap of Scenes
- * @return HashMap of Scenes
- */
+
 		public Map<StageName, Scene> getScenes(){
 	    	return scenes;
 	    }
 
-/**
- * Getter for an arraylist of team names from Group A
- * @return ArrayList of Group A team names
- */
 		public ArrayList<String> getGroupA() {
 			return groupA;
 		}
-/**
- * Getter for an arraylist of team names from Group B
- * @return ArrayList of Group B team names
- */
+
 		public  ArrayList<String> getGroupB() {
 			return groupB;
 		}
-/**
- * Getter for the groupAmatches Scene
- * @return groupAmatch Scene
- */
+
 		public groupAmatchesView getGroupAmatches() {
 			return groupAmatches;
 		}
-/**
- * Getter for the Model
- * @return model
- */
+
 		public Model getModel() {
 			return model;
 		}
-/**
- * Setter for the Model
- * @param model 
- */
+
 		public void setModel(Model model) {
 			this.model = model;
 		}

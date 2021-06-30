@@ -60,8 +60,8 @@ public class groupView extends View{
 		borderPane.setTop(t);
 
 		BorderPane.setAlignment(t, Pos.CENTER);
-
-		gp=createGP();
+		gp = new GridPane();
+		updateGP();
 
 		borderPane.setCenter(gp);
 
@@ -84,12 +84,11 @@ public class groupView extends View{
 	 * are set to lower opacities until selected by user, then the opacities are reset. Once six teams are selected, the 
 	 * scene is set to groupAmatchesView. The grid is iterated through and selected teams are placed in Group A 
 	 * and the rest populate Group B
-	 * @return GridPane grid of images
 	 */
-	public GridPane createGP() {
-		GridPane tile = new GridPane();
-		tile.setHgap(20);
-		tile.setVgap(20);
+	public void updateGP() {
+		gp.getChildren().clear();
+		gp.setHgap(20);
+		gp.setVgap(20);
 		int count = 0;
 
 		for (int i = 0; i < 3; i++) {
@@ -124,8 +123,8 @@ public class groupView extends View{
 						//System.out.println(selected);
 						if(selected==6) {
 							for(int a = 0 ; a<12;a++) {
-								if(tile.getChildren().get(a).getStyle().equals("-fx-opacity: 0.5;")) {
-									m.getGroupB().add((String)tile.getChildren().get(a).getUserData());
+								if(gp.getChildren().get(a).getStyle().equals("-fx-opacity: 0.5;")) {
+									m.getGroupB().add((String)gp.getChildren().get(a).getUserData());
 								}
 							}
 
@@ -146,13 +145,13 @@ public class groupView extends View{
 				});
 				test.setFitWidth(200);
 				test.setFitHeight(200);
-				tile.getChildren().add(stack);
+				gp.getChildren().add(stack);
 				GridPane.setConstraints(stack, y, i);
 				count++;
 			}
 		}
-		tile.setAlignment(Pos.CENTER);
-		return tile;
+		gp.setAlignment(Pos.CENTER);
+	
 	}
 
 

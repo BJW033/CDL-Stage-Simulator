@@ -1,7 +1,5 @@
 package view;
 
-
-
 import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,22 +33,37 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.StageName;
 
+/**
+ * groupAmatchesView provides the user the ability to add match results to the simulation. 
+ * @author bwu
+ *
+ */
 public class groupAmatchesView extends View{
-	Main m;
-	groupView teamgrid;
-	GridPane matches;
-	BorderPane layout;
-	Label top;
-	public groupAmatchesView(Stage primaryStage, Main main, groupView gv) {
+	private Main m;
+	private GridPane matches;
+	private BorderPane layout;
+	private Label top;
+	/**
+	 * Builds the UI of the groupAmatchesView. This scene uses a grid of team calling cards to represent matches and gives the user the ability 
+	 * to select match counts with "+" and "-." The scene also includes a navigation toolbar that can send the user back to groupView
+	 * or forward to groupBmatchesView.
+	 * @param primaryStage Stage used for view
+	 * @param main Main used to get Model information of the teams in the pool
+	 */
+	public groupAmatchesView(Stage primaryStage, Main main) {
 		this.stage = primaryStage;
 		m=main;
-		teamgrid=gv;
 		layout = new BorderPane();
 		ToolBar toolbar = createTB();
 
 		layout.setBottom(toolbar);
 		toolbar.setStyle("-fx-background-color: transparent");
+		
 		matches = generateGP();
+		matches.setHgap(7);
+		matches.setVgap(10);
+		matches.setPadding(new Insets(20));
+		matches.setAlignment(Pos.TOP_CENTER);
 		
 		layout.setCenter(matches);
 		
@@ -74,6 +87,10 @@ public class groupAmatchesView extends View{
 		
 		
 	}
+	/**
+	 * Creates the basic grid for match updates by filling in the names of the pool. This is always updated. 
+	 * @return GridPane basic grid for updates
+	 */
 	private GridPane generateGP() {
 		GridPane gp = new GridPane();
 		//m.getModel().getGroupA().printPool();
@@ -105,25 +122,18 @@ public class groupAmatchesView extends View{
 		
 		return gp;
 	}
-	
+	/**
+	 * Clears the contents of the grid first. Builds the grid by row filling in each column in the pattern: SPACE, Calling Card, 
+	 * "-", MapWins, "+", SPACE. This pattern is repeated five times per row. There are two space rows between the three sets of matches. 
+	 * The "-" labels decrease the map count if above zero. "+" labels increase map count if below three. If the other team already had three 
+	 * map wins, then the label of the other team becomes two while the team with the "+" becomes three. The map counts are saved in the 
+	 * user data of each label. 
+	 */
 	public void updateGP() {
 		
-		
-		GridPane gp = matches;
-		gp.getChildren().retainAll(gp.getChildren().get(0));
-		gp.setHgap(7);
-		gp.setVgap(10);
 		matches.getChildren().clear();
-		m.getModel().getGroupA().printPool();
-		//gp.setGridLinesVisible(true);
-		gp.setPadding(new Insets(20));
-		gp.setAlignment(Pos.TOP_CENTER);
 		int count = 1;
 		String s = "";
-		
-		
-		
-		
 		for(int r = 0; r<9;r++) {
 			for(int c = 0; c<25;c++) {
 				Label t = new Label();
@@ -137,7 +147,7 @@ public class groupAmatchesView extends View{
 					t.setText(s);
 					t.setUserData(s);
 					t.setStyle("-fx-background-color: transparent");
-					gp.add(t, c, r);
+					matches.add(t, c, r);
 				}
 				else if(r==0) {
 					if(c==1 || c==6 || c==11||c==16||c==21) {
@@ -147,7 +157,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 					}
 				}
 				else if(r==1) {
@@ -158,7 +168,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						count++;
 					}
 					if(c==21) {
@@ -173,7 +183,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						
 						
 						
@@ -185,7 +195,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						
 						
 					}
@@ -199,7 +209,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						count++;
 					}
 					if(c==21) {
@@ -210,7 +220,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						count++;
 					}
 				}
@@ -223,7 +233,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						
 						
 						
@@ -231,11 +241,11 @@ public class groupAmatchesView extends View{
 					if(c==11||c==16) {
 						s=m.getModel().getGroupA().getPool().get(3).getName();
 						ImageView callingCard = new ImageView(
-								new Image(getClass().getResourceAsStream(m.getModel().getGroupA().getPool().get(3).getName()+ "CC.png")));
+								new Image(getClass().getResourceAsStream(s+ "CC.png")));
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						
 						
 						
@@ -247,7 +257,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 					}
 				}
 				else if(r==7) {
@@ -259,7 +269,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						count++;
 					}
 					if(c==11||c==16) {
@@ -272,7 +282,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 						count++;
 					}
 					if(c==21) {
@@ -283,7 +293,7 @@ public class groupAmatchesView extends View{
 						callingCard.setFitHeight(25);
 						callingCard.setFitWidth(100);
 						callingCard.setUserData(s);
-						gp.add(callingCard, c, r);
+						matches.add(callingCard, c, r);
 					}
 				}
 				if(r%3!=2) {
@@ -296,21 +306,21 @@ public class groupAmatchesView extends View{
 						int column = c;
 						int row = r;
 						
-						gp.add(t, c, r);
+						matches.add(t, c, r);
 						
 						t.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 							@Override
 							public void handle(MouseEvent event) {
 								int i =0;
-								for(Node l: gp.getChildren()) {
+								for(Node l: matches.getChildren()) {
 									if(l.getUserData().equals("(" + row + "," + column + ") -")){
 										break;
 									}
 									i++;
 								}
-								Label mc = (Label) (((Labeled) gp.getChildren().get(i+1)));
-								int mapcur = Integer.parseInt((((Labeled) gp.getChildren().get(i+1)).getText()));
+								Label mc = (Label) (((Labeled) matches.getChildren().get(i+1)));
+								int mapcur = Integer.parseInt((((Labeled) matches.getChildren().get(i+1)).getText()));
 								//System.out.println(row + ", " + column);
 								
 								if(mapcur!=0) {
@@ -328,24 +338,24 @@ public class groupAmatchesView extends View{
 					if(c==3 || c==8 || c==13 ||c==18||c==23) {
 						s = 0+"";
 						if(r%3==1) {
-							String teamA = (String) gp.getChildren().get(gp.getChildren().size()-27).getUserData();
-							String teamB = (String) gp.getChildren().get(gp.getChildren().size()-2).getUserData();
+							String teamA = (String) matches.getChildren().get(matches.getChildren().size()-27).getUserData();
+							String teamB = (String) matches.getChildren().get(matches.getChildren().size()-2).getUserData();
 							//System.out.println(teamA + " " + teamB);
 							String teamAMap = m.getModel().getGroupA().getTeam(teamA).findMatch(teamB).getMapA()+"";
-							((Label) gp.getChildren().get(gp.getChildren().size()-25)).setText(teamAMap);
-							((Label) gp.getChildren().get(gp.getChildren().size()-25)).setUserData(teamAMap);
+							((Label) matches.getChildren().get(matches.getChildren().size()-25)).setText(teamAMap);
+							((Label) matches.getChildren().get(matches.getChildren().size()-25)).setUserData(teamAMap);
 							s = m.getModel().getGroupA().getTeam(teamA).findMatch(teamB).getMapB()+"";
 						}
 						
 						t.setText(s);
 						t.setUserData(s);
-						gp.add(t, c, r);
+						matches.add(t, c, r);
 					}
 					if(c==4 || c==9 || c==14 ||c==19||c==24) {
 						s="+";
 						t.setText(s);
 						t.setUserData("(" + r + "," + c + ") +");
-						gp.add(t, c, r);
+						matches.add(t, c, r);
 						int column = c;
 						int row = r;
 						t.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -353,14 +363,14 @@ public class groupAmatchesView extends View{
 							@Override
 							public void handle(MouseEvent event) {
 								int i =0;
-								for(Node l: gp.getChildren()) {
+								for(Node l: matches.getChildren()) {
 									if(l.getUserData().equals("(" + row + "," + column + ") +")){
 										break;
 									}
 									i++;
 								}
-								Label mc = (Label) (((Labeled) gp.getChildren().get(i-1)));
-								int mapcur = Integer.parseInt((((Labeled) gp.getChildren().get(i-1)).getText()));
+								Label mc = (Label) (((Labeled) matches.getChildren().get(i-1)));
+								int mapcur = Integer.parseInt((((Labeled) matches.getChildren().get(i-1)).getText()));
 								//System.out.println(row + ", " + column);
 								Label mc2 = findOppenent(row,column,i);
 								int mapcur2 = Integer.parseInt((String) mc2.getUserData());
@@ -385,25 +395,35 @@ public class groupAmatchesView extends View{
 						t.setText(s);
 						t.setUserData(s);
 						t.setStyle("-fx-background-color: transparent");
-						gp.add(t, c, r);
+						matches.add(t, c, r);
 					}
 					
 				}
 			}
 		}
 		
-//		while (index<gp.getChildren().size()) {
-//			System.out.println(index + ": " + gp.getChildren().get(index).getUserData());
+//		while (index<matches.getChildren().size()) {
+//			System.out.println(index + ": " + matches.getChildren().get(index).getUserData());
 //			index++;
 //		}
 		for(int r=2;r<6;r+=3) {
 			Label l = new Label();
 			l.setPrefHeight(40);
-			gp.add(l, 0, r);
+			matches.add(l, 0, r);
 		}
 	
 	
 	}
+	
+	/**
+	 * Creates the navigation bar. The back button sends the user back to the group selection page and resets the 
+	 * opacity of all logos back to 0.5. The "Group B" button takes the user to groupBmatchesView which is identical to 
+	 * the groupAmatchesView but with Group B. The "Group B" button also iterates through the matches of the grid and checks to 
+	 * see if an updated match has a winner or if the map count is zero-zero. If a match does not have a winner but does have a map
+	 * count, an error box appears alerting the user a match is not complete and keeps the scene the same until the problem 
+	 * is remedied by the user. 
+	 * @return ToolBar navigation bar. 
+	 */
 	public ToolBar createTB() {
 		Button back = new Button();
 		back.setText("Back to Group Selection");
@@ -416,7 +436,8 @@ public class groupAmatchesView extends View{
 				m.getGroupA().clear();
 				m.getGroupB().clear();
 				for(int i = 0; i<12;i++) {
-					teamgrid.getGp().getChildren().get(i).setStyle("-fx-opacity: 0.5;");
+					m.getGroupView().getGp().getChildren().get(i).setStyle("-fx-opacity: 0.5;");
+					
 				}
 				
 			}
@@ -495,13 +516,10 @@ public class groupAmatchesView extends View{
 				else {
 					return false;
 				}
-			//	System.out.println(matches.getChildren().get((mult*51) + i-2).getUserData() + " " + matches.getChildren().get((mult*51) + i).getUserData() + " - " + 
-	//		matches.getChildren().get((mult*51) + i+25).getUserData() + " " + matches.getChildren().get((mult*51) + i+23).getUserData());
 			}
 		}
 		
 		
-		//m.getModel().getGroupA().updateMatch(teamA, teamB, mapAw, mapBw, recent);
 		
 		return true;
 	}

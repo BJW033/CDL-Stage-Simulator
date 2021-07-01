@@ -2,7 +2,11 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+/**
+ * The Group Class contains six teams 
+ * @author bwu
+ *
+ */
 public class Group{
 
 	private team TeamA;
@@ -15,7 +19,59 @@ public class Group{
 	private ArrayList<team> pool = new ArrayList<team>();
 	private ArrayList<team> poolsim = new ArrayList<team>();
 	private final int simulations=100000;
-	
+
+	/**
+	 * Default constructor, creates six default teams in a the group
+	 */
+	public Group() {
+
+		String A = "Faze";
+		String B = "Optic";
+		String C = "Thieves";
+		String D = "Rokkr";
+		String E = "Legion";
+		String F = "Surge";
+
+
+		TeamA=new team(A,B,C,D,E,F);
+		TeamB=new team(B,A,C,D,E,F);
+		TeamC=new team(C,B,A,D,E,F);
+		TeamD=new team(D,B,C,A,E,F);
+		TeamE=new team(E,B,C,D,A,F);
+		TeamF=new team(F,B,C,D,E,A);
+
+		pool.add(TeamA);
+		pool.add(TeamB);
+		pool.add(TeamC);
+		pool.add(TeamD);
+		pool.add(TeamE);
+		pool.add(TeamF);
+
+		poolsim.add(TeamA);
+		poolsim.add(TeamB);
+		poolsim.add(TeamC);
+		poolsim.add(TeamD);
+		poolsim.add(TeamE);
+		poolsim.add(TeamF);
+
+
+		for(team t: pool) {
+			if(t.getName().length()>longName) {
+				longName=t.getName().length();
+			}
+		}
+
+
+	}
+	/**
+	 * Creates a group with teams with the names given by Strings A-F
+	 * @param A String team name A
+	 * @param B String team name B
+	 * @param C String team name C
+	 * @param D String team name D
+	 * @param E String team name E
+	 * @param F String team name F
+	 */
 	public Group(String A, String B,String C,String D,String E, String F) {
 		TeamA=new team(A,B,C,D,E,F);
 		TeamB=new team(B,A,C,D,E,F);
@@ -30,22 +86,26 @@ public class Group{
 		pool.add(TeamD);
 		pool.add(TeamE);
 		pool.add(TeamF);
-		
+
 		poolsim.add(TeamA);
 		poolsim.add(TeamB);
 		poolsim.add(TeamC);
 		poolsim.add(TeamD);
 		poolsim.add(TeamE);
 		poolsim.add(TeamF);
-		
 
-		
+
+
 		for(team t: pool) {
 			if(t.getName().length()>longName) {
 				longName=t.getName().length();
 			}
 		}
 	}
+	/**
+	 * Creates a group consisting of the names from an ArrayList of Strings that has a size six. 
+	 * @param g ArrayList<String> of size six consisting of team names. 
+	 */
 	public Group(ArrayList<String> g) {
 		TeamA=new team(g.get(0),g.get(1),g.get(2),g.get(3),g.get(4),g.get(5));
 		TeamB=new team(g.get(1),g.get(0),g.get(2),g.get(3),g.get(4),g.get(5));
@@ -53,46 +113,7 @@ public class Group{
 		TeamD=new team(g.get(3),g.get(1),g.get(2),g.get(0),g.get(4),g.get(5));
 		TeamE=new team(g.get(4),g.get(1),g.get(2),g.get(3),g.get(0),g.get(5));
 		TeamF=new team(g.get(5),g.get(1),g.get(2),g.get(3),g.get(4),g.get(0));
-		
-		
-		pool.add(TeamA);
-		pool.add(TeamB);
-		pool.add(TeamC);
-		pool.add(TeamD);
-		pool.add(TeamE);
-		pool.add(TeamF);
-		
-		poolsim.add(TeamA);
-		poolsim.add(TeamB);
-		poolsim.add(TeamC);
-		poolsim.add(TeamD);
-		poolsim.add(TeamE);
-		poolsim.add(TeamF);
 
-		
-		for(team t: pool) {
-			if(t.getName().length()>longName) {
-				longName=t.getName().length();
-			}
-		}
-	}
-	
-	public Group() {
-		
-		String A = "Faze";
-		String B = "Optic";
-		String C = "Thieves";
-		String D = "Rokkr";
-		String E = "Legion";
-		String F = "Surge";
-		
-		
-		TeamA=new team(A,B,C,D,E,F);
-		TeamB=new team(B,A,C,D,E,F);
-		TeamC=new team(C,B,A,D,E,F);
-		TeamD=new team(D,B,C,A,E,F);
-		TeamE=new team(E,B,C,D,A,F);
-		TeamF=new team(F,B,C,D,E,A);
 
 		pool.add(TeamA);
 		pool.add(TeamB);
@@ -100,7 +121,7 @@ public class Group{
 		pool.add(TeamD);
 		pool.add(TeamE);
 		pool.add(TeamF);
-		
+
 		poolsim.add(TeamA);
 		poolsim.add(TeamB);
 		poolsim.add(TeamC);
@@ -108,24 +129,30 @@ public class Group{
 		poolsim.add(TeamE);
 		poolsim.add(TeamF);
 
-		
+
 		for(team t: pool) {
 			if(t.getName().length()>longName) {
 				longName=t.getName().length();
 			}
 		}
-		
-		
 	}
-public Group(boolean group,int stage) {
-		
+
+	/**
+	 * Constructs the group determined by stage and group given by user. Uses stage to determine the stage being used for both the names
+	 * and updates matches as of entering Stage Four Week Three and uses the boolean group in order to choose what team names are going 
+	 * to be used. 
+	 * @param group boolean True if Group 
+	 * @param stage
+	 */
+	public Group(boolean group,int stage) {
+
 		String A = "Faze";
 		String B = "Optic";
 		String C = "Thieves";
 		String D = "Subliners";
 		String E = "Legion";
 		String F = "Ravens";
-		
+
 		if(stage == 4) {
 			A = "Faze";
 			B = "Optic";
@@ -133,17 +160,17 @@ public Group(boolean group,int stage) {
 			D = "Rokkr";
 			E = "Legion";
 			F = "Surge";
-				if(group) {
-					A = "Empire";
-					B = "Ultra";
-					C = "Mutineers";
-					D = "Subliners";
-					E = "Ravens";
-					F = "Guerrillas";
-				}
-				
+			if(group) {
+				A = "Empire";
+				B = "Ultra";
+				C = "Mutineers";
+				D = "Subliners";
+				E = "Ravens";
+				F = "Guerrillas";
+			}
+
 		}
-		
+
 		else {
 			if(group) {
 				A="Empire";
@@ -154,9 +181,7 @@ public Group(boolean group,int stage) {
 				F="Surge";
 			}
 		}
-		
-		
-		
+
 		TeamA=new team(A,B,C,D,E,F);
 		TeamB=new team(B,A,C,D,E,F);
 		TeamC=new team(C,B,A,D,E,F);
@@ -170,7 +195,7 @@ public Group(boolean group,int stage) {
 		pool.add(TeamD);
 		pool.add(TeamE);
 		pool.add(TeamF);
-		
+
 		poolsim.add(TeamA);
 		poolsim.add(TeamB);
 		poolsim.add(TeamC);
@@ -178,7 +203,7 @@ public Group(boolean group,int stage) {
 		poolsim.add(TeamE);
 		poolsim.add(TeamF);
 
-		
+
 		for(team t: pool) {
 			if(t.getName().length()>longName) {
 				longName=t.getName().length();
@@ -186,24 +211,24 @@ public Group(boolean group,int stage) {
 		}
 		if(group && stage == 4) {
 			updateMatch("Ultra", "Mutineers", 2, 3,false);
-			  
-			  updateMatch("Ultra", "Ravens", 3, 0,false);
-			  
-			  updateMatch("Ultra", "Empire", 3, 0,false);
-			  
-			  updateMatch("Subliners", "Mutineers", 3, 2,false);
-			  
-			  updateMatch("Subliners", "Guerrillas", 3, 1,false);
-			  
-			  
-			  updateMatch("Mutineers", "Ravens", 3, 0,false);
-			  updateMatch("Mutineers", "Guerrillas", 3, 1,false);
-			  
-			  updateMatch("Ravens", "Empire", 2, 3,false);
-			  
-			  updateMatch("Guerrillas", "Empire", 0, 3,false);
-			  
-			  updateMatch("Subliners", "Empire", 3, 2,false);
+
+			updateMatch("Ultra", "Ravens", 3, 0,false);
+
+			updateMatch("Ultra", "Empire", 3, 0,false);
+
+			updateMatch("Subliners", "Mutineers", 3, 2,false);
+
+			updateMatch("Subliners", "Guerrillas", 3, 1,false);
+
+
+			updateMatch("Mutineers", "Ravens", 3, 0,false);
+			updateMatch("Mutineers", "Guerrillas", 3, 1,false);
+
+			updateMatch("Ravens", "Empire", 2, 3,false);
+
+			updateMatch("Guerrillas", "Empire", 0, 3,false);
+
+			updateMatch("Subliners", "Empire", 3, 2,false);
 		}
 		else if (stage == 4){
 			updateMatch("Optic", "Faze", 0, 3,false);
@@ -223,22 +248,18 @@ public Group(boolean group,int stage) {
 
 
 			updateMatch("Faze","Thieves", 3, 0,false);
-			//updateMatch("Optic", "Surge", 2, 3,false);
-			//updateMatch("Thieves", "Rokkr", 2, 3,true); 
-			//updateMatch("Faze", "Rokkr", 3, 2,false);
-			//updateMatch("Optic", "Thieves", 2, 3,false);
 		}
-		//printStandings(false, pool);
+		
 
-}
-	
-	
+	}
+
+
 
 
 	public ArrayList<team> getPool() {
 		return pool;
 	}
-	
+
 	public ArrayList<team> getPoolSim() {
 		return poolsim;
 	}
@@ -252,7 +273,7 @@ public Group(boolean group,int stage) {
 
 	}
 	public void updateMatch(String teamA, String teamB, int mapAw, int mapBw) {
-		
+
 		getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
 		getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
 		//System.out.println("Match Updated: " + teamA +" vs " + teamB + " " + mapAw + " - " + mapBw);
@@ -285,39 +306,39 @@ public Group(boolean group,int stage) {
 				}
 				if(delta>0) {
 					System.out.printf("+%.3f%% change. Top 3 chances now: %.3f%%%n",delta,after.get(i)/simulations*100 );
-					
+
 				}
 				else {
 					System.out.printf("%.3f%% change. Top 3 chances now: %.3f%%%n",delta,after.get(i)/simulations*100 );
 				}
-				
+
 			}
 			//getTeam(teamA).removeMatch(teamB);
 			//getTeam(teamB).removeMatch(teamA);
 			System.out.println();
-			
+
 		}
 	}
-	
+
 	public void matchImpact(String teamA, String teamB, int mapAw, int mapBw) {
-		
-			//printStandings(true,pool);
-			getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
-			getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
-//			Collections.sort(poolsim);
-//			tieCheck(poolsim);
-			//printStandings(true,poolsim);
-			//printStandings(true,poolsim);
-			simulateMatchesAddingMatch(this);
-			getTeam(teamA).removeMatch(teamB);
-			getTeam(teamB).removeMatch(teamA);
-			//printStandings(true,poolsim);
-			
-		
-		
+
+		//printStandings(true,pool);
+		getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
+		getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
+		//			Collections.sort(poolsim);
+		//			tieCheck(poolsim);
+		//printStandings(true,poolsim);
+		//printStandings(true,poolsim);
+		simulateMatchesAddingMatch(this);
+		getTeam(teamA).removeMatch(teamB);
+		getTeam(teamB).removeMatch(teamA);
+		//printStandings(true,poolsim);
+
+
+
 	}
-	
-	
+
+
 	public ArrayList<team> getPoolsim() {
 		return poolsim;
 	}
@@ -354,7 +375,7 @@ public Group(boolean group,int stage) {
 
 
 	Group saveState(Group A) {
-		
+
 		//System.out.println(" Matches from original pool data");
 		//A.printPlayedMatches();
 		Group dup=new Group(A.TeamA.getName(),A.TeamB.getName(),A.TeamC.getName(),A.TeamD.getName(),A.TeamE.getName(),A.TeamF.getName());
@@ -363,24 +384,24 @@ public Group(boolean group,int stage) {
 			for(int y=0;y<A.pool.get(x).getMatches().size();y++) {
 				//System.out.println(A.pool.get(x));
 
-				
+
 				String teamA = A.pool.get(x).getName();
 				String teamB = A.pool.get(x).getMatches().get(y).getB();
 				int mapA=A.pool.get(x).getMatches().get(y).getMapA();
 				int mapB=A.pool.get(x).getMatches().get(y).getMapB();
-				
-//				System.out.println("Checking: "+teamA + " " + mapA+ "-" +
-//						mapB + " " +  teamB);
-				
+
+				//				System.out.println("Checking: "+teamA + " " + mapA+ "-" +
+				//						mapB + " " +  teamB);
+
 				if(mapA!=0 ||mapB!=0 ) {
 					//System.out.println(A.pool.get(x).getName() + " and " + A.pool.get(x).getMatches().get(y).B + " have  played");
 					dup.getTeam(teamA).updateMatches(teamB, mapA, mapB);
-					
-					
+
+
 				}
 			}
 		}
-		
+
 		//dup.getTeam("Optic").updateMatches("Faze", 0, 3);
 		//dup.printAllMatches();
 		//dup.getTeam("Optic").printMatches();
@@ -396,10 +417,10 @@ public Group(boolean group,int stage) {
 
 
 	public ArrayList<Double> simulateMatches(Group A,boolean printSims) {
-		
-			resetSims();
-		
-		
+
+		resetSims();
+
+
 		//A.printStandings();
 		for(int sims = 0; sims<simulations;sims++) {
 			Group Copy = saveState(A);
@@ -442,116 +463,116 @@ public Group(boolean group,int stage) {
 			}
 			//Copy.printAllMatches();
 			//System.out.println(" Simulated Standings");
-			
+
 			//Copy.disableTies(Copy.pool);
 			Collections.sort(Copy.pool);
-		//	System.out.println();
+			//	System.out.println();
 			//Copy.printStandings();
 			Copy.tieCheck(Copy.pool);
 			//Copy.printStandings();
-//			
+			//			
 			addSim(Copy);
-//			if(Copy.getPool().get(2).name.equals("Surge")||Copy.getPool().get(2).name.equals("Legion")) {
-//				System.out.println("Something didnt work");
-//				Copy.printStandings();
-//				System.out.println("errororororororo");
-//				Copy.printAllMatches();
-//				break;
-//			}
-//			System.out.println();
+			//			if(Copy.getPool().get(2).name.equals("Surge")||Copy.getPool().get(2).name.equals("Legion")) {
+			//				System.out.println("Something didnt work");
+			//				Copy.printStandings();
+			//				System.out.println("errororororororo");
+			//				Copy.printAllMatches();
+			//				break;
+			//			}
+			//			System.out.println();
 
 
 		}
 		if(printSims) {
 			printSimulatedPercentages(simulations);
 		}
-		
-		
+
+
 		ArrayList<Double> ret = new ArrayList<Double>();
 		for(team t: pool) {
 			ret.add(t.getPlacings().get(0)+t.getPlacings().get(1)+t.getPlacings().get(2));
 		}
-		
-		
-		
+
+
+
 		return ret;
 
 	}
 	public ArrayList<Double> simulateMatchesAddingMatch(Group A) {
-		
-		resetSims2();
-	
-	
-	//Copy.printStandings();
-	for(int sims = 0; sims<simulations;sims++) {
-		Group Copy = saveState(A);
-		for(int x=0;x<Copy.pool.size();x++) {
-			String team = Copy.poolsim.get(x).getName();
-			int mapA=0;
-			int mapB=0;
-			int count=0;
-			//Copy.pool.get(x).printMatches();
-			for(int y =0; y<Copy.poolsim.get(x).getMatches().size();y++) {
-				//System.out.println(Copy.pool.get(x).getMatches().get(y).mapA + "-"+Copy.pool.get(x).getMatches().get(y).mapB);
-				if(Copy.poolsim.get(x).getMatches().get(y).getMapA()==0 && Copy.poolsim.get(x).getMatches().get(y).getMapB()==0) {
-					//System.out.println("teams have not played");
-					String opp = Copy.poolsim.get(x).getMatches().get(y).getB();
-					while((mapA!=3 && mapB!=3) && count<10) { 
-						double draw = Math.random();
-						//System.out.println(draw);
-						if(draw>0.5) { 
-							mapA++; 
-							//System.out.println("Map A:" + mapA); 
-						} 
-						else { 
-							mapB++;
-							//System.out.println("Map B:" + mapB); 
-						} 
-						if(mapA==3||mapB==3) {
-							Copy.updateMatch(team,opp,mapA,mapB);
 
-						} 
-						else
-							count++; 
+		resetSims2();
+
+
+		//Copy.printStandings();
+		for(int sims = 0; sims<simulations;sims++) {
+			Group Copy = saveState(A);
+			for(int x=0;x<Copy.pool.size();x++) {
+				String team = Copy.poolsim.get(x).getName();
+				int mapA=0;
+				int mapB=0;
+				int count=0;
+				//Copy.pool.get(x).printMatches();
+				for(int y =0; y<Copy.poolsim.get(x).getMatches().size();y++) {
+					//System.out.println(Copy.pool.get(x).getMatches().get(y).mapA + "-"+Copy.pool.get(x).getMatches().get(y).mapB);
+					if(Copy.poolsim.get(x).getMatches().get(y).getMapA()==0 && Copy.poolsim.get(x).getMatches().get(y).getMapB()==0) {
+						//System.out.println("teams have not played");
+						String opp = Copy.poolsim.get(x).getMatches().get(y).getB();
+						while((mapA!=3 && mapB!=3) && count<10) { 
+							double draw = Math.random();
+							//System.out.println(draw);
+							if(draw>0.5) { 
+								mapA++; 
+								//System.out.println("Map A:" + mapA); 
+							} 
+							else { 
+								mapB++;
+								//System.out.println("Map B:" + mapB); 
+							} 
+							if(mapA==3||mapB==3) {
+								Copy.updateMatch(team,opp,mapA,mapB);
+
+							} 
+							else
+								count++; 
+						}
+						mapA=0; 
+						mapB=0;
+						count=0;
 					}
-					mapA=0; 
-					mapB=0;
-					count=0;
 				}
+
 			}
+			//Copy.printAllMatches();
+
+
+			//		
+			Copy.disableTies(poolsim);
+			Collections.sort(Copy.poolsim);
+			//System.out.println();
+			//	Copy.printStandings();
+			Copy.tieCheck(Copy.poolsim);
+			//Copy.printStandings2();
+			addSimMatch(Copy);
+
+
+
 
 		}
-		//Copy.printAllMatches();
-		
-		
-//		
-		Copy.disableTies(poolsim);
-		Collections.sort(Copy.poolsim);
-		//System.out.println();
-		//	Copy.printStandings();
-		Copy.tieCheck(Copy.poolsim);
-		//Copy.printStandings2();
-		addSimMatch(Copy);
-	
-		
 
+
+
+		ArrayList<Double> ret = new ArrayList<Double>();
+		for(team t: pool) {
+			//		System.out.println(t.getName() + " " +t.placings2.get(0)+ " " +t.placings2.get(1)+ " " +t.placings2.get(2)+" " +t.placings2.get(3)+ " " 
+			//		+ " " +t.placings2.get(4)+ " "+ t.placings2.get(5));
+			ret.add(t.getPlacingsSim().get(0)+t.getPlacingsSim().get(1)+t.getPlacingsSim().get(2));
+		}
+
+
+		return ret;
 
 	}
-	
-	
-	
-	ArrayList<Double> ret = new ArrayList<Double>();
-	for(team t: pool) {
-//		System.out.println(t.getName() + " " +t.placings2.get(0)+ " " +t.placings2.get(1)+ " " +t.placings2.get(2)+" " +t.placings2.get(3)+ " " 
-//		+ " " +t.placings2.get(4)+ " "+ t.placings2.get(5));
-		ret.add(t.getPlacingsSim().get(0)+t.getPlacingsSim().get(1)+t.getPlacingsSim().get(2));
-	}
-	
-	
-	return ret;
 
-}
-	
 	void resetSims() {
 		for(team t: pool) {
 			for(int i = 0; i<t.getPlacings().size();i++) {
@@ -566,7 +587,7 @@ public Group(boolean group,int stage) {
 			}
 		}
 	}
-	
+
 	void importantMatches(Group A) {
 		Group Copy = saveState(A);
 		Group simCopy = saveState(A);
@@ -579,12 +600,12 @@ public Group(boolean group,int stage) {
 		String influence= "";
 		double diff=0;
 		for(team t: Copy.pool) {
-		//t.printMatches();
+			//t.printMatches();
 			for(Match m: t.getMatches()) {
 				if(m.getMapA()==0 && m.getMapB()==0) {
 					//System.out.println("simulating: " + m.A+" vs " + m.B );
 					for(int i=0;i<3;i++) {
-					//System.out.println("simulating: " + m.A+" vs " + m.B + " 3 - " +i);
+						//System.out.println("simulating: " + m.A+" vs " + m.B + " 3 - " +i);
 						simCopy.updateMatch(m.getA(), m.getB(), 3, i,false);
 						simCopy.simulateMatches(simCopy,true);
 						for(int x = 0;x<3;x++) {
@@ -593,7 +614,7 @@ public Group(boolean group,int stage) {
 						for(int y = 3;y<simCopy.getTeam(m.getA()).getPlacings().size();y++) {
 							winB3 +=simCopy.getTeam(m.getA()).getPlacings().get(y);
 						}
-						
+
 						simCopy = saveState(A);
 						//System.out.println("simulating: " + m.A+" vs " + m.B + " " + i + " - 3");
 						simCopy.updateMatch(m.getA(), m.getB(), i, 3,false);
@@ -604,19 +625,19 @@ public Group(boolean group,int stage) {
 						for(int y = 3;y<simCopy.getTeam(m.getA()).getPlacings().size();y++) {
 							loseB3 +=simCopy.getTeam(m.getA()).getPlacings().get(y);
 						}
-						
-						
-						
-						
+
+
+
+
 						//System.out.println(Copy.pool.get(0).name + " " +winT3 + " " + winB3);
 						//System.out.println(Copy.pool.get(0).name + " " +loseT3 + " " + loseB3);
 						simCopy=saveState(A);
 					}
-					
+
 					//System.out.println(t.name + " wins " +winT3 + " " + winB3);
 					//System.out.println(t.name + " loses " +loseT3 + " " + loseB3);
 					simCopy=saveState(A);
-					
+
 				}
 				if((winT3/(winT3+winB3) - (loseT3/(loseT3+loseB3)) > diff)){
 					//System.out.println("new influenctial match " +m.B);
@@ -624,7 +645,7 @@ public Group(boolean group,int stage) {
 					diff= winT3/(winT3+winB3) - loseT3/(loseT3+loseB3);
 					perWin = winT3/(winT3+winB3);
 					perLose=loseT3/(loseT3+loseB3);
-					
+
 				}
 				else if((winT3/(winT3+winB3) - (loseT3/(loseT3+loseB3)) == diff)){
 					//System.out.println("tie influenctial match " +influence + " " +m.B);
@@ -634,26 +655,26 @@ public Group(boolean group,int stage) {
 				winB3=0;
 				loseT3=0;
 				loseB3=0;
-				
-			
-		}
-		
-		System.out.print("The most influential match for " + t.getName() + " is against " + influence);
-		System.out.printf("\nTop Three Percentage with Win: %3.3f%%\nTop Three Percentage with Lose: %3.3f%%\n\n", perWin*100,perLose*100);
-		
-		influence ="";
-		perWin=0;
-		perLose=0;
-		diff=0;
-		
+
+
+			}
+
+			System.out.print("The most influential match for " + t.getName() + " is against " + influence);
+			System.out.printf("\nTop Three Percentage with Win: %3.3f%%\nTop Three Percentage with Lose: %3.3f%%\n\n", perWin*100,perLose*100);
+
+			influence ="";
+			perWin=0;
+			perLose=0;
+			diff=0;
+
 		}
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	void printSimulatedPlacings() {
 		for(team t: this.pool) {
 			t.printPlacings(longName);
@@ -729,17 +750,17 @@ public Group(boolean group,int stage) {
 		}
 		System.out.println("New pool: " +pool.get(0).getName());
 		System.out.println("New pool: " +pool.get(1).getName());
-		
+
 	}
-	
-	
+
+
 	public void printPool() {
 		for(team t: pool) {
 			System.out.print(t.getName() + " " );
 		}
 		System.out.println();
 	}
-	
+
 	public void resetMatches() {
 		for(team t: pool) {
 			for(Match m: t.getMatches()) {
@@ -749,7 +770,7 @@ public Group(boolean group,int stage) {
 			t.setMapW(0);
 			t.setMatchW(0);
 			t.setMatchL(0);
-			
+
 		}
 	}
 	public void printPlayedMatches() {
@@ -769,12 +790,12 @@ public Group(boolean group,int stage) {
 		getTeam(teamA).removeMatch(teamB);
 		getTeam(teamB).removeMatch(teamA);
 	}
-	
+
 	public void sortStandings(ArrayList<team>p) {
 		Collections.sort(p);
 		tieCheck(p);
 	}
-	
+
 	public void sortStandings() {
 		Collections.sort(pool);
 		tieCheck(pool);
@@ -784,87 +805,87 @@ public Group(boolean group,int stage) {
 		ret.addAll(pool);
 		Collections.sort(ret, new Comparator<team>() {
 
-	@Override
-	public int compare(team o1, team o2) {
-		if(o1.getTop3PerSim() > o2.getTop3PerSim()) {
-			return -1;
-		}
-			
-		return 1;
-	}
-	
-});
-		
+			@Override
+			public int compare(team o1, team o2) {
+				if(o1.getTop3PerSim() > o2.getTop3PerSim()) {
+					return -1;
+				}
+
+				return 1;
+			}
+
+		});
+
 		return ret;
 	}
-	
+
 	public ArrayList<team> sortByTop3() {
 		ArrayList<team> ret = new ArrayList<team>();
 		ret.addAll(pool);
 		Collections.sort(ret, new Comparator<team>() {
 
-	@Override
-	public int compare(team o1, team o2) {
-		if(o1.getTop3Per() > o2.getTop3Per()) {
-			return -1;
-		}
-			
-		return 1;
-	}
-	
-});
-		
+			@Override
+			public int compare(team o1, team o2) {
+				if(o1.getTop3Per() > o2.getTop3Per()) {
+					return -1;
+				}
+
+				return 1;
+			}
+
+		});
+
 		return ret;
 	}
-	
+
 	public ArrayList<team> sortBySimPer() {
 		ArrayList<team> ret = new ArrayList<team>();
 		ret.addAll(pool);
 		Collections.sort(ret, new Comparator<team>() {
 
-	@Override
-	public int compare(team o1, team o2) {
-		if(o1.getPlacings().get(0) > o2.getPlacings().get(0)) {
-			return -1;
-		}
-		else if(o1.getPlacings().get(0).equals(o2.getPlacings().get(0))) {
-			//System.out.println("Tied at 1st place odds");
-			if(o1.getPlacings().get(1) > o2.getPlacings().get(1)) {
-				return -1;
-			}
-			else if(o1.getPlacings().get(1).equals(o2.getPlacings().get(1))) {
-				//System.out.println("Tied at 2nd place odds");
-				if(o1.getPlacings().get(2) > o2.getPlacings().get(2)) {
+			@Override
+			public int compare(team o1, team o2) {
+				if(o1.getPlacings().get(0) > o2.getPlacings().get(0)) {
 					return -1;
 				}
-				else if(o1.getPlacings().get(2).equals(o2.getPlacings().get(2))) {
-					//System.out.println("Tied at 3rd place odds");
-					if(o1.getPlacings().get(3) > o2.getPlacings().get(3)) {
+				else if(o1.getPlacings().get(0).equals(o2.getPlacings().get(0))) {
+					//System.out.println("Tied at 1st place odds");
+					if(o1.getPlacings().get(1) > o2.getPlacings().get(1)) {
 						return -1;
 					}
-					else if(o1.getPlacings().get(3).equals(o2.getPlacings().get(3))) {
-						//System.out.println("Tied at 4th place odds");
-						if(o1.getPlacings().get(4) > o2.getPlacings().get(4)) {
+					else if(o1.getPlacings().get(1).equals(o2.getPlacings().get(1))) {
+						//System.out.println("Tied at 2nd place odds");
+						if(o1.getPlacings().get(2) > o2.getPlacings().get(2)) {
 							return -1;
 						}
-						else if(o1.getPlacings().get(4).equals(o2.getPlacings().get(4))) {
-							if(o1.getPlacings().get(5) > o2.getPlacings().get(5)) {
+						else if(o1.getPlacings().get(2).equals(o2.getPlacings().get(2))) {
+							//System.out.println("Tied at 3rd place odds");
+							if(o1.getPlacings().get(3) > o2.getPlacings().get(3)) {
 								return -1;
 							}
-							else if(o1.getPlacings().get(5).equals(o2.getPlacings().get(5))) {
-								return 0;
+							else if(o1.getPlacings().get(3).equals(o2.getPlacings().get(3))) {
+								//System.out.println("Tied at 4th place odds");
+								if(o1.getPlacings().get(4) > o2.getPlacings().get(4)) {
+									return -1;
+								}
+								else if(o1.getPlacings().get(4).equals(o2.getPlacings().get(4))) {
+									if(o1.getPlacings().get(5) > o2.getPlacings().get(5)) {
+										return -1;
+									}
+									else if(o1.getPlacings().get(5).equals(o2.getPlacings().get(5))) {
+										return 0;
+									}
+								}
 							}
 						}
 					}
 				}
+
+				return 1;
 			}
-		}
-			
-		return 1;
-	}
-	
-});
-		
+
+		});
+
 		return ret;
 	}
 	public void printStandings() {
@@ -877,7 +898,7 @@ public Group(boolean group,int stage) {
 			t.printRecordShort();
 		}
 	}
-	
+
 	void setTies(int x, int y) {
 		pool.get(x).setTie(true,2);
 		pool.get(y).setTie(true,2);;
@@ -969,7 +990,7 @@ public Group(boolean group,int stage) {
 	}
 
 	void threeWayTie(int[] wins, int[] loses, ArrayList<team>p) {
-		
+
 		for(int i = 3;i<pool.size();i++) {
 			if(i==3) {
 				if(wins[i-3]==wins[i-2]&&wins[i-2]==wins[i-1]&&
@@ -1076,8 +1097,8 @@ public Group(boolean group,int stage) {
 		matchWinPerA = (double) winsA /(winsA+losesA);
 		matchWinPerB = (double) winsB /(winsB+losesB);
 		matchWinPerC = (double) winsC /(winsC+losesC);
-		
-		
+
+
 		/*
 		 * System.out.println( p.get(i-3).name + " " + winsA + "-" + losesA + "(" +
 		 * matchWinPerA+ ") MAP " + mapsWA + "-" +mapsLA+"(" + mapWinPerA+ ")");
@@ -1086,7 +1107,7 @@ public Group(boolean group,int stage) {
 		 * System.out.println( p.get(i-1).name + " " + winsC + "-" + losesC + "(" +
 		 * matchWinPerC+ ") MAP " +mapsWC + "-" +mapsLC+"(" + mapWinPerC+ ")");
 		 */
-		 
+
 		double pmapA = p.get(i-3).getmapWinper();
 		double pmapB = p.get(i-2).getmapWinper();
 		double pmapC = p.get(i-1).getmapWinper();
@@ -1136,7 +1157,7 @@ public Group(boolean group,int stage) {
 					else if(pmapA < pmapB) {
 						Collections.swap(p,i-2,i-1);
 					}
-					
+
 
 				}
 				//one worse map count 
@@ -1188,7 +1209,7 @@ public Group(boolean group,int stage) {
 					Collections.swap(p, i-1, i-2);
 				}
 			}
-			
+
 		}
 		//different records
 		else if(matchWinPerA>matchWinPerB && matchWinPerA>matchWinPerC) {
@@ -1209,8 +1230,8 @@ public Group(boolean group,int stage) {
 				Collections.swap(p,i-2,i-1);
 			}
 		}
-		
-		
+
+
 	}
 
 	void threeSplitTies(double match1,double match2,double match3, double pool1,double pool2, double pool3,int i, ArrayList<team>p) {
@@ -1745,7 +1766,7 @@ public Group(boolean group,int stage) {
 				}
 				return 1;
 			}
-			
+
 		});
 		//check for ties
 		int tieCount=1;
@@ -1777,7 +1798,7 @@ public Group(boolean group,int stage) {
 			for(int i = 2; i<7;i++) {
 				t.setTie(false,i);
 			}
-			
+
 		}
 	}
 }

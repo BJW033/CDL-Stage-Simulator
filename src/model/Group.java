@@ -332,17 +332,20 @@ public class Group{
 
 	}
 
-
-	public ArrayList<team> getPoolsim() {
-		return poolsim;
-	}
-	public void printAllMatches() {
+	/**
+	 * Prints all matches from all the teams to console. Includes duplicates. 
+	 */
+	private void printAllMatches() {
 		for(team i: pool) {
 			i.printMatches();
 		}
 	}
-	public void printStandings(boolean sim,ArrayList<team> p) {
-		//System.out.println(sim);
+	/**
+	 * Prints the standings of the group. Uses a boolean to determine if the teams should be printed without ties then with tie breaks. 
+	 * @param sim boolean determines if the teams should be sorted and corrected for ties
+	 * @param p ArrayList<team> list of teams to sort
+	 */
+	private void printStandings(boolean sim,ArrayList<team> p) {
 		if(!sim) {
 			System.out.println("Before tie breaks");
 
@@ -357,18 +360,60 @@ public class Group{
 			}
 		}
 		else {
-			//Collections.sort(p);
-			//tieCheck(p);
+			Collections.sort(p);
+			tieCheck(p);
 			for(team i: p) {
 				i.printRecordShort();
 			}
 		}
 
 	}
-
-
-
-	Group saveState(Group A) {
+	/**
+	 * Prints the simulated placings of each team
+	 */
+	private void printSimulatedPlacings() {
+		for(team t: this.pool) {
+			t.printPlacings(longName);
+		}
+	}
+	/**
+	 * Prints the percent chances from simulations of each team
+	 * @param simulations
+	 */
+	private void printSimulatedPercentages(int simulations) {
+		System.out.println("Number of simulations: " + simulations);
+		for(team t: this.pool) {
+			t.printSimPer(simulations,longName);
+		}
+	}
+	/**
+	 * Prints only the played matches from the teams. Includes duplicates.
+	 */
+	private void printPlayedMatches() {
+		for(team t: pool) {
+			for(Match m: t.getMatches()) {
+				if(m.getMapA() ==3 || m.getMapB()==3) {
+					System.out.println(m);
+				}
+			}
+		}
+	}
+	/**
+	 * Prints the team names in the pool
+	 */
+	public void printPool() {
+		for(team t: pool) {
+			System.out.print(t.getName() + " " );
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * 
+	 * @param A
+	 * @return
+	 */
+	private Group saveState(Group A) {
 
 		//System.out.println(" Matches from original pool data");
 		//A.printPlayedMatches();
@@ -403,11 +448,7 @@ public class Group{
 		//dup.printStandingsNoTie();
 		return dup;
 	}
-	void printStandingsNoTie() {
-		for(team i: pool) {
-			i.printRecordShort();
-		}
-	}
+	
 
 
 	public ArrayList<Double> simulateMatches(Group A,boolean printSims) {
@@ -669,17 +710,7 @@ public class Group{
 
 
 
-	void printSimulatedPlacings() {
-		for(team t: this.pool) {
-			t.printPlacings(longName);
-		}
-	}
-	public void printSimulatedPercentages(int simulations) {
-		System.out.println("Number of simulations: " + simulations);
-		for(team t: this.pool) {
-			t.printSimPer(simulations,longName);
-		}
-	}
+	
 
 	void addSim(Group sim) {
 		for(int x =0;x<pool.size();x++) {
@@ -748,12 +779,7 @@ public class Group{
 	}
 
 
-	public void printPool() {
-		for(team t: pool) {
-			System.out.print(t.getName() + " " );
-		}
-		System.out.println();
-	}
+	
 
 	public void resetMatches() {
 		for(team t: pool) {
@@ -767,15 +793,7 @@ public class Group{
 
 		}
 	}
-	public void printPlayedMatches() {
-		for(team t: pool) {
-			for(Match m: t.getMatches()) {
-				if(m.getMapA() ==3 || m.getMapB()==3) {
-					System.out.println(m);
-				}
-			}
-		}
-	}
+	
 	public int getSimulations() {
 		return simulations;
 	}
@@ -882,16 +900,7 @@ public class Group{
 
 		return ret;
 	}
-	public void printStandings() {
-		for(team t: pool) {
-			t.printRecordShort();
-		}
-	}
-	public void printStandings2() {
-		for(team t: poolsim) {
-			t.printRecordShort();
-		}
-	}
+	
 
 	void setTies(int x, int y) {
 		pool.get(x).setTie(true,2);
@@ -1810,5 +1819,8 @@ public class Group{
 		}
 		return null;
 
+	}
+	public ArrayList<team> getPoolsim() {
+		return poolsim;
 	}
 }

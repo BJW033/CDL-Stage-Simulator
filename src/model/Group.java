@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 /**
- * The Group Class contains six teams 
+ * The Group Class contains six teams, the number of simulations to be used, and results of simulations on the teams.
  * @author bwu
  *
  */
@@ -332,6 +332,7 @@ public class Group{
 
 	}
 
+	/////////////Print statements for debugging///////////////////
 	/**
 	 * Prints all matches from all the teams to console. Includes duplicates. 
 	 */
@@ -389,7 +390,7 @@ public class Group{
 	/**
 	 * Prints only the played matches from the teams. Includes duplicates.
 	 */
-	private void printPlayedMatches() {
+	public void printPlayedMatches() {
 		for(team t: pool) {
 			for(Match m: t.getMatches()) {
 				if(m.getMapA() ==3 || m.getMapB()==3) {
@@ -409,54 +410,65 @@ public class Group{
 	}
 	
 	/**
-	 * 
-	 * @param A
-	 * @return
+	 * Creates an exact duplicate of a group by copying the team names and matches. This is used for simulations without directly impacting
+	 * the Group
+	 * @param A Group Group to be copied
+	 * @return Group duplicate of the given group
 	 */
 	private Group saveState(Group A) {
-
-		//System.out.println(" Matches from original pool data");
-		//A.printPlayedMatches();
 		Group dup=new Group(A.TeamA.getName(),A.TeamB.getName(),A.TeamC.getName(),A.TeamD.getName(),A.TeamE.getName(),A.TeamF.getName());
-		//A.printAllMatches();
+
 		for(int x=0;x<A.pool.size();x++) {
 			for(int y=0;y<A.pool.get(x).getMatches().size();y++) {
-				//System.out.println(A.pool.get(x));
-
-
+				
 				String teamA = A.pool.get(x).getName();
 				String teamB = A.pool.get(x).getMatches().get(y).getB();
 				int mapA=A.pool.get(x).getMatches().get(y).getMapA();
 				int mapB=A.pool.get(x).getMatches().get(y).getMapB();
 
-				//				System.out.println("Checking: "+teamA + " " + mapA+ "-" +
-				//						mapB + " " +  teamB);
-
 				if(mapA!=0 ||mapB!=0 ) {
-					//System.out.println(A.pool.get(x).getName() + " and " + A.pool.get(x).getMatches().get(y).B + " have  played");
 					dup.getTeam(teamA).updateMatches(teamB, mapA, mapB);
-
-
 				}
 			}
 		}
-
-		//dup.getTeam("Optic").updateMatches("Faze", 0, 3);
-		//dup.printAllMatches();
-		//dup.getTeam("Optic").printMatches();
-		//System.out.println();
-		//dup.printStandingsNoTie();
 		return dup;
 	}
-	
 
-
+	/**
+	 * Iterates though the pool ArrayList reseting all of the team's placing data to zero
+	 */
+	public void resetPlacing() {
+		for(team t: pool) {
+			for(int i = 0; i<t.getPlacings().size();i++) {
+				t.getPlacings().set(i, (double) 0);
+			}
+		}
+	}
+	/**
+	 * Iterates though the pool ArrayList reseting all of the team's placingSim data to zero
+	 */
+	public void resetPlacingSim() {
+		for(team t: pool) {
+			for(int i = 0; i<t.getPlacingsSim().size();i++) {
+				t.getPlacingsSim().set(i, (double) 0);
+			}
+		}
+	}
+	/**
+	 * Uses the groups simulation attribute to determine the number of simulations to run. After resetting the the placings of each team,
+	 * a copy of the group A is made. The matches of the copy are then iterated though. If a match had yet to be played, a fair "coin" if flipped 
+	 * until one side lands three times. This then becomes the map count and the match is updated in the copy. The copy pool is then sorted
+	 * and ties are broken. The copy standings are then used to add to the original group's team's placing values. If printSims is true, the 
+	 * results of the simulation are printed. An ArrayList<Double> of the top three counts for each team is returned. The order of top
+	 * three values is the same as the order of the pool. 
+	 * @param A Group Group to be copied
+	 * @param printSims boolean print the result of simulation
+	 * @return ArrayList<Double> top three count for each team
+	 */
 	public ArrayList<Double> simulateMatches(Group A,boolean printSims) {
 
-		resetSims();
+		resetPlacing();
 
-
-		//A.printStandings();
 		for(int sims = 0; sims<simulations;sims++) {
 			Group Copy = saveState(A);
 			for(int x=0;x<Copy.pool.size();x++) {
@@ -464,26 +476,19 @@ public class Group{
 				int mapA=0;
 				int mapB=0;
 				int count=0;
-				//Copy.pool.get(x).printMatches();
 				for(int y =0; y<Copy.pool.get(x).getMatches().size();y++) {
-					//System.out.println(Copy.pool.get(x).getMatches().get(y).mapA + "-"+Copy.pool.get(x).getMatches().get(y).mapB);
 					if(Copy.pool.get(x).getMatches().get(y).getMapA()==0 && Copy.pool.get(x).getMatches().get(y).getMapB()==0) {
-						//System.out.println("teams have not played");
 						String opp = Copy.pool.get(x).getMatches().get(y).getB();
 						while((mapA!=3 && mapB!=3) && count<10) { 
 							double draw = Math.random();
-							//System.out.println(draw);
 							if(draw>0.5) { 
 								mapA++; 
-								//System.out.println("Map A:" + mapA); 
 							} 
 							else { 
 								mapB++;
-								//System.out.println("Map B:" + mapB); 
 							} 
 							if(mapA==3||mapB==3) {
 								Copy.updateMatch(team,opp,mapA,mapB,false);
-								//System.out.println(team + " " + mapA + "-" + mapB + " " + opp);
 
 							} 
 							else
@@ -496,49 +501,34 @@ public class Group{
 				}
 
 			}
-			//Copy.printAllMatches();
-			//System.out.println(" Simulated Standings");
-
-			//Copy.disableTies(Copy.pool);
 			Collections.sort(Copy.pool);
-			//	System.out.println();
-			//Copy.printStandings();
 			Copy.tieCheck(Copy.pool);
-			//Copy.printStandings();
-			//			
 			addSim(Copy);
-			//			if(Copy.getPool().get(2).name.equals("Surge")||Copy.getPool().get(2).name.equals("Legion")) {
-			//				System.out.println("Something didnt work");
-			//				Copy.printStandings();
-			//				System.out.println("errororororororo");
-			//				Copy.printAllMatches();
-			//				break;
-			//			}
-			//			System.out.println();
-
 
 		}
 		if(printSims) {
 			printSimulatedPercentages(simulations);
 		}
-
-
 		ArrayList<Double> ret = new ArrayList<Double>();
 		for(team t: pool) {
 			ret.add(t.getPlacings().get(0)+t.getPlacings().get(1)+t.getPlacings().get(2));
 		}
-
-
-
 		return ret;
 
 	}
+	/**
+	 * Uses the groups simulation attribute to determine the number of simulations to run. After resetting the the placingsSim of each team,
+	 * a copy of the group A is made. The matches of the copy poolsim are then iterated though. If a match had yet to be played, a fair "coin" 
+	 * if flipped until one side lands three times. This then becomes the map count and the match is updated in the copy. The copy poolsim is 
+	 * then sorted and ties are broken. The copy standings are then used to add to the original group's team's placingSim values. 
+	 * An ArrayList<Double> of the top three counts for each team is returned. The order of top three values is the same as the order of the poolsim. 
+	 * @param A Group Group to be copied
+	 * @return ArrayList<Double> top three count for each team
+	 */
 	public ArrayList<Double> simulateMatchesAddingMatch(Group A) {
 
-		resetSims2();
+		resetPlacingSim();
 
-
-		//Copy.printStandings();
 		for(int sims = 0; sims<simulations;sims++) {
 			Group Copy = saveState(A);
 			for(int x=0;x<Copy.pool.size();x++) {
@@ -546,22 +536,16 @@ public class Group{
 				int mapA=0;
 				int mapB=0;
 				int count=0;
-				//Copy.pool.get(x).printMatches();
 				for(int y =0; y<Copy.poolsim.get(x).getMatches().size();y++) {
-					//System.out.println(Copy.pool.get(x).getMatches().get(y).mapA + "-"+Copy.pool.get(x).getMatches().get(y).mapB);
 					if(Copy.poolsim.get(x).getMatches().get(y).getMapA()==0 && Copy.poolsim.get(x).getMatches().get(y).getMapB()==0) {
-						//System.out.println("teams have not played");
 						String opp = Copy.poolsim.get(x).getMatches().get(y).getB();
 						while((mapA!=3 && mapB!=3) && count<10) { 
 							double draw = Math.random();
-							//System.out.println(draw);
 							if(draw>0.5) { 
-								mapA++; 
-								//System.out.println("Map A:" + mapA); 
+								mapA++;  
 							} 
 							else { 
 								mapB++;
-								//System.out.println("Map B:" + mapB); 
 							} 
 							if(mapA==3||mapB==3) {
 								Copy.updateMatch(team,opp,mapA,mapB);
@@ -577,142 +561,28 @@ public class Group{
 				}
 
 			}
-			//Copy.printAllMatches();
-
-
-			//		
 			Copy.disableTies(poolsim);
 			Collections.sort(Copy.poolsim);
-			//System.out.println();
-			//	Copy.printStandings();
 			Copy.tieCheck(Copy.poolsim);
-			//Copy.printStandings2();
 			addSimMatch(Copy);
 
-
-
-
 		}
-
-
 
 		ArrayList<Double> ret = new ArrayList<Double>();
 		for(team t: pool) {
-			//		System.out.println(t.getName() + " " +t.placings2.get(0)+ " " +t.placings2.get(1)+ " " +t.placings2.get(2)+" " +t.placings2.get(3)+ " " 
-			//		+ " " +t.placings2.get(4)+ " "+ t.placings2.get(5));
 			ret.add(t.getPlacingsSim().get(0)+t.getPlacingsSim().get(1)+t.getPlacingsSim().get(2));
 		}
-
-
 		return ret;
 
 	}
 
-	void resetSims() {
-		for(team t: pool) {
-			for(int i = 0; i<t.getPlacings().size();i++) {
-				t.getPlacings().set(i, (double) 0);
-			}
-		}
-	}
-	public void resetSims2() {
-		for(team t: pool) {
-			for(int i = 0; i<t.getPlacingsSim().size();i++) {
-				t.getPlacingsSim().set(i, (double) 0);
-			}
-		}
-	}
-
-	void importantMatches(Group A) {
-		Group Copy = saveState(A);
-		Group simCopy = saveState(A);
-		double perWin=0;
-		double perLose=0;
-		double winT3=0;
-		double winB3=0;
-		double loseT3=0;
-		double loseB3=0;
-		String influence= "";
-		double diff=0;
-		for(team t: Copy.pool) {
-			//t.printMatches();
-			for(Match m: t.getMatches()) {
-				if(m.getMapA()==0 && m.getMapB()==0) {
-					//System.out.println("simulating: " + m.A+" vs " + m.B );
-					for(int i=0;i<3;i++) {
-						//System.out.println("simulating: " + m.A+" vs " + m.B + " 3 - " +i);
-						simCopy.updateMatch(m.getA(), m.getB(), 3, i,false);
-						simCopy.simulateMatches(simCopy,true);
-						for(int x = 0;x<3;x++) {
-							winT3 +=simCopy.getTeam(m.getA()).getPlacings().get(x);
-						}
-						for(int y = 3;y<simCopy.getTeam(m.getA()).getPlacings().size();y++) {
-							winB3 +=simCopy.getTeam(m.getA()).getPlacings().get(y);
-						}
-
-						simCopy = saveState(A);
-						//System.out.println("simulating: " + m.A+" vs " + m.B + " " + i + " - 3");
-						simCopy.updateMatch(m.getA(), m.getB(), i, 3,false);
-						simCopy.simulateMatches(simCopy,true);
-						for(int x = 0;x<3;x++) {
-							loseT3 +=simCopy.getTeam(m.getA()).getPlacings().get(x);
-						}
-						for(int y = 3;y<simCopy.getTeam(m.getA()).getPlacings().size();y++) {
-							loseB3 +=simCopy.getTeam(m.getA()).getPlacings().get(y);
-						}
-
-
-
-
-						//System.out.println(Copy.pool.get(0).name + " " +winT3 + " " + winB3);
-						//System.out.println(Copy.pool.get(0).name + " " +loseT3 + " " + loseB3);
-						simCopy=saveState(A);
-					}
-
-					//System.out.println(t.name + " wins " +winT3 + " " + winB3);
-					//System.out.println(t.name + " loses " +loseT3 + " " + loseB3);
-					simCopy=saveState(A);
-
-				}
-				if((winT3/(winT3+winB3) - (loseT3/(loseT3+loseB3)) > diff)){
-					//System.out.println("new influenctial match " +m.B);
-					influence = m.getB();
-					diff= winT3/(winT3+winB3) - loseT3/(loseT3+loseB3);
-					perWin = winT3/(winT3+winB3);
-					perLose=loseT3/(loseT3+loseB3);
-
-				}
-				else if((winT3/(winT3+winB3) - (loseT3/(loseT3+loseB3)) == diff)){
-					//System.out.println("tie influenctial match " +influence + " " +m.B);
-					influence = influence.concat(" " + m.getB());
-				}
-				winT3=0;
-				winB3=0;
-				loseT3=0;
-				loseB3=0;
-
-
-			}
-
-			System.out.print("The most influential match for " + t.getName() + " is against " + influence);
-			System.out.printf("\nTop Three Percentage with Win: %3.3f%%\nTop Three Percentage with Lose: %3.3f%%\n\n", perWin*100,perLose*100);
-
-			influence ="";
-			perWin=0;
-			perLose=0;
-			diff=0;
-
-		}
-	}
-
-
-
-
-
-
-	
-
-	void addSim(Group sim) {
+	/**
+	 * Iterates through a Group that is sorted and all ties are broken. The position the team is in the pool is then counted to the current
+	 * group team's placings in the same position. If the team is in a deadtie, a portion equal to the number of teams they are tied with
+	 * is given. 
+	 * @param sim Group Group to add
+	 */
+	private void addSim(Group sim) {
 		for(int x =0;x<pool.size();x++) {
 			for(int y=0;y<sim.pool.size();y++) {
 				if(this.pool.get(x).getName().equals(sim.pool.get(y).getName()) ){
@@ -740,7 +610,14 @@ public class Group{
 
 		}
 	}
-	void addSimMatch(Group sim) {
+
+	/**
+	 * Iterates through a Group that is sorted and all ties are broken. The position the team is in the poolsim is then counted to the current
+	 * group team's placingsSim in the same position. If the team is in a deadtie, a portion equal to the number of teams they are tied with
+	 * is given. 
+	 * @param sim Group Group to add
+	 */
+	private void addSimMatch(Group sim) {
 		for(int x =0;x<pool.size();x++) {
 			for(int y=0;y<sim.pool.size();y++) {
 				if(this.poolsim.get(x).getName().equals(sim.poolsim.get(y).getName()) ){
@@ -768,19 +645,9 @@ public class Group{
 
 		}
 	}
-	public void setPool(ArrayList<team> pool2) {
-		pool.clear();
-		for(team t: pool2) {
-			pool.add(t);
-		}
-		System.out.println("New pool: " +pool.get(0).getName());
-		System.out.println("New pool: " +pool.get(1).getName());
-
-	}
-
-
 	
-
+	
+	
 	public void resetMatches() {
 		for(team t: pool) {
 			for(Match m: t.getMatches()) {
@@ -790,18 +657,15 @@ public class Group{
 			t.setMapW(0);
 			t.setMatchW(0);
 			t.setMatchL(0);
-
 		}
 	}
 	
-	public int getSimulations() {
-		return simulations;
-	}
-
 	public void resetMatch(String teamA, String teamB) {
 		getTeam(teamA).removeMatch(teamB);
 		getTeam(teamB).removeMatch(teamA);
 	}
+
+
 
 	public void sortStandings(ArrayList<team>p) {
 		Collections.sort(p);

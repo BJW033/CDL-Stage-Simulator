@@ -33,7 +33,13 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.StageName;
 import model.team;
-
+/**
+ * The simulationsView prints the result of the randomized outcomes of the groups. This scene includes two buttons to quickly change from one 
+ * pool to the other. Navigation buttons include ways to go to each group's matches and a way to go to the addToGroupView. Teams
+ * are sorted in the grid by best chance to get first, then second, etc. 
+ * @author bwu
+ *
+ */
 public class simulationsView extends View{
 	
 	Main m; 
@@ -41,7 +47,12 @@ public class simulationsView extends View{
 	BorderPane layout;
 	ToolBar tb;
 	TilePane top;
-	
+	/**
+	 * Constructs the default format or the scene including four navigation buttons in the toolbar, a grid, and two buttons to change the grid
+	 * content.
+	 * @param primaryStage Stage used for view
+	 * @param main Main used to get Model information of the teams in the pool
+	 */
 	public simulationsView(Stage primaryStage, Main main) {
 		this.stage = primaryStage;
 		m=main;
@@ -80,7 +91,11 @@ public class simulationsView extends View{
 	}
 	
 	
-	
+	/**
+	 * Updates the grid using the information from a given group. The grid consists of the team logos, names, chances at top 3, 
+	 * and the chances at each placing in the group. The teams are sorted by chances of each placement (1st, 2nd, 3rd, etc.). 
+	 * @param let
+	 */
 	public void updateGrid(model.Group let) {
 		ArrayList<team> sorted = let.sortBySimPer();
 		gp.getChildren().clear();
@@ -188,7 +203,13 @@ public class simulationsView extends View{
 	}
 	
 	
-	
+	/**
+	 * Creates the navigation bar which includes short cuts to groupAmatchesView, groupBmatchView, and addToGroupView. Two buttons 
+	 * got to addToGroupView (one for each Group A and B). When the user goes back to groupAMatchesView, the matches of both groups
+	 * are reset. When the user goes back to groupBMatchesView, only matches in GroupB are reset. The UI displays what the matches were 
+	 * set to previously. This is to avoid double-counting matches. 
+	 * @return ToolBar navigation buttons
+	 */
 	public ToolBar createTB() {
 		Button backA = new Button();
 		backA.setText("Group A Match Selection");
@@ -259,7 +280,10 @@ public class simulationsView extends View{
 		
 		return new ToolBar(backA,backB,emptyCenter,addToA,addToB);
 	}
-	
+	/**
+	 * The top contains the two buttons used to update the grid between each group
+	 * @return TilePane buttons to change Group illustrated in grid
+	 */
 	public TilePane createTop() {
 		Button A = new Button("Group A");
 		Button B = new Button("Group B");

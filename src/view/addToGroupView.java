@@ -526,13 +526,13 @@ public class addToGroupView extends View{
 			public void handle(ActionEvent event) {
 				if(toB.getText().equals("Group B")) {
 					toB.setText("Group A");
-					m.getModel().getGroupB().resetSims2();
+					m.getModel().getGroupB().resetPlacingSim();
 					updateGrid(m.getModel().getGroupB(),"A");
 					
 				}
 				else {
 					toB.setText("Group B");
-					m.getModel().getGroupA().resetSims2();
+					m.getModel().getGroupA().resetPlacingSim();
 					updateGrid(m.getModel().getGroupA(),"B");
 				}
 				

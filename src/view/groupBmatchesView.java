@@ -531,12 +531,12 @@ public class groupBmatchesView extends View{
 			// i represents the index of the map count value of the team of the top row of the group of matches
 			for(int i = 3; i<25;i+=5) {
 				String teamA = (String) matches.getChildren().get((mult*indexOfMapValue) + i-toTeamName).getUserData();
-				String teamB = (String) matches.getChildren().get((indexOfMapValue) + i+toOppName).getUserData();
+				String teamB = (String) matches.getChildren().get((mult*indexOfMapValue) + i+toOppName).getUserData();
 				int mA = Integer.parseInt((String) matches.getChildren().get((mult*indexOfMapValue) + i).getUserData());
 				int mB = Integer.parseInt((String) matches.getChildren().get((mult*indexOfMapValue) + i+toOppMap).getUserData());
 				if(mA == mapWins || mB ==mapWins ) {
 					
-					m.getModel().getGroupA().updateMatch(teamA, teamB, mA, mB, false);
+					m.getModel().getGroupB().updateMatch(teamA, teamB, mA, mB, false);
 				}
 				else if(mA == noContest && mB == noContest) {
 					

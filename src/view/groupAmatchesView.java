@@ -401,11 +401,11 @@ public class groupAmatchesView extends View{
 				}
 			}
 		}
-		
-//		while (index<matches.getChildren().size()) {
-//			System.out.println(index + ": " + matches.getChildren().get(index).getUserData());
-//			index++;
-//		}
+		int index = 0;
+		while (index<matches.getChildren().size()) {
+			System.out.println(index + ": " + matches.getChildren().get(index).getUserData());
+			index++;
+		}
 		for(int r=2;r<6;r+=3) {
 			Label l = new Label();
 			l.setPrefHeight(40);
@@ -452,7 +452,7 @@ public class groupAmatchesView extends View{
 			public void handle(ActionEvent event) {
 				
 				if(updateMatches()) {
-					//m.getModel().getGroupA().printPlayedMatches();
+					m.getModel().getGroupA().printPlayedMatches();
 					System.out.println("To Group B matches");
 					stage.setScene(m.getScenes().get(StageName.MATCHESB));
 				}
@@ -532,11 +532,10 @@ public class groupAmatchesView extends View{
 			// i represents the index of the map count value of the team of the top row of the group of matches
 			for(int i = 3; i<25;i+=5) {
 				String teamA = (String) matches.getChildren().get((mult*indexOfMapValue) + i-toTeamName).getUserData();
-				String teamB = (String) matches.getChildren().get((indexOfMapValue) + i+toOppName).getUserData();
+				String teamB = (String) matches.getChildren().get((mult*indexOfMapValue) + i+toOppName).getUserData();
 				int mA = Integer.parseInt((String) matches.getChildren().get((mult*indexOfMapValue) + i).getUserData());
 				int mB = Integer.parseInt((String) matches.getChildren().get((mult*indexOfMapValue) + i+toOppMap).getUserData());
 				if(mA == mapWins || mB ==mapWins ) {
-					
 					m.getModel().getGroupA().updateMatch(teamA, teamB, mA, mB, false);
 				}
 				else if(mA == noContest && mB == noContest) {

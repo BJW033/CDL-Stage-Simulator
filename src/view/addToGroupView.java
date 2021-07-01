@@ -1,8 +1,5 @@
 package view;
 
-
-
-
 import java.util.ArrayList;
 
 import controller.Main;
@@ -33,7 +30,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -41,24 +37,36 @@ import javafx.stage.Stage;
 import model.StageName;
 import model.team;
 
+/**
+ * addToGroupView is used to determine the impact of a particular match outcome with the given set of matches of each pool. 
+ * The match is NOT ADDED to the pool, but rather added, simulated, then removed. Teams are sorted by their top 3% before and after
+ * simulations. 
+ * @author bwu
+ *
+ */
 public class addToGroupView extends View{
 	
-	Main m; 
-	GridPane gpBefore;
-	GridPane centerColumn;
-	GridPane gpAfter;
-	BorderPane layout;
-	ToolBar tb;
-	TilePane top;
-	GridPane c;
+	private Main m; 
+	private GridPane gpBefore;
+	private GridPane centerColumn;
+	private GridPane gpAfter;
+	private BorderPane layout;
+	private ToolBar tb;
+	private GridPane c;
 	
+	/**
+	 * The constructor of the scene fills the scene with basic formating. The UI includes one navigation button and one change group button.
+	 * The scene also includes two grids for a before and after comparison of the team's top 3 chances. In the center of the scene are two images,
+	 * two combo boxes, map count labels, and a submit button that add a match to the pool. 
+	 * @param primaryStage Stage used for view
+	 * @param main Main used to get Model information of the teams in the pool
+	 */
 	public addToGroupView(Stage primaryStage, Main main) {
 		this.stage = primaryStage;
 		m=main;
 		
 		layout = new BorderPane();
-		
-		
+			
 		gpBefore=new GridPane();
 		gpBefore.setAlignment(Pos.CENTER);
 		gpAfter=new GridPane();
@@ -72,20 +80,11 @@ public class addToGroupView extends View{
 		c.setAlignment(Pos.CENTER);
 		
 		updateTB("A");
-		
-		
-		
 		layout.setBottom(tb);
-		
-		
-		
+			
 		updateGrid(m.getModel().getGroupA(),"A");
-		
-		
 		layout.setCenter(c);
-		
-		
-		
+			
 		BorderPane.setAlignment(gpBefore, Pos.CENTER);
 		
 		c.setPadding(new Insets(10));
@@ -117,7 +116,12 @@ public class addToGroupView extends View{
 		scene = new Scene(root,canvasWidth,canvasHeight);
 		
 	}
-	
+	/**
+	 * updates all parts of the center including both before and after grids plus the middle sections. This is used in changing between 
+	 * groups. The toolbar is also updated to change the label of the button to the text of another group. 
+	 * @param let Group instance of Group to displayed
+	 * @param pool String either "A" or "B"
+	 */
 	public void updateGrid(model.Group let,String pool) {
 		gpBefore.getChildren().clear();
 		gpAfter.getChildren().clear();
@@ -129,7 +133,14 @@ public class addToGroupView extends View{
 		updateTB(pool);
 	}
 		
-	
+	/**
+	 * Updates the middle section to accommodate the selected group g. The middle section contains two imageviews linked to two 
+	 * combo boxes that contain the team names of the teams in the pool, and labels used to select the match count. Finally, the middle
+	 * section includes a submit button that adds the match to the pool and updates the after grid to print the top 3 chances of each team. 
+	 * The submit button checks to make sure that the match: is not between the same team, is not missing a team, has a map count, 
+	 * has a match winner, and the match had not happened yet.  
+	 * @param g Group Group to be illustrated
+	 */
 	public void updateMiddle(model.Group g) {
 		centerColumn.getChildren().clear();
 		//centerColumn.setGridLinesVisible(true);
@@ -361,7 +372,12 @@ public class addToGroupView extends View{
 		
 	}
 	
-	
+	/**
+	 * Updates the content of the before grid on the left with the teams and top three chances of Group g. The teams
+	 * are sorted by top three chances from each team's placings value. The grid includes the team logo and name with 
+	 * the top three chances. Additionally, there is a title label. 
+	 * @param g Group group to be used
+	 */
 	public void updateBeforeGrid(model.Group g) {
 		ArrayList<team> sorted = g.sortByTop3();
 		Label beforeTitle = new Label("Top 3% Before Match");
@@ -414,7 +430,12 @@ public class addToGroupView extends View{
 		}
 		c.add(gpBefore,0,0);
 	}
-	
+	/**
+	 * Updates the content of the after grid on the right with the teams and top three chances of Group g. The teams
+	 * are sorted by top three chances from each team's placingsSim value. The grid includes the team logo and name 
+	 * with the top three chances. Additionally, there is a title label. 
+	 * @param g Group group to be used
+	 */
 	public void updateAfterGrid(model.Group g) {
 		ArrayList<team> sorted =g.sortByTop3Sim();
 		c.getChildren().remove(gpAfter);
@@ -471,9 +492,12 @@ public class addToGroupView extends View{
 		c.add(gpAfter,3,0);
 	}
 
-	
-	
-	
+	/**
+	 * Creates/updates the bottom toolbar which includes a back button to the simulationView and a button that changes
+	 * the pool that is displayed. When the pool that is being displayed changes, the button text changes to the name of
+	 * the other pool. 
+	 * @param pool
+	 */
 	public void updateTB(String pool) {
 		
 		

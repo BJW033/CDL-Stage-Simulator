@@ -372,7 +372,7 @@ public class groupAmatchesView extends View{
 								Label mc = (Label) (((Labeled) matches.getChildren().get(i-1)));
 								int mapcur = Integer.parseInt((((Labeled) matches.getChildren().get(i-1)).getText()));
 								//System.out.println(row + ", " + column);
-								Label mc2 = findOppenent(row,column,i);
+								Label mc2 = findOpponent(row,column,i);
 								int mapcur2 = Integer.parseInt((String) mc2.getUserData());
 								if(mapcur<3) {
 									if(mapcur==2 && mapcur2==3) {
@@ -478,6 +478,10 @@ public class groupAmatchesView extends View{
 		return new ToolBar(back,emptyCenter,toB);
 	}
 	
+	/**
+	 * Creates the title label of the scene
+	 * @return Label title of the scene
+	 */
 	public Label createTop() {
 		Label l = new Label("Update the matches for Group A");
 		l.setTextFill(Color.WHITE);
@@ -489,28 +493,53 @@ public class groupAmatchesView extends View{
 		return l;
 	}
 	
-	
-	private Label findOppenent(int r, int c, int index) {
+	/**
+	 * Called by updateGP() in the handle of clicking "+" labels while adding maps to a match in order to determine if the 
+	 * other team already had three map wins. Used to create the dynamic effect of the map update process by returning the 
+	 * Label of the other team's map count. 
+	 * @param r int row number of "+" label
+	 * @param c int column number of "+" label
+	 * @param index int index of "+" label in gp.getChildren()
+	 * @return
+	 */
+	private Label findOpponent(int r, int c, int index) {
+		int topTeam = 24;
+		int bottomTeam = 26;
 		if(r%3==0) {
-			return (Label) matches.getChildren().get(index+24);
+			return (Label) matches.getChildren().get(index+topTeam);
 		}
 		else {
-			return (Label) matches.getChildren().get(index-26);
+			return (Label) matches.getChildren().get(index-bottomTeam);
 		}
 	}
-	
-	boolean updateMatches() {
+	/**
+	 * Function is called in the button to navigate to Group B is clicked. The function iterates through the grid of matches going from
+	 * map count to map count. If there is a match winner, the Group is updated, if there is no map count, the iteration continues, and 
+	 * if neither of these are true, false is returned which creates the alert box to show. 
+	 * @return false if there is a map count but no winner, true otherwise
+	 */
+	private boolean updateMatches() {
+		int mapWins = 3;
+		int noContest = 0;
+		
+		int toTeamName = 2;
+		int toOppName = 23;
+		int toOppMap = 25;
+		
+		int indexOfMapValue = 51;
+		//mult represents the group of matches 
 		for(int mult = 0; mult<3; mult++) {
+			// i represents the index of the map count value of the team of the top row of the group of matches
 			for(int i = 3; i<25;i+=5) {
-				String teamA = (String) matches.getChildren().get((mult*51) + i-2).getUserData();
-				String teamB = (String) matches.getChildren().get((mult*51) + i+23).getUserData();
-				int mA = Integer.parseInt((String) matches.getChildren().get((mult*51) + i).getUserData());
-				int mB = Integer.parseInt((String) matches.getChildren().get((mult*51) + i+25).getUserData());
-				if(mA == 3 || mB ==3 ) {
+				String teamA = (String) matches.getChildren().get((mult*indexOfMapValue) + i-toTeamName).getUserData();
+				String teamB = (String) matches.getChildren().get((indexOfMapValue) + i+toOppName).getUserData();
+				int mA = Integer.parseInt((String) matches.getChildren().get((mult*indexOfMapValue) + i).getUserData());
+				int mB = Integer.parseInt((String) matches.getChildren().get((mult*indexOfMapValue) + i+toOppMap).getUserData());
+				if(mA == mapWins || mB ==mapWins ) {
 					
 					m.getModel().getGroupA().updateMatch(teamA, teamB, mA, mB, false);
 				}
-				else if(mA == 0 && mB == 0) {
+				else if(mA == noContest && mB == noContest) {
 					
 				}
 				else {
@@ -518,8 +547,6 @@ public class groupAmatchesView extends View{
 				}
 			}
 		}
-		
-		
 		
 		return true;
 	}

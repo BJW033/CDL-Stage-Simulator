@@ -501,8 +501,8 @@ public class Group{
 				}
 
 			}
-			Collections.sort(Copy.pool);
-			Copy.tieCheck(Copy.pool);
+			Copy.disableTies(pool);
+			Copy.sortStandings(Copy.pool);
 			addSim(Copy);
 
 		}
@@ -562,8 +562,7 @@ public class Group{
 
 			}
 			Copy.disableTies(poolsim);
-			Collections.sort(Copy.poolsim);
-			Copy.tieCheck(Copy.poolsim);
+			Copy.sortStandings(Copy.poolsim);
 			addSimMatch(Copy);
 
 		}
@@ -647,7 +646,9 @@ public class Group{
 	}
 	
 	
-	
+	/**
+	 * Iterates through the pool of team and resets all the teams map and match counts and all of their matches.
+	 */
 	public void resetMatches() {
 		for(team t: pool) {
 			for(Match m: t.getMatches()) {
@@ -659,23 +660,37 @@ public class Group{
 			t.setMatchL(0);
 		}
 	}
-	
+	/**
+	 * Removes/resets a match between two teams in the pool. 
+	 * @param teamA String name of team A
+	 * @param teamB String name of team B
+	 */
 	public void resetMatch(String teamA, String teamB) {
 		getTeam(teamA).removeMatch(teamB);
 		getTeam(teamB).removeMatch(teamA);
 	}
 
-
-
+	/**
+	 * Sorts the teams in a given ArrayList<teams> by match win percentage then breaks ties. 
+	 * @param p ArrayList<team> to put in standings order
+	 */
 	public void sortStandings(ArrayList<team>p) {
 		Collections.sort(p);
 		tieCheck(p);
 	}
-
+	/**
+	 * Sorts the teams in a pool by match win percentage then breaks ties. 
+	 * @param p ArrayList<team> to put in standings order
+	 */
 	public void sortStandings() {
 		Collections.sort(pool);
 		tieCheck(pool);
 	}
+
+	/**
+	 * Returns an ArrayList<team> of teams from pool sorted by the number of times the team placed top three in a simulation adding a match
+	 * @return ArrayList<team> sorted ArrayList of teams by the number of times they get top three after a match was added
+	 */
 	public ArrayList<team> sortByTop3Sim() {
 		ArrayList<team> ret = new ArrayList<team>();
 		ret.addAll(pool);
@@ -694,7 +709,10 @@ public class Group{
 
 		return ret;
 	}
-
+	/**
+	 * Returns an ArrayList<team> of teams from pool sorted by the number of times the team placed top three in a simulation
+	 * @return ArrayList<team> sorted ArrayList of teams by the number of times they get top three 
+	 */
 	public ArrayList<team> sortByTop3() {
 		ArrayList<team> ret = new ArrayList<team>();
 		ret.addAll(pool);
@@ -714,6 +732,10 @@ public class Group{
 		return ret;
 	}
 
+	/**
+	 * Returns an ArrayList<team> of teams from pool sorted by the number of times they got each place in the pool from 1st to 6th
+	 * @return ArrayList<team> sorted ArrayList of teams by the number of times they get each seed in the pool
+	 */
 	public ArrayList<team> sortBySimPer() {
 		ArrayList<team> ret = new ArrayList<team>();
 		ret.addAll(pool);
@@ -766,12 +788,12 @@ public class Group{
 	}
 	
 
-	void setTies(int x, int y) {
+	private void setTies(int x, int y) {
 		pool.get(x).setTie(true,2);
 		pool.get(y).setTie(true,2);;
 	}
 
-	void tieCheck(ArrayList<team> p) {
+	private void tieCheck(ArrayList<team> p) {
 
 		int indexA=0;
 		int[] wins = new int[6];
@@ -799,7 +821,7 @@ public class Group{
 
 	}
 
-	void twoWayTie(int[] wins,int[] loses, ArrayList<team>p) {
+	private void twoWayTie(int[] wins,int[] loses, ArrayList<team>p) {
 		//two way ties
 		for(int i =2;i<p.size();i++) {
 			if(i==2) {
@@ -831,7 +853,7 @@ public class Group{
 		}
 	}
 
-	void splitTwoWay(int i, ArrayList<team>p) {
+	private void splitTwoWay(int i, ArrayList<team>p) {
 		for(Match m: p.get(i).getMatches()) {
 			if(m.findMatch(p.get(i-1).getName())) {
 				//System.out.println(m);
@@ -856,7 +878,7 @@ public class Group{
 		}
 	}
 
-	void threeWayTie(int[] wins, int[] loses, ArrayList<team>p) {
+	private void threeWayTie(int[] wins, int[] loses, ArrayList<team>p) {
 
 		for(int i = 3;i<pool.size();i++) {
 			if(i==3) {
@@ -886,7 +908,7 @@ public class Group{
 		}
 	}
 
-	void splitThreeWay(int i, ArrayList<team> p) {
+	private void splitThreeWay(int i, ArrayList<team> p) {
 
 		String teamA = p.get(i-3).getName(); int winsA=0; int losesA=0; int mapsWA=0;int mapsLA=0; 
 		double matchWinPerA = 0; double mapWinPerA=0;
@@ -1101,7 +1123,7 @@ public class Group{
 
 	}
 
-	void threeSplitTies(double match1,double match2,double match3, double pool1,double pool2, double pool3,int i, ArrayList<team>p) {
+	private void threeSplitTies(double match1,double match2,double match3, double pool1,double pool2, double pool3,int i, ArrayList<team>p) {
 		if(match1==match2 && match1==match3) {
 			splitThreeWayMatchTie(pool1,pool2,pool3,i,p);
 		}
@@ -1163,7 +1185,7 @@ public class Group{
 		}
 	}
 
-	void splitThreeWayMatchTie(double pool1, double pool2, double pool3, int i, ArrayList<team>p) {
+	private void splitThreeWayMatchTie(double pool1, double pool2, double pool3, int i, ArrayList<team>p) {
 		//All three the same p record	
 		if(pool2==pool1 && pool2==pool3) {
 			p.get(i-3).setTie(true,3);
@@ -1219,7 +1241,7 @@ public class Group{
 
 	}
 
-	void fourWayTie(int[] wins, int[] loses, ArrayList<team>p) {
+	private void fourWayTie(int[] wins, int[] loses, ArrayList<team>p) {
 		for(int i=4;i<p.size();i++) {
 			if(i==4) {
 				if(wins[i-4]==wins[i-3]&&wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
@@ -1251,7 +1273,7 @@ public class Group{
 	/**
 	 * @param i
 	 */
-	void splitFourWay(int i, ArrayList<team>p) {
+	private void splitFourWay(int i, ArrayList<team>p) {
 		String teamA = p.get(i-4).getName(); int winsA=0; int losesA=0; int mapsWA=0;int mapsLA=0; 
 		double matchWinPerA = 0; double mapWinPerA=0;
 		String teamB = p.get(i-3).getName(); int winsB=0; int losesB=0; int mapsWB=0; int mapsLB=0; 
@@ -1464,7 +1486,7 @@ public class Group{
 		}
 	}
 
-	void fourWaySort(double match1, double match2, double match3, double match4, 
+	private void fourWaySort(double match1, double match2, double match3, double match4, 
 			double map1, double map2, double map3, double map4,
 			double pool1, double pool2, double pool3, double pool4,int i, ArrayList<team>p) {
 		//1 > 2 > 3 >= 4
@@ -1565,7 +1587,7 @@ public class Group{
 		}
 	}
 
-	void fiveWayTie(int[] wins, int[] loses, ArrayList<team>p) {
+	private void fiveWayTie(int[] wins, int[] loses, ArrayList<team>p) {
 		int i = 5;
 		int start = 0;
 		if(wins[i-5]==wins[i-4] && wins[i-4]==wins[i-3] && wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
@@ -1583,7 +1605,7 @@ public class Group{
 		}
 	}
 
-	void splitFiveWay(int i,int start, ArrayList<team>p) {
+	private void splitFiveWay(int i,int start, ArrayList<team>p) {
 		int tieCount = 1;
 		for(int x =start;x<i;x++) {
 			for(int y= x+1;y<p.size();y++) {
@@ -1621,7 +1643,7 @@ public class Group{
 
 	}
 
-	void sixWayTie() {
+	private void sixWayTie() {
 		System.out.println("Didnt think this could happen");
 		//six way ties
 		Collections.sort(pool, new Comparator<team>() {
@@ -1668,10 +1690,11 @@ public class Group{
 
 		}
 	}
+	
+	
 	public ArrayList<team> getPool() {
 		return pool;
 	}
-
 	public ArrayList<team> getPoolSim() {
 		return poolsim;
 	}

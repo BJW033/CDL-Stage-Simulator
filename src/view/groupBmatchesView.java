@@ -39,11 +39,11 @@ import model.StageName;
  *
  */
 public class groupBmatchesView extends View{
-	Main m;
-
-	GridPane matches;
-	BorderPane layout;
-	Label top;
+	
+	private Main m;
+	private GridPane matches;
+	private BorderPane layout;
+	private Label top;
 	/**
 	 * Builds the UI of the groupBmatchesView. This scene uses a grid of team calling cards to represent matches and gives the user the ability 
 	 * to select match counts with "+" and "-." The scene also includes a navigation toolbar that can send the user back to groupAmatchesView

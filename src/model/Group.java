@@ -141,8 +141,8 @@ public class Group{
 	 * Constructs the group determined by stage and group given by user. Uses stage to determine the stage being used for both the names
 	 * and updates matches as of entering Stage Four Week Three and uses the boolean group in order to choose what team names are going 
 	 * to be used. 
-	 * @param group boolean True if Group 
-	 * @param stage
+	 * @param group boolean True if Group A, false if Group B
+	 * @param stage int chooses what stage is used for the team names, also used to update matches if Stage Four
 	 */
 	public Group(boolean group,int stage) {
 
@@ -254,30 +254,27 @@ public class Group{
 	}
 
 
-
-
-	public ArrayList<team> getPool() {
-		return pool;
-	}
-
-	public ArrayList<team> getPoolSim() {
-		return poolsim;
-	}
-	public team getTeam(String t) {
-		for(team i: pool) {
-			if(i.getName().equals(t)) {
-				return i;
-			}
-		}
-		return null;
-
-	}
+	/**
+	 * Updates the match of both teams with the given map count by calling the team.updateMatches(String, int, int)
+	 * @param teamA String name of team A
+	 * @param teamB String name of team B
+	 * @param mapAw int map wins of team A
+	 * @param mapBw int map wins of team B
+	 */
 	public void updateMatch(String teamA, String teamB, int mapAw, int mapBw) {
-
 		getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
 		getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
-		//System.out.println("Match Updated: " + teamA +" vs " + teamB + " " + mapAw + " - " + mapBw);
 	}
+	/**
+	 * Updates the match of both teams with the given map count by calling the team.updateMatches(String, int, int).
+	 * Uses boolean to determine if simulations should be run before and after update to compare the top three chances
+	 * of only the two teams in the match. Prints results to console. 
+	 * @param teamA String name of team A
+	 * @param teamB String name of team B
+	 * @param mapAw int map wins of team A
+	 * @param mapBw int map wins of team B
+	 * @param recent boolean If true, simulates before/after and prints difference to console. If false, only updates match of both teams.
+	 */
 	public void updateMatch(String teamA, String teamB, int mapAw, int mapBw, boolean recent) {
 		ArrayList<Double> before = new ArrayList<Double>();
 		ArrayList<Double> after = new ArrayList<Double>();
@@ -286,7 +283,6 @@ public class Group{
 		}
 		getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
 		getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
-		//System.out.println("Match Updated: " + teamA +" vs " + teamB + " " + mapAw + " - " + mapBw);
 		if(recent) {
 			after = simulateMatches(this,true);
 			System.out.println("Top Three Percentages after "+ teamA +" vs " + teamB + " " + mapAw + " - " + mapBw);
@@ -313,28 +309,26 @@ public class Group{
 				}
 
 			}
-			//getTeam(teamA).removeMatch(teamB);
-			//getTeam(teamB).removeMatch(teamA);
-			System.out.println();
-
 		}
 	}
 
+	/**
+	 * Updates the match in both teams then simulates the rest of the group matches by calling simulateMatchesAddingMatch(Group) 
+	 * which saves the results in poolsim attribute. The matches are then removed from the teams. 
+	 * @param teamA
+	 * @param teamB
+	 * @param mapAw
+	 * @param mapBw
+	 */
 	public void matchImpact(String teamA, String teamB, int mapAw, int mapBw) {
 
-		//printStandings(true,pool);
 		getTeam(teamA).updateMatches(teamB, mapAw, mapBw);
 		getTeam(teamB).updateMatches(teamA, mapBw, mapAw);
-		//			Collections.sort(poolsim);
-		//			tieCheck(poolsim);
-		//printStandings(true,poolsim);
-		//printStandings(true,poolsim);
+		
 		simulateMatchesAddingMatch(this);
+		
 		getTeam(teamA).removeMatch(teamB);
 		getTeam(teamB).removeMatch(teamA);
-		//printStandings(true,poolsim);
-
-
 
 	}
 
@@ -1800,5 +1794,21 @@ public class Group{
 			}
 
 		}
+	}
+	public ArrayList<team> getPool() {
+		return pool;
+	}
+
+	public ArrayList<team> getPoolSim() {
+		return poolsim;
+	}
+	public team getTeam(String t) {
+		for(team i: pool) {
+			if(i.getName().equals(t)) {
+				return i;
+			}
+		}
+		return null;
+
 	}
 }

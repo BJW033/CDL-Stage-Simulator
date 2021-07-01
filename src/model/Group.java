@@ -5,16 +5,17 @@ import java.util.Comparator;
 
 public class Group{
 
-	team TeamA;
-	team TeamB;
-	team TeamC;
-	team TeamD;
-	team TeamE;
-	team TeamF;
-	int longName =0;
-	ArrayList<team> pool = new ArrayList<team>();
-	ArrayList<team> poolsim = new ArrayList<team>();
-	final int simulations=100000;
+	private team TeamA;
+	private team TeamB;
+	private team TeamC;
+	private team TeamD;
+	private team TeamE;
+	private team TeamF;
+	private int longName =0;
+	private ArrayList<team> pool = new ArrayList<team>();
+	private ArrayList<team> poolsim = new ArrayList<team>();
+	private final int simulations=100000;
+	
 	public Group(String A, String B,String C,String D,String E, String F) {
 		TeamA=new team(A,B,C,D,E,F);
 		TeamB=new team(B,A,C,D,E,F);

@@ -42,11 +42,11 @@ import model.team;
  */
 public class simulationsView extends View{
 	
-	Main m; 
-	GridPane gp;
-	BorderPane layout;
-	ToolBar tb;
-	TilePane top;
+	private Main m; 
+	private GridPane gp;
+	private BorderPane layout;
+	private ToolBar tb;
+	private TilePane top;
 	/**
 	 * Constructs the default format or the scene including four navigation buttons in the toolbar, a grid, and two buttons to change the grid
 	 * content.

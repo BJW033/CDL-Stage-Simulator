@@ -1975,4 +1975,34 @@ public class jUnitTests {
 	  GroupA.sortStandings(); assertFalse(GroupA.getPool().get(3).isDeadtie2());
 	  
 	  }
+	  @Test 
+	  public void twoWayTie() { 
+		  Group GroupA = new Group("Faze","Optic","Thieves","Rokkr","Legion", "Surge");
+	  
+	  GroupA.updateMatch("Optic", "Faze", 3, 2);
+	  GroupA.updateMatch("Optic","Legion", 3, 2); 
+	  GroupA.updateMatch("Optic", "Rokkr", 3, 2); 
+	  GroupA.updateMatch("Optic", "Thieves", 3, 2);
+	  GroupA.updateMatch("Optic", "Surge", 2, 3);
+	  
+	  GroupA.updateMatch("Faze", "Surge", 3, 2); 
+	  GroupA.updateMatch("Faze","Legion", 3, 2); 
+	  GroupA.updateMatch("Faze","Thieves", 3, 2);
+	  GroupA.updateMatch("Faze", "Rokkr", 3, 2);
+	  
+	  GroupA.updateMatch("Thieves", "Rokkr", 3, 2);
+	  GroupA.updateMatch("Thieves","Legion", 3, 2); 
+	  GroupA.updateMatch("Thieves","Surge", 3, 2);
+	  
+	  GroupA.updateMatch("Rokkr", "Legion",3, 2);
+	  GroupA.updateMatch("Rokkr","Surge",3, 2);
+	  
+	  GroupA.updateMatch("Legion", "Surge", 3, 2);
+	  
+	  
+	  GroupA.sortStandings();
+	  GroupA.printStandings(false,GroupA.getPool());
+	  //assertFalse(GroupA.getPool().get(3).isDeadtie2());
+	  
+	  }
 	 }

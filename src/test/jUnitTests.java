@@ -2001,8 +2001,66 @@ public class jUnitTests {
 	  
 	  
 	  GroupA.sortStandings();
-	  GroupA.printStandings(false,GroupA.getPool());
+	  //GroupA.printStandings(false,GroupA.getPool());
 	  //assertFalse(GroupA.getPool().get(3).isDeadtie2());
 	  
+	  }
+	  @Test 
+	  public void fivewaytieFiveZero() { 
+		  Group GroupA = new Group("Faze","Optic","Thieves","Rokkr","Legion", "Surge");
+	  
+	  GroupA.updateMatch("Optic", "Faze", 3, 1);
+	  GroupA.updateMatch("Optic","Legion", 3, 0); 
+	  GroupA.updateMatch("Optic", "Rokkr", 3, 2); 
+	  GroupA.updateMatch("Optic", "Thieves", 3, 2);
+	  GroupA.updateMatch("Optic", "Surge", 3, 2);
+	  
+	  GroupA.updateMatch("Faze", "Surge", 3, 1); 
+	  GroupA.updateMatch("Faze","Legion", 3, 2); 
+	  GroupA.updateMatch("Faze","Thieves", 2, 3);
+	  GroupA.updateMatch("Faze", "Rokkr", 2, 3);
+	  
+	  GroupA.updateMatch("Thieves", "Rokkr", 3, 2);
+	  GroupA.updateMatch("Thieves","Legion", 2, 3); 
+	  GroupA.updateMatch("Thieves","Surge", 1, 3);
+	  
+	  GroupA.updateMatch("Rokkr", "Legion",3, 2);
+	  GroupA.updateMatch("Rokkr","Surge",2, 3);
+	  
+	  GroupA.updateMatch("Legion", "Surge", 3, 2);
+	  
+	  
+	  GroupA.sortStandings();
+	 // GroupA.printStandings(false,GroupA.getPool());
+	  //assertFalse(GroupA.getPool().get(3).isDeadtie2());
+	  
+	  }
+	  @Test 
+	  public void fivewaytieZeroFive() { 
+		  Group GroupA = new Group("Faze","Optic","Thieves","Rokkr","Legion", "Surge");
+		  
+		  GroupA.updateMatch("Optic", "Faze", 2, 3);
+		  GroupA.updateMatch("Optic","Legion", 2, 3); 
+		  GroupA.updateMatch("Optic", "Rokkr", 2, 3); 
+		  GroupA.updateMatch("Optic", "Thieves", 2, 3);
+		  GroupA.updateMatch("Optic", "Surge", 2, 3);
+		  
+		  GroupA.updateMatch("Faze", "Surge", 3, 1); 
+		  GroupA.updateMatch("Faze","Legion", 3, 2); 
+		  GroupA.updateMatch("Faze","Thieves", 0, 3);
+		  GroupA.updateMatch("Faze", "Rokkr", 2, 3);
+		  
+		  GroupA.updateMatch("Thieves", "Rokkr", 3, 2);
+		  GroupA.updateMatch("Thieves","Legion", 2, 3); 
+		  GroupA.updateMatch("Thieves","Surge", 1, 3);
+		  
+		  GroupA.updateMatch("Rokkr", "Legion",3, 2);
+		  GroupA.updateMatch("Rokkr","Surge",2, 3);
+		  
+		  GroupA.updateMatch("Legion", "Surge", 3, 2);
+		  
+		  
+		  GroupA.sortStandings();
+		  GroupA.printStandings(false,GroupA.getPool());
 	  }
 	 }

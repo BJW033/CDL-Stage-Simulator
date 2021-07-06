@@ -133,6 +133,12 @@ public class team implements Comparable<team>{
 	}
 
 
+	public int getMapW() {
+		return mapW;
+	}
+	public int getMapL() {
+		return mapL;
+	}
 	/**
 	 * Prints all of the teams matches and results
 	 */

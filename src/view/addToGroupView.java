@@ -325,28 +325,28 @@ public class addToGroupView extends View{
 					errorAlert.setHeaderText("Input not valid");
 					errorAlert.setContentText("A team cannot play themselves.");
 					errorAlert.showAndWait();
-					System.out.println("error");
+					//System.out.println("error");
 				}
 				else if(teamA.getValue().equals(tA)||teamB.getValue().equals(tB)) {
 					Alert errorAlert = new Alert(AlertType.ERROR);
 					errorAlert.setHeaderText("Input not valid");
 					errorAlert.setContentText("Missing Team.");
 					errorAlert.showAndWait();
-					System.out.println("error");
+					//System.out.println("error");
 				}
 				else if(Integer.parseInt(aNum.getText()) == 0 && Integer.parseInt(bNum.getText()) == 0) {
 					Alert errorAlert = new Alert(AlertType.ERROR);
 					errorAlert.setHeaderText("Input not valid");
 					errorAlert.setContentText("Need a Map Count.");
 					errorAlert.showAndWait();
-					System.out.println("error");
+					//System.out.println("error");
 				}
 				else if(Integer.parseInt(aNum.getText()) != 3 && Integer.parseInt(bNum.getText()) != 3) {
 					Alert errorAlert = new Alert(AlertType.ERROR);
 					errorAlert.setHeaderText("Input not valid");
 					errorAlert.setContentText("No Winning Team.");
 					errorAlert.showAndWait();
-					System.out.println("error");
+					//System.out.println("error");
 				}
 				else if(g.getTeam(teamA.getValue()).findMatch(teamB.getValue()).getMapA() != 0 ||
 						g.getTeam(teamA.getValue()).findMatch(teamB.getValue()).getMapB() != 0) {
@@ -354,7 +354,7 @@ public class addToGroupView extends View{
 					errorAlert.setHeaderText("Input not valid");
 					errorAlert.setContentText("Match already played.");
 					errorAlert.showAndWait();
-					System.out.println("error");
+					//System.out.println("error");
 				}
 				else {
 					//g.updateMatch(teamA.getValue(),teamB.getValue(),Integer.parseInt(aNum.getText()),Integer.parseInt(bNum.getText()),true);

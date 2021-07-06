@@ -459,7 +459,7 @@ public class groupBmatchesView extends View{
 					errorAlert.setHeaderText("Input not valid");
 					errorAlert.setContentText("One match with a map count does not have a winner.");
 					errorAlert.showAndWait();
-					System.out.println("error");
+					//System.out.println("error");
 				}
 				
 				

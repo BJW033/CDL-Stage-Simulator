@@ -52,6 +52,7 @@ public class groupBmatchesView extends View{
 	 * @param main Main used to get Model information of the teams in the pool
 	 */
 	public groupBmatchesView(Stage primaryStage, Main main) {
+		System.out.println(canvasWidth + " " + canvasHeight);
 		this.stage = primaryStage;
 		m=main;
 		layout = new BorderPane();

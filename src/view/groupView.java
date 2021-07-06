@@ -134,7 +134,7 @@ public class groupView extends View{
 							selected = 0;
 							m.getModel().setGroupA(new Group(m.getGroupA()));
 							m.getGroupAmatches().updateGP();
-							System.out.println(m.getGroupB());
+							//System.out.println(m.getGroupB());
 							m.getModel().setGroupB(new Group(m.getGroupB()));
 							m.getGroupBmatches().updateGP();
 						}

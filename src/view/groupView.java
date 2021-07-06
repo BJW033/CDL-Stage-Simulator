@@ -134,6 +134,7 @@ public class groupView extends View{
 							selected = 0;
 							m.getModel().setGroupA(new Group(m.getGroupA()));
 							m.getGroupAmatches().updateGP();
+							System.out.println(m.getGroupB());
 							m.getModel().setGroupB(new Group(m.getGroupB()));
 							m.getGroupBmatches().updateGP();
 						}
@@ -172,9 +173,11 @@ public class groupView extends View{
 			@Override
 			public void handle(ActionEvent event) {
 				for(Node n: gp.getChildren()) {
-					n.setStyle("-fx-opacity:0.5");
+					n.setStyle("-fx-opacity: 0.5;");
 					selected = 0;
 				}
+				m.getGroupA().clear();
+				m.getGroupB().clear();
 				stage.setScene(m.getScenes().get(StageName.WELCOME));
 			}
 		});

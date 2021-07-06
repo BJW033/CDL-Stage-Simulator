@@ -1688,13 +1688,13 @@ public class Group{
 		if(wins[i-5]==wins[i-4] && wins[i-4]==wins[i-3] && wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
 				loses[i-5]==loses[i-4] && loses[i-4]==loses[i-3] && loses[i-3]==loses[i-2] && loses[i-2]==loses[i-1]&&
 				(wins[i-5]!=wins[i]||wins[i-5]!=loses[i])) {
-			splitFiveWay(i,start,p,pool.get(pool.size()-1));
+			splitFiveWay(i,start,p,p.get(p.size()-1));
 		}
-		if(wins[i]==wins[i-4] && wins[i-4]==wins[i-3] && wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
+		else if(wins[i]==wins[i-4] && wins[i-4]==wins[i-3] && wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
 				loses[i]==loses[i-4] && loses[i-4]==loses[i-3] && loses[i-3]==loses[i-2] && loses[i-2]==loses[i-1]&&
 				(wins[i-5]!=wins[i]||wins[i-5]!=loses[i])) {
 			start=1;
-			splitFiveWay(i,start,p,pool.get(0));
+			splitFiveWay(i,start,p,p.get(0));
 		}
 	}
 	/**
@@ -1713,8 +1713,8 @@ public class Group{
 			lastIndex = 5;
 		}
 		for(int x =start;x<i;x++) {
-			newMapA = ((double)p.get(x).getMapW()-p.get(x).findMatch(t.getName()).getMapA())/
-					(p.get(x).getMapL()-p.get(x).findMatch(t.getName()).getMapB()+p.get(x).getMapW()-p.get(x).findMatch(t.getName()).getMapA());
+			newMapA = ((double)p.get(x).getMapW()-t.findMatch(p.get(x).getName()).getMapB())/
+					(p.get(x).getMapL()-t.findMatch(p.get(x).getName()).getMapA()+p.get(x).getMapW()-t.findMatch(p.get(x).getName()).getMapB());
 			for(int y= x+1;y<lastIndex;y++) {
 				newMapB = ((double)p.get(y).getMapW()-p.get(y).findMatch(t.getName()).getMapA())/
 						(p.get(y).getMapL()-p.get(y).findMatch(t.getName()).getMapB()+p.get(y).getMapW()-p.get(y).findMatch(t.getName()).getMapA());

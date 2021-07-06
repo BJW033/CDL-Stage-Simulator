@@ -2031,7 +2031,7 @@ public class jUnitTests {
 	  
 	  
 	  GroupA.sortStandings();
-	 // GroupA.printStandings(false,GroupA.getPool());
+	  GroupA.printStandings(false,GroupA.getPool());
 	  //assertFalse(GroupA.getPool().get(3).isDeadtie2());
 	  
 	  }

@@ -336,7 +336,7 @@ public class Group{
 	/**
 	 * Prints all matches from all the teams to console. Includes duplicates. 
 	 */
-	private void printAllMatches() {
+	public void printAllMatches() {
 		for(team i: pool) {
 			i.printMatches();
 		}
@@ -346,7 +346,7 @@ public class Group{
 	 * @param sim boolean determines if the teams should be sorted and corrected for ties
 	 * @param p ArrayList<team> list of teams to sort
 	 */
-	private void printStandings(boolean sim,ArrayList<team> p) {
+	public void printStandings(boolean sim,ArrayList<team> p) {
 		if(!sim) {
 			System.out.println("Before tie breaks");
 
@@ -372,7 +372,7 @@ public class Group{
 	/**
 	 * Prints the simulated placings of each team
 	 */
-	private void printSimulatedPlacings() {
+	public void printSimulatedPlacings() {
 		for(team t: this.pool) {
 			t.printPlacings(longName);
 		}
@@ -787,12 +787,22 @@ public class Group{
 		return ret;
 	}
 	
-
+	/**
+	 * Sets a two-way tie between two teams at indexes x and y in the pool ArrayList
+	 * @param x int index of team A
+	 * @param y int index of team B
+	 */
 	private void setTies(int x, int y) {
-		pool.get(x).setTie(true,2);
-		pool.get(y).setTie(true,2);;
+		int twoWay = 2;
+		pool.get(x).setTie(true,twoWay);
+		pool.get(y).setTie(true,twoWay);;
 	}
 
+	/**
+	 * Calls functions that check for each possible tie situation in order to reorder an ArrayList of teams to accommodate for
+	 * tie breakers. 
+	 * @param p ArrayList<team> list of teams to be sorted
+	 */
 	private void tieCheck(ArrayList<team> p) {
 
 		int indexA=0;
@@ -810,7 +820,7 @@ public class Group{
 
 		if(winsSum/6 == p.get(0).getmatchW() && losesSum/6 == p.get(0).getmatchL()) {
 			//System.out.println("Six Way Tie");
-			sixWayTie();
+			sixWayTie(p);
 		}
 
 		twoWayTie(wins,loses,p);
@@ -821,6 +831,13 @@ public class Group{
 
 	}
 
+	/**
+	 * Iterates through arrays of wins and loses per team to find a dead tie between only two teams. Sends the index of the second
+	 * team that is tied to splitTwoWay(int, ArrayList<team>)
+	 * @param wins int[] array of wins in order of ArrayList<team>
+	 * @param loses int[] array of loses in order of ArrayList<team>
+	 * @param p ArrayList<team> list of teams to iterate though and sort
+	 */
 	private void twoWayTie(int[] wins,int[] loses, ArrayList<team>p) {
 		//two way ties
 		for(int i =2;i<p.size();i++) {
@@ -852,7 +869,13 @@ public class Group{
 			}
 		}
 	}
-
+	/**
+	 * To split a two way tie, the match between the two teams is found and the winner of that match takes precedence.
+	 * The match is found using the lower team of the pool, if the mapA of the match is equal to three, then the lower team beat
+	 * the higher team. So, the teams flip. 
+	 * @param i int index of the lower team of the tie
+	 * @param p ArrayList<team> pool of teams to be used
+	 */
 	private void splitTwoWay(int i, ArrayList<team>p) {
 		for(Match m: p.get(i).getMatches()) {
 			if(m.findMatch(p.get(i-1).getName())) {
@@ -878,6 +901,13 @@ public class Group{
 		}
 	}
 
+	/**
+	 * Iterates though the given wins[] and loses[] to find a three way tie. Uses splitThree(int, ArrayList<team>) with the index
+	 * of the team immediately after the tie. 
+	 * @param wins int[] array of wins in order of ArrayList<team>
+	 * @param loses int[] array of loses in order of ArrayList<team>
+	 * @param p ArrayList<team> list of teams to iterate though and sort
+	 */
 	private void threeWayTie(int[] wins, int[] loses, ArrayList<team>p) {
 
 		for(int i = 3;i<pool.size();i++) {
@@ -907,7 +937,14 @@ public class Group{
 
 		}
 	}
-
+	/**
+	 * Saves the match and map wins and loses of the three teams prior to index i. In order to break a three way tie, the match records between
+	 * the three teams are used and sorted. If all three are 1-1 verse each other, the map counts of their matches verse each other are used. 
+	 * If there is a match map tie, overall map counts are used to sort. Any overall map count tie is a dead tie that would require
+	 * a sudden death map. 
+	 * @param i int index of the team immediately following the three way tie
+	 * @param p ArrayList<team> list to be used to sort
+	 */
 	private void splitThreeWay(int i, ArrayList<team> p) {
 
 		String teamA = p.get(i-3).getName(); int winsA=0; int losesA=0; int mapsWA=0;int mapsLA=0; 
@@ -1123,124 +1160,13 @@ public class Group{
 
 	}
 
-	private void threeSplitTies(double match1,double match2,double match3, double pool1,double pool2, double pool3,int i, ArrayList<team>p) {
-		if(match1==match2 && match1==match3) {
-			splitThreeWayMatchTie(pool1,pool2,pool3,i,p);
-		}
-		//Two way ties with better records than the third
-		else if(match1==match3 && match1>match2) {
-			Collections.swap(p, i-1, i-2);
-			if(pool1==pool3) {
-				setTies(i-2,i-3);
-			}
-			else if(pool3>pool1) {
-				Collections.swap(p,i-3,i-2);
-			}
-		}
-		else if(match1==match2 && match1>match3) {
-			if(pool1==pool2) {
-				setTies(i-2,i-3);
-			}
-			else if(pool2>pool1) {
-				Collections.swap(p,i-3,i-2);
-			}
-		}
-		else if(match2==match3 && match2>match1) {
-			Collections.swap(p, i-3, i-2);
-			Collections.swap(p, i-2, i-1);
-			if(pool2==pool3) {
-				setTies(i-2,i-3);
-			}
-			else if(pool3>pool2) {
-				Collections.swap(p,i-3,i-2);
-			}
-		}
-		//Two way ties worse than the third
-		else if(match1>match3 && match1>match2) {
-			if(pool2==pool3) {
-				setTies(i-1,i-2);
-			}
-			else if(pool3>pool2) {
-				Collections.swap(p,i-1,i-2);
-			}
-		}
-		else if(match2>match1 && match2>match3) {
-			Collections.swap(p, i-3, i-2);
-			if(pool3==pool1) {
-				setTies(i-2,i-1);
-			}
-			else if(pool3>pool1) {
-				Collections.swap(p,i-1,i-2);
-			}
-		}
-		else if(match3>match2 && match3>match1) {
-			Collections.swap(p, i-1, i-2);
-			Collections.swap(p, i-2, i-3);
-			if(pool1==pool2) {
-				setTies(i-1,i-2);
-			}
-			else if(pool2>pool1) {
-				Collections.swap(p,i-1,i-2);
-			}
-		}
-	}
-
-	private void splitThreeWayMatchTie(double pool1, double pool2, double pool3, int i, ArrayList<team>p) {
-		//All three the same p record	
-		if(pool2==pool1 && pool2==pool3) {
-			p.get(i-3).setTie(true,3);
-			p.get(i-2).setTie(true,3);
-			p.get(i-1).setTie(true,3);
-		}
-		//1 strictly greater than 
-		else if(pool1>pool2 && pool1>pool3) {
-			if(pool2==pool3) {
-				setTies(i-1,i-2);
-			}
-			else if(pool3>pool2) {
-				Collections.swap(p, i-1, i-2);
-			}
-		}
-		//1 = 2 > 3
-		else if(pool1==pool2 && pool1>pool3) {
-			setTies(i-3,i-2);
-		}
-		//1 = 3 > 2
-		else if(pool1==pool3 && pool1>pool2) {
-			Collections.swap(p,i-1,i-2);
-			setTies(i-3,i-2);
-		}
-		//2 strictly greater than 
-		else if(pool2>pool1 && pool2>pool3) {
-			Collections.swap(p, i-3, i-2);
-			if(pool1==pool3) {
-				setTies(i-1,i-2);
-			}
-			else if(pool3>pool1) {
-				Collections.swap(p, i-1, i-2);
-			}
-		}
-		//2 = 3 > 1
-		else if(pool2==pool3 && pool2>pool1) {
-			Collections.swap(p, i-3, i-2);
-			Collections.swap(p, i-2, i-1);
-			setTies(i-3,i-2);
-		}
-		//3 strictly greater than 
-		else if(pool3>pool1 && pool3>pool2) {
-			Collections.swap(p, i-1, i-2);
-			Collections.swap(p, i-2, i-3);
-			if(pool1==pool2) {
-				setTies(i-1,i-2);
-			}
-			else if(pool2>pool1) {
-				Collections.swap(p, i-1, i-2);
-			}
-		}
-
-
-	}
-
+	/**
+	 * Iterates though the given wins[] and loses[] to find a four way tie. Uses splitThree(int, ArrayList<team>) with the index
+	 * of the team immediately after the tie. 
+	 * @param wins int[] array of wins in order of ArrayList<team>
+	 * @param loses int[] array of loses in order of ArrayList<team>
+	 * @param p ArrayList<team> list of teams to iterate though and sort
+	 */
 	private void fourWayTie(int[] wins, int[] loses, ArrayList<team>p) {
 		for(int i=4;i<p.size();i++) {
 			if(i==4) {
@@ -1257,6 +1183,7 @@ public class Group{
 						loses[i-4]==loses[i-3]&&loses[i-3]==loses[i-2] && loses[i-2]==loses[i-1]&&
 						(wins[i-1]!=wins[i]||loses[i-1]!=loses[i])&&(wins[i-5]!=wins[i-1]||loses[i-5]!=loses[i-1])){
 					//System.out.println("Four way tie middle");
+					splitFourWay(i,p);
 				}
 				if(wins[i]==wins[i-3]&&wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
 						loses[i]==loses[i-3]&&loses[i-3]==loses[i-2] && loses[i-2]==loses[i-1]&&
@@ -1271,7 +1198,13 @@ public class Group{
 	}
 
 	/**
-	 * @param i
+	 * Saves the match and map wins and loses of the four teams prior to index i. In order to break a four way tie, the match records between
+	 * the four teams are used and sorted. The internal match records are used to sort. There are two tie situations with four teams. One team 
+	 * is 3-0/0-3 and the others are all tied or there are two 2-1/1-2 ties. For each tie the map counts of their matches verse each other 
+	 * are used. If there is a match map tie, overall map counts are used to sort. Any overall map count tie is a dead tie that would require 
+	 * a sudden death map. 
+	 * @param i int index of team immediately following four way tie
+	 * @param p ArrayList<team> list of teams to sort
 	 */
 	private void splitFourWay(int i, ArrayList<team>p) {
 		String teamA = p.get(i-4).getName(); int winsA=0; int losesA=0; int mapsWA=0;int mapsLA=0; 
@@ -1485,11 +1418,167 @@ public class Group{
 					poolmapD,poolmapA,poolmapB,poolmapC,i,p);
 		}
 	}
+	/**
+	 * Called from a four way tie break. This is when one team is 3-0 or 0-3. This function is used to sort the remaining teams by
+	 * internal map counts and overall map counts.
+	 * @param match1 double match map percentage of team A
+	 * @param match2 double match map percentage of team B
+	 * @param match3 double match map percentage of team C
+	 * @param pool1 double overall pool percentage of team A
+	 * @param pool2 double overall pool percentage of team B
+	 * @param pool3 double overall pool percentage of team C
+	 * @param i index of the team immediately following the three way tie
+	 * @param p ArrayList<team> list of teams to sort
+	 */
+	private void threeSplitTies(double match1,double match2,double match3, double pool1,double pool2, double pool3,int i, ArrayList<team>p) {
+		if(match1==match2 && match1==match3) {
+			splitThreeWayMatchTie(pool1,pool2,pool3,i,p);
+		}
+		//Two way ties with better records than the third
+		else if(match1==match3 && match1>match2) {
+			Collections.swap(p, i-1, i-2);
+			if(pool1==pool3) {
+				setTies(i-2,i-3);
+			}
+			else if(pool3>pool1) {
+				Collections.swap(p,i-3,i-2);
+			}
+		}
+		else if(match1==match2 && match1>match3) {
+			if(pool1==pool2) {
+				setTies(i-2,i-3);
+			}
+			else if(pool2>pool1) {
+				Collections.swap(p,i-3,i-2);
+			}
+		}
+		else if(match2==match3 && match2>match1) {
+			Collections.swap(p, i-3, i-2);
+			Collections.swap(p, i-2, i-1);
+			if(pool2==pool3) {
+				setTies(i-2,i-3);
+			}
+			else if(pool3>pool2) {
+				Collections.swap(p,i-3,i-2);
+			}
+		}
+		//Two way ties worse than the third
+		else if(match1>match3 && match1>match2) {
+			if(pool2==pool3) {
+				setTies(i-1,i-2);
+			}
+			else if(pool3>pool2) {
+				Collections.swap(p,i-1,i-2);
+			}
+		}
+		else if(match2>match1 && match2>match3) {
+			Collections.swap(p, i-3, i-2);
+			if(pool3==pool1) {
+				setTies(i-2,i-1);
+			}
+			else if(pool3>pool1) {
+				Collections.swap(p,i-1,i-2);
+			}
+		}
+		else if(match3>match2 && match3>match1) {
+			Collections.swap(p, i-1, i-2);
+			Collections.swap(p, i-2, i-3);
+			if(pool1==pool2) {
+				setTies(i-1,i-2);
+			}
+			else if(pool2>pool1) {
+				Collections.swap(p,i-1,i-2);
+			}
+		}
+	}
+	/**
+	 * Used to break a three way tie where the teams have the same internal match count and map count. Break the three way tie of 
+	 * overall pool map count. 
+	 * @param pool1 double overall pool map percentage of team A
+	 * @param pool2 double overall pool map percentage of team B
+	 * @param pool3 double overall pool map percentage of team C
+	 * @param i index of the team immediately following the three way tie
+	 * @param p ArrayList<team> list of teams to sort
+	 */
+	private void splitThreeWayMatchTie(double pool1, double pool2, double pool3, int i, ArrayList<team>p) {
+		//All three the same p record	
+		if(pool2==pool1 && pool2==pool3) {
+			p.get(i-3).setTie(true,3);
+			p.get(i-2).setTie(true,3);
+			p.get(i-1).setTie(true,3);
+		}
+		//1 strictly greater than 
+		else if(pool1>pool2 && pool1>pool3) {
+			if(pool2==pool3) {
+				setTies(i-1,i-2);
+			}
+			else if(pool3>pool2) {
+				Collections.swap(p, i-1, i-2);
+			}
+		}
+		//1 = 2 > 3
+		else if(pool1==pool2 && pool1>pool3) {
+			setTies(i-3,i-2);
+		}
+		//1 = 3 > 2
+		else if(pool1==pool3 && pool1>pool2) {
+			Collections.swap(p,i-1,i-2);
+			setTies(i-3,i-2);
+		}
+		//2 strictly greater than 
+		else if(pool2>pool1 && pool2>pool3) {
+			Collections.swap(p, i-3, i-2);
+			if(pool1==pool3) {
+				setTies(i-1,i-2);
+			}
+			else if(pool3>pool1) {
+				Collections.swap(p, i-1, i-2);
+			}
+		}
+		//2 = 3 > 1
+		else if(pool2==pool3 && pool2>pool1) {
+			Collections.swap(p, i-3, i-2);
+			Collections.swap(p, i-2, i-1);
+			setTies(i-3,i-2);
+		}
+		//3 strictly greater than 
+		else if(pool3>pool1 && pool3>pool2) {
+			Collections.swap(p, i-1, i-2);
+			Collections.swap(p, i-2, i-3);
+			if(pool1==pool2) {
+				setTies(i-1,i-2);
+			}
+			else if(pool2>pool1) {
+				Collections.swap(p, i-1, i-2);
+			}
+		}
 
+
+	}
+
+	/**
+	 * Used to break four way ties where there are two duos with similar records (two 2-1 and two 1-2 teams). Uses internal match, internal map,
+	 * and pool map counts to determine order. A team with a 2-1 record is always given first. Finds the other 2-1 team and breaks the 
+	 * two sets of ties.
+	 * @param match1 double internal match record of team A
+	 * @param match2 double internal match record of team B
+	 * @param match3 double internal match record of team C
+	 * @param match4 double internal match record of team D
+	 * @param map1 double internal map record of team A
+	 * @param map2 double internal map record of team B
+	 * @param map3 double internal map record of team C
+	 * @param map4 double internal map record of team D
+	 * @param pool1 double overall map record of team A
+	 * @param pool2 double overall map record of team B
+	 * @param pool3 double overall map record of team C
+	 * @param pool4 double overall map record of team D
+	 * @param i int index of team immediately following the set of ties
+	 * @param p ArrayList<team> set of teams to sort
+	 */
 	private void fourWaySort(double match1, double match2, double match3, double match4, 
 			double map1, double map2, double map3, double map4,
 			double pool1, double pool2, double pool3, double pool4,int i, ArrayList<team>p) {
-		//1 > 2 > 3 >= 4
+		//1 >= 2 > 3 >= 4
 		if(match2>match3 && match2>match4) {
 			if(match3==match4) {
 				if(map4==map3) {
@@ -1586,30 +1675,50 @@ public class Group{
 
 		}
 	}
-
+	/**
+	 * Iterates though the given wins[] and loses[] to find a five way tie. Uses splitFiveWay(int, ArrayList<team>) with the index
+	 * of the team immediately after the tie. 
+	 * @param wins int[] array of wins in order of ArrayList<team>
+	 * @param loses int[] array of loses in order of ArrayList<team>
+	 * @param p ArrayList<team> list of teams to iterate though and sort
+	 */
 	private void fiveWayTie(int[] wins, int[] loses, ArrayList<team>p) {
 		int i = 5;
 		int start = 0;
 		if(wins[i-5]==wins[i-4] && wins[i-4]==wins[i-3] && wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
 				loses[i-5]==loses[i-4] && loses[i-4]==loses[i-3] && loses[i-3]==loses[i-2] && loses[i-2]==loses[i-1]&&
 				(wins[i-5]!=wins[i]||wins[i-5]!=loses[i])) {
-			//System.out.println("Five way tie for first");
-			splitFiveWay(i,start,p);
+			splitFiveWay(i,start,p,pool.get(pool.size()-1));
 		}
 		if(wins[i]==wins[i-4] && wins[i-4]==wins[i-3] && wins[i-3]==wins[i-2] && wins[i-2]==wins[i-1]&&
 				loses[i]==loses[i-4] && loses[i-4]==loses[i-3] && loses[i-3]==loses[i-2] && loses[i-2]==loses[i-1]&&
 				(wins[i-5]!=wins[i]||wins[i-5]!=loses[i])) {
-			//System.out.println("Five way tie for last");
 			start=1;
-			splitFiveWay(i,start,p);
+			splitFiveWay(i,start,p,pool.get(0));
 		}
 	}
-
-	private void splitFiveWay(int i,int start, ArrayList<team>p) {
+	/**
+	 * Iterates through the tied teams and sorts them on internal map count. Checks the pool map counts before setting ties.
+	 * @param i int index of team following tie
+	 * @param start int index of team that starts the tie
+	 * @param p ArrayList<team> list of teams to sort.
+	 * @param t team the team that is not amongst the tied teams
+	 */
+	private void splitFiveWay(int i,int start, ArrayList<team>p,team t) {
 		int tieCount = 1;
+		double newMapA = 0;
+		double newMapB = 0;
+		int lastIndex = 0;
+		if(start == 0) {
+			lastIndex = 5;
+		}
 		for(int x =start;x<i;x++) {
-			for(int y= x+1;y<p.size();y++) {
-				if(p.get(x).getmapWinper()<p.get(y).getmapWinper()) {
+			newMapA = ((double)p.get(x).getMapW()-p.get(x).findMatch(t.getName()).getMapA())/
+					(p.get(x).getMapL()-p.get(x).findMatch(t.getName()).getMapB()+p.get(x).getMapW()-p.get(x).findMatch(t.getName()).getMapA());
+			for(int y= x+1;y<lastIndex;y++) {
+				newMapB = ((double)p.get(y).getMapW()-p.get(y).findMatch(t.getName()).getMapA())/
+						(p.get(y).getMapL()-p.get(y).findMatch(t.getName()).getMapB()+p.get(y).getMapW()-p.get(y).findMatch(t.getName()).getMapA());
+				if(newMapA<newMapB || (newMapA==newMapB && p.get(x).getmapWinper()<p.get(y).getmapWinper())) {
 					Collections.swap(p, x, y);
 				}
 			}
@@ -1617,8 +1726,14 @@ public class Group{
 
 		//check for ties
 
-		for(int x = 0;x<p.size()-1;x++) {
-			if(p.get(x).getmapWinper()==p.get(x+1).getmapWinper()) {
+		for(int x = start;x<lastIndex-1;x++) {
+			int z=x+1;
+			newMapA = ((double)p.get(x).getMapW()-p.get(x).findMatch(t.getName()).getMapA())/
+					(p.get(x).getMapL()-p.get(x).findMatch(t.getName()).getMapB()+p.get(x).getMapW()-p.get(x).findMatch(t.getName()).getMapA());
+			newMapB = ((double)p.get(z).getMapW()-p.get(z).findMatch(t.getName()).getMapA())/
+					(p.get(z).getMapL()-p.get(z).findMatch(t.getName()).getMapB()+p.get(z).getMapW()-p.get(z).findMatch(t.getName()).getMapA());
+			
+			if(newMapA==newMapB  && p.get(x).getmapWinper()==p.get(z).getmapWinper()) {
 				tieCount++;
 			}
 			if(p.get(x).getmapWinper()!=p.get(x+1).getmapWinper()) {
@@ -1642,11 +1757,15 @@ public class Group{
 		}
 
 	}
-
-	private void sixWayTie() {
-		System.out.println("Didnt think this could happen");
+	/**
+	 * Sorts the ArrayList<team> by map win percentage by creating an internal Comparator to sort. After the sort, the teams
+	 * are iterated through to check for and apply ties to the teams. 
+	 * @param p ArrayList<team> list of teams to sort
+	 */
+	private void sixWayTie(ArrayList<team> p) {
+		//System.out.println("Didnt think this could happen");
 		//six way ties
-		Collections.sort(pool, new Comparator<team>() {
+		Collections.sort(p, new Comparator<team>() {
 
 			@Override
 			public int compare(team o1, team o2) {
@@ -1659,29 +1778,32 @@ public class Group{
 		});
 		//check for ties
 		int tieCount=1;
-		for(int x = 0;x<pool.size()-1;x++) {
-			if(pool.get(x).getmapWinper()==pool.get(x+1).getmapWinper()) {
+		for(int x = 0;x<p.size()-1;x++) {
+			if(p.get(x).getmapWinper()==p.get(x+1).getmapWinper()) {
 				tieCount++;
 			}
-			if(pool.get(x).getmapWinper()!=pool.get(x+1).getmapWinper()) {
+			if(p.get(x).getmapWinper()!=p.get(x+1).getmapWinper()) {
 				if(tieCount!=1) {
 					for(int y = x;y>x-tieCount;y--) {
-						pool.get(y).setTie(true, tieCount);
+						p.get(y).setTie(true, tieCount);
 					}
 					tieCount=1;
 				}
 			}
-			if(x==pool.size()-2) {
+			if(x==p.size()-2) {
 				if(tieCount!=1) {
 					for(int y = x+1;y>x-tieCount+1;y--) {
-						pool.get(y).setTie(true, tieCount);
+						p.get(y).setTie(true, tieCount);
 					}
 					tieCount=1;
 				}
 			}
 		}
 	}
-
+	/**
+	 * Iterates through the given ArrayList and removes all set ties. 
+	 * @param p ArrayList<team> list of teams
+	 */
 	public void disableTies(ArrayList<team> p) {
 		for(team t: p) {
 			for(int i = 2; i<7;i++) {

@@ -48,7 +48,7 @@ public class startView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("next");
+				//System.out.println("next");
 				primaryStage.setScene(main.getScenes().get(StageName.GROUPSELECTION));
 			}
 		});

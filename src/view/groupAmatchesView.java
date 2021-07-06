@@ -401,11 +401,11 @@ public class groupAmatchesView extends View{
 				}
 			}
 		}
-		int index = 0;
-		while (index<matches.getChildren().size()) {
-			System.out.println(index + ": " + matches.getChildren().get(index).getUserData());
-			index++;
-		}
+//		int index = 0;
+//		while (index<matches.getChildren().size()) {
+//			System.out.println(index + ": " + matches.getChildren().get(index).getUserData());
+//			index++;
+//		}
 		for(int r=2;r<6;r+=3) {
 			Label l = new Label();
 			l.setPrefHeight(40);
@@ -431,7 +431,7 @@ public class groupAmatchesView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("back to groups");
+				//System.out.println("back to groups");
 				stage.setScene(m.getScenes().get(StageName.GROUPSELECTION));
 				m.getGroupA().clear();
 				m.getGroupB().clear();
@@ -452,8 +452,8 @@ public class groupAmatchesView extends View{
 			public void handle(ActionEvent event) {
 				
 				if(updateMatches()) {
-					m.getModel().getGroupA().printPlayedMatches();
-					System.out.println("To Group B matches");
+					//m.getModel().getGroupA().printPlayedMatches();
+					//System.out.println("To Group B matches");
 					stage.setScene(m.getScenes().get(StageName.MATCHESB));
 				}
 				else {

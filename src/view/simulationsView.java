@@ -217,7 +217,7 @@ public class simulationsView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Back to A matches");
+				//System.out.println("Back to A matches");
 				stage.setScene(m.getScenes().get(StageName.MATCHESA));
 				m.getGroupAmatches().updateGP();
 				m.getGroupBmatches().updateGP();
@@ -265,9 +265,8 @@ public class simulationsView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("add to b");
-				m.getAddToGroup().updateGrid(m.getModel().getGroupB(),"A");
-				
+				//System.out.println("add to b");
+				m.getAddToGroup().updateGrid(m.getModel().getGroupB(),"A");	
 				stage.setScene(m.getScenes().get(StageName.ADDTO));
 			}
 		});

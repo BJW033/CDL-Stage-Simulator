@@ -52,7 +52,6 @@ public class groupBmatchesView extends View{
 	 * @param main Main used to get Model information of the teams in the pool
 	 */
 	public groupBmatchesView(Stage primaryStage, Main main) {
-		System.out.println(canvasWidth + " " + canvasHeight);
 		this.stage = primaryStage;
 		m=main;
 		layout = new BorderPane();
@@ -61,6 +60,10 @@ public class groupBmatchesView extends View{
 		layout.setBottom(toolbar);
 		toolbar.setStyle("-fx-background-color: transparent");
 		matches = generateGP();
+		matches.setHgap(7);
+		matches.setVgap(10);
+		matches.setPadding(new Insets(20));
+		matches.setAlignment(Pos.TOP_CENTER);
 		
 		layout.setCenter(matches);
 		
@@ -128,13 +131,6 @@ public class groupBmatchesView extends View{
 	public void updateGP() {
 		
 		matches.getChildren().clear();
-		matches.setHgap(7);
-		matches.setVgap(10);
-		matches.getChildren().clear();
-		m.getModel().getGroupB().printPool();
-		//matches.setGridLinesVisible(true);
-		matches.setPadding(new Insets(20));
-		matches.setAlignment(Pos.TOP_CENTER);
 		int count = 1;
 		String s = "";
 		for(int r = 0; r<9;r++) {
@@ -432,7 +428,7 @@ public class groupBmatchesView extends View{
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("back to A");
+				//System.out.println("back to A");
 				stage.setScene(m.getScenes().get(StageName.MATCHESA));
 				m.getGroupAmatches().updateGP();
 				m.getModel().getGroupA().resetMatches();
@@ -453,9 +449,9 @@ public class groupBmatchesView extends View{
 					//m.getModel().getGroupB().printAllMatches();
 					stage.setScene(m.getScenes().get(StageName.SIMULATION));
 				
-					m.getModel().getGroupA().simulateMatches(m.getModel().getGroupA(), true);
+					m.getModel().getGroupA().simulateMatches(m.getModel().getGroupA(), false);
 					m.getModel().getGroupA().sortStandings(m.getModel().getGroupA().getPool());
-					m.getModel().getGroupB().simulateMatches(m.getModel().getGroupB(), true);
+					m.getModel().getGroupB().simulateMatches(m.getModel().getGroupB(), false);
 					m.getSim().updateGrid(m.getModel().getGroupA());
 				}
 				else {
